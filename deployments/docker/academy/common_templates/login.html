@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if not user.is_authenticated and form %}
+<div id="modal" class="academy-modal">
+	<div class="modal-content-wrapper">
+		<div class="modal-header d-flex align-items-center justify-content-center">
+			<img src="/static/images/fuchi_symbol_rgb-white-2.png" alt="" />
+			<h3 class="mb-0 text-white">Login</h3>
+		</div>
+		<div class="modal-body">
+			<div class="mb-2">
+				<a href="{% url 'social:begin' 'github' %}"><button
+						class="github-btn btn w-100 d-flex align-items-center justify-content-center">
+						<img src="/static/images/github-icon-black.png" alt="">
+						Login with Github
+					</button></a>
+			</div>
+			<p class="text-center text-italic login-option">
+				preferred login option
+			</p>
+			<div class="divider mb-4">
+			</div>
+			<form action="/login" method="post">
+				{% csrf_token %}
+				<h6 class="text-center manual-login-title">
+					Manual Login
+				</h6>
+				<div class="form-group">
+					<input type="text" placeholder="Username" class="form-control" name="username" required />
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="Password" class="form-control" name="password" required />
+				</div>
+				<div>
+					{% for error in field.errors %}
+					<p style="color: red">{{ error }}</p>
+					{% endfor %}
+				</div>
+				<div class="d-flex justify-content-between align-items-center mt-2">
+					<a href="/" class="forgot-link">Forgot Passowrd</a>
+					<button class="btn login-btn" type="submit">
+						Login
+						<img src="/static/images/double-right.png" alt="" />
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}

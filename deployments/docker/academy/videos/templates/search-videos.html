@@ -1,0 +1,74 @@
+{% extends 'base.html' %} {% block content %}
+  {% include 'leftbar.html' %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+
+  <div class="page-container">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="contents-inner">
+      <div class="search-videos-wrapper">
+        <h2 class="page-title mb-4">Search Videos</h2>
+        <div class="search-video-box d-flex flex-wrap justify-content-start">
+          <div class="search-video-form-section mb-3">
+            <p>Use one or more filters to search below</p>
+            <form method="GET">
+              <div class="form-group mb-20 filter-form">
+                <label class="text-base">Name Contains</label>
+                <!-- <input type="text" class="form-control" placeholder="Keyword" /> -->
+                {{ video_filter.form.name }}
+              </div>
+
+              <div class="d-flex flex-wrap date-box">
+                <div class="form-group input-field">
+                  <label class="text-base">From Date</label>
+                  <div class="input-group input-daterange">{{ video_filter.form.start_date_range }}</div>
+                </div>
+                <div class="form-group input-field">
+                  <label class="text-base">End Date</label>
+                  <div class="input-group input-daterange">{{ video_filter.form.end_date_range }}</div>
+                </div>
+              </div>
+              <div class="form-group filter-form">
+                <label class="text-base">Subscription</label>
+                {{ video_filter.form.subscription_plan }}
+              </div>
+
+              <button class="btn text-white bg-info mt-4">Search</button>
+            </form>
+          </div>
+
+          <div class="video-folders-contents card mb-3">
+            <div class="video-folders-contents-inner">
+              <div class="card-title d-flex justify-content-between align-items-center">
+                <h5 class="font-weight-bold mb-0">Videos</h5>
+                <button class="text-btn text-italic">Upload Date</button>
+              </div>
+              <div class="video-folders-list">
+                {% for video in videos %}
+                  <div class="video-folder-item d-flex align-items-center mb-3" onclick="window.location.href='/videos/watch/{{ video.resource_key }}'">
+                    <div class="video-folder-item-mark d-flex align-items-center justify-content-center">
+                      <img src="/static/images/ploygon.png" alt="" />
+                    </div>
+                    <p class="mb-0 video-folder-item-title">{{ video.name }}</p>
+                    <p class="mb-0 video-folder-item-date">{{ video.created_date|date:'M d, Y' }}</p>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+  <script>
+    $('.input-daterange input').each(function () {
+      $(this).datepicker(this.value)
+    })
+  </script>
+{% endblock %}

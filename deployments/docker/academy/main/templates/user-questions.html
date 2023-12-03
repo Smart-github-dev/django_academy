@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+  <!-- Inclouded left bar which is contians dashboard and some profile links -->
+  {% include 'leftbar.html' %}
+  <link rel="stylesheet" href="/static/css/faq.css" type="text/css" />
+  <div id="right-content" class="page-container one-line">
+    <div class="right-side">
+      <div class="user-questions">
+        {% if questions %}
+          {% for question in questions %}
+            <div class="item">
+              <h2>{{ question.subject }}</h2>
+              {% if question.answer %}
+                {{ question.answer|linebreaks }}
+              {% else %}
+                <p>Please wait to get response from admin. Soon as admin will response you will get another email. Thank you for using Academy</p>
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="item">
+            <h2>You don't have any questions to us</h2>
+            <p>
+              If you have any questions please visit
+              <a class="highlight" href="/contact">Contact Us</a> page so we can help you to understnad about our services!
+            </p>
+            <p>Quesions about plans and services can be submited and you will get an email from us within 24 hours!</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

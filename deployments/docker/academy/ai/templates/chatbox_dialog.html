@@ -1,0 +1,177 @@
+{% extends "base_without_footer.html" %} {% load static %} {% block content %}
+<link rel="stylesheet" href="/static/styles/lucy_chat.css" type="text/css" />
+
+<div class="chat-dialog">
+  <div class="chat-dialog__wrapper">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()">
+      <img src="/static/images/advance-search.svg" alt="advance-search" />
+    </button>
+    <div class="chat-dialog-container">
+      <div class="chat-dialog__inner d-flex">
+        <div id="left_menu" class="chat-dialog__left left-menu left-side">
+          <a
+            href="javascript:void(0)"
+            class="closebtn"
+            id="closebtn"
+            onclick="closeNav()"
+          >
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </a>
+          <div class="chat-dialog__left-inner">
+            <form action="#" class="chat-dialog__search">
+              <input
+                class="chat-dialog__input"
+                placeholder="Search your chats with Lucy"
+                type="text"
+              />
+              <button class="base-btn">
+                <img
+                  src="/static/images/advance-search.svg"
+                  alt="advance-search"
+                />
+              </button>
+            </form>
+            <div class="chat-dialog__results">
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center active"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>AWS Infrastructure</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>Get stared videos</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>External Companies</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>Demonstration and FAQ</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>Internal Applications</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>DevOps Tools</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>DevOps infrastructure reviews</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>Internal Deployments</span>
+              </a>
+              <a
+                href="#"
+                class="chat-dialog__results-item d-flex align-items-center"
+              >
+                <img src="/static/images/chat-alt.svg" alt="chat-alt" />
+                <span>DevOps Sprint & Retro</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="chat-dialog__right d-flex">
+          <div class="chat-dialog__right-inner chat-dialog-main__wrapper d-flex">
+            <div class="chat-dialog-main">
+              <div class="lucy chat-dialog-main__item d-flex">
+                <div class="chat-dialog-main__item-img">
+                  <img src="/static/images/lucy.png" alt="lucy-image" />
+                </div>
+                <div class="chat-dialog-main__item-message">
+                  <p>Hello, What is your name?</p>
+                </div>
+              </div>
+              <div class="user chat-dialog-main__item d-flex">
+                <div class="chat-dialog-main__item-img">
+                  <img src="/static/images/user.png" alt="user-image" />
+                </div>
+                <div class="chat-dialog-main__item-message">
+                  <p>My name is John Doe</p>
+                </div>
+              </div>
+              <div class="lucy chat-dialog-main__item d-flex">
+                <div class="chat-dialog-main__item-img">
+                  <img src="/static/images/lucy.png" alt="lucy-image" />
+                </div>
+                <div class="chat-dialog-main__item-message">
+                  <p>Hi John! Can you tell me a little about yourself?</p>
+                </div>
+              </div>
+              <div class="user chat-dialog-main__item d-flex">
+                <div class="chat-dialog-main__item-img">
+                  <img src="/static/images/user.png" alt="user-image" />
+                </div>
+                <div class="chat-dialog-main__item-message">
+                  <p>
+                    Sure, I’m a DevOps Engineer with 3 years of experience with
+                    Docker, Kubernetes, Helm, Terraform, and AWS. At my previous
+                    company, I helped to maintain our infrastructure and were a
+                    part of CI/CD deployments.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    <div class="chat-dialog-container">
+      <div class="chat-footer__inner d-flex align-items-center">
+        <div class="chat-footer__logo">
+          <a href="#">
+            <img
+              src="/static/images/lucy.png"
+              alt="footer-chat-logo"
+            />
+          </a>
+        </div>
+        <form action="#" class="chat-footer__form">
+          <textarea
+            class="chat-dialog__input"
+            placeholder="Writing my message to lucy to help me out with"
+            type="text"
+          ></textarea>
+          <button class="btn login-btn" type="submit">
+            Send
+            <img src="/static/images/double-right.png" alt="double-right" />
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/scripts/lucy_chat.js"></script>
+
+{% endblock %}

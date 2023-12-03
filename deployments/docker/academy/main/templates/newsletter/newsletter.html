@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content  %}
+<link rel="stylesheet" href="/static/css/signup.css" type="text/css">
+<div class="user">
+    <header class="user__header">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
+        {% if welcome %}
+        <h3 class="user__title">{{welcome}}</h3>
+        {% else %}
+        <h1 class="user__title">Subscribe now</h1>
+        {% endif %}
+    </header>
+
+            {% if welcome %}
+            <h3 style="padding-top:50px;">We will never share your email</h3>
+        {% else %}
+        <form  method="post">
+        {% csrf_token %}
+
+            <input class="form__input" style="margin-top:50px;" id="email" type="email" name="email" placeholder="Enter your email..." value="{{ email }}">
+            <input class="form__input" id="btn" name="btn" type="submit" value="OK">
+        </form>
+        {% endif %}
+
+</div>
+
+<script>
+    const button = document.querySelector('.btn')
+    const form   = document.querySelector('.form')
+
+    button.addEventListener('click', function() {
+    form.classList.add('form--no')
+    });
+</script>
+{% endblock %}

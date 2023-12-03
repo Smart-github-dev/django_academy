@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% load markdownify %}
+  {% include 'leftbar.html' %}
+
+  <link rel="stylesheet" href="/static/css/video.css" type="text/css" />
+
+  <div class="page-container">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="contents-inner">
+      <div class="video-detail-wrapper">
+        <h6 class="text-center text-base">{{ video.name }}</h6>
+
+        <div class="video-detail-play">
+          {% if user_subscription.is_expired %}
+            {% include 'expired-user-iframe.html' %}
+          {% else %}
+            {% if user_subscription.payment_confirmation %}
+              {% if video.subscription_plan.level <= user_subscription.plan.level %}
+                <iframe width="100%" height="578" src="{{ video.link }}" class="videoPlayer" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="{{ video.description }}"></iframe>
+              {% else %}
+                {% include 'no-video-access-iframe.html' %}
+              {% endif %}
+            {% else %}
+              {% include 'need-payment-iframe.html' %}
+            {% endif %}
+          {% endif %}
+        </div>
+
+        <div class="video-detail-infos card d-flex flex-column">
+          <h3>Video Details</h3>
+
+          <div class="video-detail-info-content">
+            <div class="row d-flex justify-content-between flex-wrap" style="gap:15px;">
+              <div class="video-detail-info-item video-detail-upload">
+                <p class="text-base mb-0 text-center sub-title">Total Views</p>
+                <div class="mt-3 mb-2 video-detail-divider"></div>
+                <p class="text-base mb-0 text-center">{{ video.total_views }}</p>
+              </div>
+
+              <div class="video-detail-info-item video-detail-duration">
+                <p class="text-base mb-0 text-center sub-title">Duraction</p>
+                <div class="mt-3 mb-2 video-detail-divider"></div>
+                <p class="text-base mb-0 text-center">{{ video.duration }}</p>
+              </div>
+              <div class="video-detail-info-item video-detail-upload">
+                <p class="text-base mb-0 text-center sub-title">Upload Date</p>
+                <div class="mt-3 mb-2 video-detail-divider"></div>
+                <p class="text-base mb-0 text-center">{{ video.created_date }}</p>
+              </div>
+
+              <div class="video-detail-info-item video-detail-tags">
+                <p class="text-base mb-0 text-center sub-title">Tags</p>
+                <div class="mt-3 mb-2 video-detail-divider"></div>
+                <p class="text-base mb-0 text-center">{{ video.subscription_plan }}</p>
+              </div>
+            </div>
+
+            <div class="video-detail-info-item description">{{ video.description|markdownify|safe }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

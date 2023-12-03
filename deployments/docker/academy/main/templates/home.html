@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+  <body>
+    <!-- Inclouded left bar which is contians dashboard and some profile links -->
+    {% include 'leftbar.html' %}
+
+    <div id="right-content" class="page-container one-line">
+      <div class="right-side">
+        <!-- I had already mesasges I need proper custom alert -->
+
+        <div class="tab">
+          <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'PyNote')">PyNote</button>
+          <button class="tablinks" onclick="openTab(event, 'Jenkins')">Jenkins</button>
+        </div>
+
+        <div id="PyNote" class="tabcontent">
+          <h2>FuChiCorp Pynote</h2>
+          <p>PyNote is the an online learning platform. It's aimed at restless professionals chasing after success. Fuchicorp has made innovation very easy for those who are self driven. With PyNote you can learn, build, and deploy! Request a PyNote now as investment to your future!</p>
+
+          <!-- If pyntotes are not mentioned it will not show up here -->
+          {% if pynote %}
+            <table>
+              <caption>Table</caption>
+              {% for item in pynote %}
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Owner</th>
+                  <th>Link</th>
+                </tr>
+                <tr>
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.server_name }}</td>
+                  <td>{{ item.username }}</td>
+                  <a href="{{ item.pynotelink }}"><td>{{ item.pynotelink }}</td></a>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
+        </div>
+
+        <div id="Jenkins" class="tabcontent">
+          <h2>Subscription</h2>
+          <p>Jenkins is one of the popular CI/CD tools.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks
+        tabcontent = document.getElementsByClassName('tabcontent')
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = 'none'
+        }
+        tablinks = document.getElementsByClassName('tablinks')
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(' active', '')
+        }
+        document.getElementById(tabName).style.display = 'block'
+        evt.currentTarget.className += ' active'
+      }
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById('defaultOpen').click()
+    </script>
+  </body>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscription Cancellation Information</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .header {
+    background-color: #f5f5f5;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .list-item {
+    margin-bottom: 5px;
+  }
+  .list-item.not-accessible {
+    color: #ff0000;
+  }
+  .list-item.accessible {
+    color: #008000;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h2>By canceling the subscription today</h2>
+  </div>
+  <ul class="list">
+    <li class="list-item accessible">You will have access to academy until your next billing cycle ends</li>
+    <li class="list-item not-accessible">You will NOT have access to bastion host</li>
+    <li class="list-item not-accessible">You will NOT have access to slack private channel</li>
+    <li class="list-item not-accessible">You will NOT have access to GitHub private team</li>
+  </ul>
+</div>
+</body>
+</html>

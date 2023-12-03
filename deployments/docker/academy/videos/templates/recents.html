@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% include 'leftbar.html' %}
+
+  <div class="page-container">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="contents-inner">
+      <div class="recent-videos-wrapper">
+        <h2 class="page-title">Recent Videos</h2>
+        <div class="video-folders-contents card mb-3">
+          <div class="video-folders-contents-inner">
+            <div class="card-title d-flex justify-content-between align-items-center">
+              <h5 class="font-weight-bold mb-0">Videos</h5>
+              <button class="text-btn text-italic">Upload Date</button>
+            </div>
+            <div class="video-folders-list">
+              {% for video in videos %}
+                <div class="video-folder-item d-flex align-items-center mb-3" onclick="window.location.href='/videos/watch/{{ video.resource_key }}'">
+                  <div class="video-folder-item-mark d-flex align-items-center justify-content-center">
+                    <img src="/static/images/ploygon.png" alt="" />
+                  </div>
+                  <p class="mb-0 video-folder-item-title">{{ video.name }}</p>
+                  <p class="mb-0 video-folder-item-date">{{ video.created_date }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

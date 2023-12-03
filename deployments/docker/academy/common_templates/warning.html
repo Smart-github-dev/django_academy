@@ -1,0 +1,30 @@
+<!-- <div class="overlay-box w-100 h-100 position-fixed" id="warningOverlayBox"
+  onclick="document.querySelector('.alert').style.display='none'; this.style.display = 'none';"> -->
+<!-- </div> -->
+
+<div class="alert" id="alert">
+  <div class="header-logo">
+    <a href="/">
+      <img src="/static/images/fuchi_hoz_rgb-white 2.png" alt="Logo">
+    </a>
+    <span class="close-btn" onclick="document.querySelector('.alert').style.display='none';">&times;</span>
+  </div>
+  <div class="alert-content">
+    {% for message in messages %}
+    <p style="color: black;"><strong>Warning!</strong> {{ message }}</p>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  var warningMessage = document.getElementById("alert");
+  var warningOverlayBox = document.getElementById("warningOverlayBox");
+  setTimeout(function () {
+    hide(warningMessage);
+    hide(warningOverlayBox);
+  }, 6500);
+
+  function hide(element) {
+    element.style.display = "none";
+  }
+</script>

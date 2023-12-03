@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+
+{% block title %}
+  Terms of Condition
+{% endblock %}
+
+{% block content %}
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    body {
+      /* font-family: "Avenir Next", sans-serif; */
+      background-color: #08827e;
+      padding: 0;
+      box-sizing: border-box;
+      height: 1000px;
+    }
+
+    .main-content {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      padding: 230px 50px 80px;
+    }
+
+    @media screen and (max-width: 749px) {
+      .main-content {
+        padding: 200px 15px 80px;
+      }
+    }
+  </style>
+
+  <div class="main-body">
+    <div class="markdown-content">
+      <div class="markdown-head">
+        <img alt="fuchi-primary-logo" src="/static/images/fuchi-primary-logo.png" />
+        <h1>FuchiCorp Academy Terms and Conditions {{ content_data.long_name }}</h1>
+        <p>By: {{ content_data.user.first_name }} {{ content_data.user.last_name }}</p>
+        <p>Created at: {{ content_data.created_date }}</p>
+        <p>Last Update was: {{ content_data.updated_date }}</p>
+      </div>
+
+      <!-- Here actuall markdown content which contains all conditions -->
+      {{ content_data.markdown_content|markdownify }}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+  {% include 'leftbar.html' %}
+  <link rel="stylesheet" href="/static/styles/lucy_chat.css" type="text/css" />
+
+  <div class="page-container one-line">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="right-side">
+      <div class="lucy-chat__right">
+        <div class="lucy-chat__right-inner">
+          <h1 class="lucy-chat__right-title">Lucy AI</h1>
+          <p class="lucy-chat__right-subtitle">Your Personal AI Assistant</p>
+          <div class="lucy-chat__info">
+            <div class="lucy-chat__info-inner">
+              <img src="/static/images/lucy.png" alt="lucy" />
+              <div class="lucy-chat__info-text">
+                <p>Lucy is FuchiCorp’s AI designed to assist with DevOps questions & interview prep. It provides accurate and up-to-date information on various DevOps topics, and can simulate interview scenarios to help you prepare.</p>
+              </div>
+            </div>
+          </div>
+          <button class="lucy-chat__right-btn btn text-white bg-info nav-auth-btn">Let’s talk Lucy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

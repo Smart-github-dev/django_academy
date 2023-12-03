@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+  <style>
+    body {
+      padding: 0;
+      box-sizing: border-box;
+      height: 1000px;
+    }
+
+    .main-content {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      padding: 230px 50px 80px;
+    }
+    @media screen and (max-width: 749px) {
+      .main-content {
+        padding: 200px 15px 80px;
+      }
+    }
+  </style>
+
+  {% include 'leftbar.html' %}
+
+  <div class="page-container one-line">
+    <div class="right-side">
+      <div class="settings-form">
+        <h2>My Subscription</h2>
+        <table class="ipn-table" id="customers">
+            <caption>Ipn Table</caption>
+            <tr>
+            <th>&nbsp;</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>USD</th>
+            <th>Period</th>
+            <th>Subscription ID</th>
+            <th>Date</th>
+          </tr>
+          {% for ipn in all_ipns %}
+            <tr>
+              <td>{{ subscription.plan.name }}</td>
+              <td>{{ ipn.first_name }}</td>
+              <td>{{ ipn.last_name }}</td>
+              <td>{{ ipn.payer_email }}</td>
+              <td>{{ ipn.amount3 }}</td>
+              <td>{{ ipn.period3 }}</td>
+              <td>{{ ipn.subscr_id }}</td>
+              <td>{{ ipn.subscr_date }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

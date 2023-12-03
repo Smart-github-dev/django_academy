@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/static/css/user-blocked.css">
+
+<div class="not-allowed-video">
+    <div class="not-allowed-content">
+
+            <h1>Hello {{ request.user.first_name.capitalize }}</h1>
+            <p>Oups this video require "{{ video.subscription_plan.name }}" subscription!</p>
+            <div class="upgrade-button">
+                <a class="active highlight" href="/#subscriptions" role="button">Upgrade my subscription!</a>
+            </div>
+
+    </div>
+
+</div>

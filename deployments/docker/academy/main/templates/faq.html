@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  {% include 'leftbar.html' %}
+  <div class="page-container">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="contents-inner">
+      <div class="faq-main-content">
+        <h2 class="page-title mb-4">FAQ</h2>
+      </div>
+    </div>
+  </div>
+{% endblock %}

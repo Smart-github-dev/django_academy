@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+  <link rel="stylesheet" href="/static/css/settings.css" type="text/css" />
+  <body>
+    <!-- Inclouded left bar which is contians dashboard and some profile links -->
+    {% include 'leftbar.html' %}
+
+    <div id="right-content" class="page-container one-line">
+      <div class="right-side">
+        <button class="toggle-menu card" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+        <div class="settings-form">
+          <h2>Edit my subsciption</h2>
+          {% if subscription %}
+            {% if subscription.plan.price == 'free' %}
+              <p>
+                You are using <a class="highlight">{{ subscription.plan }}</a> subscription and your account will be expired on <a class="highlight">{{ subscription.expire_date }}</a>
+              </p>
+            {% else %}
+              <p>
+                You are using <a class="highlight">{{ subscription.plan }}</a> subscription and your next bill on
+                <a class="highlight">{{ subscription.expire_date }}</a>
+              </p>
+              <a href="/accounting/transactions/{{ user.username }}"><button class="delete" type="button" name="See transactions">See all my transactions</button></a>
+            {% endif %}
+            <a href="/#subscriptions"><button class="delete" type="button" name="">Update my subscription</button></a>
+            <a href="/accounting/cancel"><button class="delete" type="button" name="">Cancel my subscription</button></a>
+          {% else %}
+            <a href="/#subscriptions"><button class="delete" type="button" name="">Subscribe now</button></a>
+          {% endif %}
+        </div>
+
+        <div class="card">
+          <h2>Edit My profile</h2>
+          <form method="POST">
+            <input type="hidden" name="settingsForm" value="EditProfileSubmit" />
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" name="EditProfileSubmit" value="Save Info" />
+          </form>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div id="message-box" class="modal-header">
+              <span class="close">&times;</span>
+              <h2>Message</h2>
+            </div>
+            <div class="modal-body">
+              <h3 id="messageBox"></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    // Get the <span> element that closes the modal
+    var modal = document.getElementById('myModal')
+    var span = document.getElementsByClassName('close')
+    var messageBox = document.getElementById('messageBox')
+    var backendResponse = JSON.parse('')
+    var messageBoxHeader = document.getElementById('message-box')
+
+    if (backendResponse.status == 'error') {
+      messageBoxHeader.style.backgroundColor = 'red'
+      modal.style.display = 'block'
+      messageBox.innerHTML = backendResponse.message
+    }
+
+    if (backendResponse.status == 'success') {
+      modal.style.display = 'block'
+      messageBox.innerHTML = backendResponse.message
+    }
+
+    span.onclick = function () {
+      modal.style.display = 'none'
+    }
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = 'none'
+      }
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,51 @@
+<style>
+    .video-detail-play {
+        min-height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .not-allowed-video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        z-index: 99999;
+        background-color: rgba(20, 30, 30, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .not-allowed-video h1,
+    .not-allowed-video p {
+        color: white;
+    }
+
+    .upgrade-button {
+        background-color: black;
+        padding: 8px 12px;
+        border-radius: 6px;
+        width: auto;
+    }
+
+    .not-allowed-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+</style>
+
+<div class="not-allowed-video">
+    <div class="not-allowed-content">
+        <h1>Hello {{ request.user.first_name.capitalize }}</h1>
+        <p>Oups this video require "{{ video.subscription_plan.name }}" subscription and your account is not enabled.
+            Please upgrade to PRO now or contact with us!</p>
+        <div class="upgrade-button">
+            <a class="active highlight" href="/#subscriptions" role="button">Upgrade my subscription!</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load markdownify %}
+
+
+{% block content %}
+
+<div class="checkout-container">
+	<p>Hello Subscriber this page handles the cancellation process. Make sure you read carefully and if you have any
+		questions before you cancel your subscription reach to management and makes sure you address all the
+		questions</p>
+	<h2>By canceling the subscription today</h2>
+	<ul>
+		<li>You will have access to academy until your next billing cycle ends</li>
+		<li>You will NOT have access to bastion host</li>
+		<li>You will NOT have access to slack private channel</li>
+		<li>You will NOT have access to GitHub private team</li>
+	</ul>
+
+
+	<h2>Upgrading process</h2>
+	<ul>
+		<li>If you are upgrading the account you will need to re-subscribe again to the right plan</li>
+		<li>Make sure you reach out to management team if you have any problems</li>
+	</ul>
+
+	<h2>Before you lose make sure</h2>
+	<ul>
+		<li>Destroy all the resources you build in your GCP <a
+				href='https://github.com/fuchicorp/main/wiki/How-to-destroy-your-google-cloud-environment%3F'>LINK</a>
+		</li>
+		<li>Make sure you clean up all the GitHub tokens from your profile <a
+				href='https://github.com/settings/tokens'>LINK</a></li>
+	</ul>
+
+
+	<p>After successfully canceling the subscription you will receive an email if you did not receive any email
+		please come back to this page and confirm its canceled</p>
+
+</div>
+{% endblock %}

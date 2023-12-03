@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <style>
+    body {
+      padding: 0;
+      box-sizing: border-box;
+      height: 1000px;
+    }
+
+    .main-content {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      padding: 230px 50px 80px;
+    }
+
+    .image {
+      margin-top: 0px;
+      height: 10%;
+      width: 10%;
+    }
+
+    @media screen and (max-width: 749px) {
+      .main-content {
+        padding: 200px 15px 80px;
+      }
+    }
+  </style>
+
+  <div class="checkout-container">
+    <div class="top-container">
+      <img alt="succes-icon" class="image" id="succes-icon" src="{% static 'images/declined.png' %}" />
+      <h2>Your payment was declined , please try again !!</h2>
+      <a href="/">Continue</a>
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+{% endblock %}

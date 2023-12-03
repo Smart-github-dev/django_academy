@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  worker:
+    build: .
+    environment:
+      - GIT_TOKEN=${GIT_TOKEN}
+      - SOCIAL_AUTH_GITHUB_KEY=${SOCIAL_AUTH_GITHUB_KEY}
+      - SOCIAL_AUTH_GITHUB_SECRET=${SOCIAL_AUTH_GITHUB_SECRET}
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.kube/flask-kube.json
+      - ENVIRONMENT=dev
+      - CELERY_BROKER_URL=redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379/0
+    volumes:
+      - ./:/website
+      - ~/.kube:/root/.kube/
+    entrypoint: >
+      bash -c "echo '< Running the celery worker >' &&
+      cd /website/academy && celery -A automation worker -l info"
+
+  beat:
+    build: .
+    environment:
+      - GIT_TOKEN=${GIT_TOKEN}
+      - SOCIAL_AUTH_GITHUB_KEY=${SOCIAL_AUTH_GITHUB_KEY}
+      - SOCIAL_AUTH_GITHUB_SECRET=${SOCIAL_AUTH_GITHUB_SECRET}
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.kube/flask-kube.json
+      - ENVIRONMENT=dev
+      - CELERY_BROKER_URL=redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379/0
+    volumes:
+      - ./:/website
+      - ~/.kube:/root/.kube/
+    entrypoint: >
+      bash -c "echo '< Running the celery worker beat >' &&
+      cd /website/academy && celery -A automation beat -l info"
+
+  academy:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./academy:/website
+      - ~/.kube:/root/.kube/
+    environment:
+      - GIT_TOKEN=${GIT_TOKEN}
+      - SOCIAL_AUTH_GITHUB_KEY=${SOCIAL_AUTH_GITHUB_KEY}
+      - SOCIAL_AUTH_GITHUB_SECRET=${SOCIAL_AUTH_GITHUB_SECRET}
+      - VIMEO_CLIENT_ID=${VIMEO_CLIENT_ID}
+      - VIMEO_CLIENT_SECRET=${VIMEO_CLIENT_SECRET}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - PAYPAL_RECEIVER_EMAIL=${PAYPAL_RECEIVER_EMAIL}
+      - OPEN_AI_TOKEN=${OPEN_AI_TOKEN}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      - LUCY_GITHUB_TOKEN=${LUCY_GITHUB_TOKEN}
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.kube/flask-kube.json
+      - ENVIRONMENT=dev
+    entrypoint: >
+      bash -c "echo '< Running the academy application >' &&
+      cd /website/ && python manage.py migrate --run-syncdb &&
+      python manage.py runserver 0.0.0.0:8000 --insecure"
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    entrypoint: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - cache:/data
+
+volumes:
+  cache:

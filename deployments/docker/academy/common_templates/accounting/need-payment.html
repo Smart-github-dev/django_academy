@@ -1,0 +1,26 @@
+
+
+<style>
+#require-payment {
+	display: block;
+	padding: 5em;
+    background-color: #eee;
+    text-align: center;
+    margin: 2em;
+    margin-top: 20%;
+}
+
+#require-payment p {
+    padding: 0.5em;
+}
+
+#require-payment h3 {
+    padding: 5px;
+}
+
+</style>
+<div id="require-payment">
+    <h3 style="color:red;">Hello {{ user.first_name }} {{ user.last_name }} You will need to subscribe one of our plans to access our videos</h3>
+    <p>If you did already subscribe then you will need to contact with us so we can enable your account</p>
+    <a class="highlight" href="/#subscriptions">Please click here to navigate to see plans</a> <br>
+</div>

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% load markdownify %}
+  {% include 'leftbar.html' %}
+
+  <div class="page-container">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="contents-inner">
+      <div class="dashboard-view-wrapper">
+        <h3 class="page-title mb-4">Academy Dashboard</h3>
+        <div class="dashboard-inner d-flex justify-content-between flex-wrap">
+          <div class="dashboard-card card dashborad-half-card">
+            <div class="dashboard-card-inner">
+              <div class="dashboard-card-title">
+                <h6 class="mb-0 font-weight-bold text-base">Schedule</h6>
+              </div>
+              <div class="card-content">
+                <div class="class-box">{{ subscription.plan.schedule|markdownify|safe }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-card card dashborad-half-card">
+            <div class="dashboard-card-inner">
+              <div class="dashboard-card-title d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 font-weight-bold text-base">Recent Videos</h6>
+                <a href="/videos/recent/"><button class="text-btn text-info">View all</button></a>
+              </div>
+              <div class="card-content">
+                {% for video in videos %}
+                  <div class="dashboard-video-item d-flex align-items-center mb-2">
+                    <div class="video-folder-item-mark d-flex align-items-center justify-content-center">
+                      <img src="/static/images/ploygon.png" alt="" />
+                    </div>
+                    <a href="/videos/watch/{{ video.resource_key }}" class="mb-0 text-base" title="{{ video.name }}">{{ video.name }}</a>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card card">
+            <div class="dashboard-card-inner">
+              <div class="dashboard-card-title d-flex flex-wrap align-items-center">
+                <h6 class="mb-0 font-weight-bold text-base mr-3">My Subscription</h6>
+                <div class="d-flex align-items-center flex-wrap">
+                  <p class="mb-0 font-weight-bold text-info">{{ subscription.name }}</p>
+                  <span class="mx-2">|</span>
+                  <a href="/settings"><p class="mb-0 text-italic">Next bill on Aug. {{ subscription.expire_date }}</p></a>
+                </div>
+              </div>
+              <div class="card-content">
+                <p class="text-base mb-2">
+                  <span class="font-weight-bold">My plan:</span> &nbsp;
+                  {{ subscription.plan.name }}
+                </p>
+                <p class="mb-0 text-base mb-2">
+                  <span class="font-weight-bold">First Name:</span> &nbsp;
+                  {{ subscription.first_name }}
+                </p>
+                <p class="mb-0 text-base mb-2">
+                  <span class="font-weight-bold">Last Name:</span> &nbsp;
+                  {{ subscription.last_name }}
+                </p>
+                <p class="text-base mb-2">
+                  <span class="font-weight-bold">Username:</span> &nbsp;
+                  {{ subscription.user }}
+                </p>
+                <p class="mb-0 text-base mb-2">
+                  <span class="font-weight-bold">Email:</span> &nbsp;
+                  {{ subscription.email }}
+                </p>
+                <div class="d-flex align-items-center justify-content-between flex-wrap mt-3">
+                  <p class="mb-0 text-base font-italic no-width">Username Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+                  <div class="d-flex subscription-links align-items-center">
+                    <a href="/accoutning/transactions/{{ request.user.username }}" class="text-info">All My Transactions</a>
+                    <span class="text-base">|</span>
+                    <a href="/#subscriptions" class="text-info">Upgrade</a>
+                    <span class="text-base">|</span>
+                    <a class="text-info" href="/accounting/cancel">Cancel my subscription</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card card">
+            <div class="dashboard-card-inner">
+              <div class="dashboard-card-title">
+                <h6 class="mb-0 font-weight-bold text-base">Quick Links</h6>
+              </div>
+              <div class="card-content">
+                <div class="quick-links d-flex align-items-center flex-wrap">
+                  <a href="https://github.com/issues?q=is%3Aopen+is%3Aissue+assignee%3A{{ ubscription.user.username }}+archived%3Afalse+org%3Afuchicorp">My Tickets</a>
+                  <span>|</span>
+                  <a href="https://github.com/fuchicorp">FuchiCorp Github</a>
+                  <span>|</span>
+                  <a href="https://isitup.fuchicorp.com/">Isitup</a>
+                  <span>|</span>
+                  <a href="https://github.com/fuchicorp/main/milestones?direction=asc&sort=title&state=open">Basic milestone</a>
+                  <span>|</span>
+                  <a href="https://github.com/orgs/fuchicorp/projects/52?fullscreen=true">Basic Dashboard</a>
+                  <span>|</span>
+                  <a href="/contact">Ask an Expert</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

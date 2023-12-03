@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "academy.name" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "academy.name" . }}
+    helm.sh/chart: {{ include "academy.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.academy.service.type }}
+  ports:
+    - port: {{ .Values.academy.service.port }}
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "academy.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

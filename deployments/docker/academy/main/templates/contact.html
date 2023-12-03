@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div id="modal" class="academy-modal" style="display: flex;">
+    <div class="modal-content-wrapper">
+      <div class="modal-header d-flex align-items-center justify-content-center">
+        <img src="/static/images/fuchi_symbol_rgb-white-2.png" alt="" />
+        <h3 class="mb-0 text-white">Contact Us</h3>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="form-group mb-2">{{ form.first_name }}</div>
+          <div class="form-group mb-2">{{ form.last_name }}</div>
+
+          <div class="form-group mb-2">{{ form.subscription }}</div>
+
+          <div class="divider mb-2"></div>
+
+          <div class="form-group mb-2">{{ form.email }}</div>
+          <div class="divider mb-2"></div>
+          <div class="form-group mb-0">{{ form.message }}</div>
+          <div>
+            <button class="btn login-btn ml-auto">
+              <input type="submit" class="btn login-btn ml-auto" value="Submit" />
+              <img src="/static/images/double-right.png" alt="" />
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

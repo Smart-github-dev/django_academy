@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Pay using PayPal
+{% endblock %}
+{% block content %}
+  <style>
+    body {
+      padding: 0;
+      box-sizing: border-box;
+      height: 1000px;
+    }
+
+    .main-content {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      padding: 230px 50px 80px;
+    }
+
+    @media screen and (max-width: 749px) {
+      .main-content {
+        padding: 200px 15px 80px;
+      }
+    }
+  </style>
+
+  <div class="checkout-container">
+    <div class="top-container">
+      <h2>Please read cerafully before you submit the payment</h2>
+      <p>
+        If you have any question or if you have any concerns please visit <a href="/contact">contact</a> page
+      </p>
+    </div>
+
+    <div class="center">
+      <div class="payment-column">
+        <div class="item">
+          <table class="subscribe-table desktop">
+            <caption>Subscribe Table Desktop</caption>
+            <tr>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Plan name</th>
+              <th>Period</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>{{ user.first_name }}</td>
+              <td>{{ user.last_name }}</td>
+              <td>{{ plan.name }}</td>
+              <td>{{ billing_cycle }} months</td>
+              <td>${{ price }}</td>
+            </tr>
+          </table>
+
+          <table class="subscribe-table mobile">
+            <caption>Subscribe Table Mobile</caption>
+            <tr class="thead">
+              <th colspan="2">Plan info</th>
+            </tr>
+            <tr>
+              <td>Plan name</td>
+              <td>{{ plan.name }}</td>
+            </tr>
+            <tr>
+              <td>Period</td>
+              <td>{{ billing_cycle }} months</td>
+            </tr>
+            <tr>
+              <td>Price</td>
+              <td>${{ price }}</td>
+            </tr>
+            <tr>
+              <td>First name</td>
+              <td>{{ user.first_name }}</td>
+            </tr>
+            <tr>
+              <td>Last name</td>
+              <td>{{ user.last_name }}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="item">
+          <ul class="subscribe-form">
+            <h4>Subscribe using PayPal</h4>
+            {{ form.render }}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

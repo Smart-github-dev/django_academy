@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "academy.name" . | quote }}
+  labels:
+    app.kubernetes.io/name: {{ include "academy.name" . | quote }}
+    helm.sh/chart: {{ include "academy.chart" . | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+spec:
+  replicas: {{ .Values.academy.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "academy.name" . | quote }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "academy.name" . | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - academy
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+{{- if .Values.imageSecret.enabled }}
+      imagePullSecrets:
+        {{- toYaml .Values.imageSecret.allSecrets | nindent 8 }}
+{{- end }}
+      containers:
+        - name: {{ .Chart.Name | quote }}
+          image: "{{ .Values.academy.image.repository }}"
+          imagePullPolicy: {{ .Values.academy.image.pullPolicy | quote }}
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /info
+              port: http
+            initialDelaySeconds: 100
+            periodSeconds: 100
+          readinessProbe:
+            httpGet:
+              path: /info
+              port: http
+            initialDelaySeconds: 100
+            periodSeconds: 100
+{{- if .Values.globalEnvironments.enabled }}
+          env:
+            {{- toYaml .Values.globalEnvironments.environments | nindent 12 }}
+{{- end }}
+      resources:
+        {{- toYaml .Values.academy.resources | nindent 8 }}
+    {{- with .Values.academy.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.academy.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.academy.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

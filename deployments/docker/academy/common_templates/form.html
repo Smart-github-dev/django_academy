@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="/static/css/signup.css" type="text/css">
+<div class="contact-image">
+    <div class="wrapper">
+        <div class="user">
+            <header class="user__header">
+                <img alt="fuchi-primary-logo.png" src="static/images/fuchi-primary-logo.png">
+                <h1 class="user__title" style="margin-bottom:10px;">Contact Us</h1>
+                <h3 style="margin-bottom:20px;">Send us your question and we would be happy to get back to you</h3>
+            </header>
+
+            <form method="post">
+                {% csrf_token %}
+                <p>
+                    {{ form }}
+                </p>
+
+                {% if recaptcha %}
+                <div class="g-recaptcha" data-sitekey="{{ public_key }}"></div>
+                {% endif %}
+
+                {% if message %}
+                <h3 style="margin-bottom:50px;">Thank you for contacting us, you will receive a response as soon as
+                    possible by one of our staff!<h3>
+                        {% endif %}
+
+                        {% if failed_recaptcha %}
+                        <h3 style="margin-bottom:50px;">Invalid Field. Please try again.<h3>
+                                {% endif %}
+                                <button type="submit" style="margin-top:30px; margin-bottom: 40px;"
+                                    class="form__input btn">Submit your Question</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>

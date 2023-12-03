@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Subscribe
+{% endblock %}
+{% block content %}
+  <link rel="stylesheet" href="/static/css/subscription.css" type="text/css" />
+
+  <div class="checkout-row">
+    <div class="col-75">
+      <div class="container">
+        <form action="/accounting/" method="POST">
+          {% csrf_token %}
+          <h2>You are subscriging for {{ plan.name }} plan</h2>
+          <p>Please make sure you provide right information</p>
+          <div class="checkout-row">
+            <div class="col-50 col-xs-100">
+              <h3>Billing Address</h3>
+              <label for="fname"><i class="fa fa-user"></i> First Name</label>
+              {{ form.first_name }}
+
+              <label for="fname"><i class="fa fa-user"></i> First Name</label>
+              {{ form.last_name }}
+
+              <label for="email"><i class="fa fa-envelope"></i> Email</label>
+              {{ form.email }}
+
+              <label for="phone"><i class="fa fa-phone"></i> Phone number</label>
+              {{ form.phone }}
+
+              <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+              {{ form.address }}
+            </div>
+
+            <div class="col-50 col-xs-100">
+              <h3>PayPal</h3>
+              <label for="fname">Accepted Cards</label>
+              <div class="icon-container">
+                <i class="fa fa-cc-visa" style="color:navy;"></i>
+                <i class="fa fa-cc-amex" style="color:blue;"></i>
+                <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                <i class="fa fa-cc-discover" style="color:orange;"></i>
+              </div>
+
+              <label for="city"><i class="fa fa-institution"></i> City</label>
+              {{ form.city }}
+
+              <div class="checkout-row">
+                <div class="col-50">
+                  <label for="state">State</label>
+                  {{ form.state }}
+                </div>
+                <div class="col-50">
+                  <label for="zip">Zip</label>
+                  {{ form.zip_code }}
+                </div>
+              </div>
+
+              <label for="plan">Pay more now to get discount</label>
+              <select id="selectedPrice" onchange="updateTotal()" name="plan_period">
+                <option selected id="${{ plan.six_months_price }}" value="6-month">{{ plan.six_months_description }}</option>
+                <option id="${{ plan.price }}" value="1-month">{{ plan.price_description }}</option>
+                <option id="${{ plan.year_price }}" value="1-year">{{ plan.year_description }}</option>
+              </select>
+            </div>
+          </div>
+
+          <input type="hidden" id="{{ plan.id }}" name="plan_id" value="{{ plan.id }}" />
+          <input type="hidden" id="selected_period" name="selected_period" value="" />
+
+          <input type="submit" value="Continue to paypal overview" class="btn" />
+        </form>
+      </div>
+    </div>
+    <div class="col-25 cart">
+      <div class="container">
+        <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i><b>1</b></span></h4>
+        <p>
+          <a href="/accounting/{{ plan.id }}/learn-more">Selected plan {{ plan.name }}</a> <span class="price">${{ plan.price }}</span>
+        </p>
+        <hr />
+        <p>
+          Total <span id="totalPrice" class="price" style="color:black">${{ plan.six_months_price }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Making sure the defult selected value is included to the form
+    document.querySelector('#selected_period').value = document.querySelector('#selectedPrice').value
+
+    // Fucntion to update the total price as well as
+    function updateTotal() {
+      selectedPrice = document.getElementById('selectedPrice')
+      totalPrice = selectedPrice.options[selectedPrice.selectedIndex].id
+      cartTotal = document.getElementById('totalPrice')
+      cartTotal.innerHTML = totalPrice
+      document.querySelector('#selected_period').value = document.querySelector('#selectedPrice').value
+    }
+  </script>
+{% endblock %}

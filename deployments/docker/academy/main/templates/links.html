@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% include 'leftbar.html' %}
+
+  <div class="page-container">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="contents-inner">
+      <div class="links-view-wrapper">
+        <h2 class="page-title mb-4">Links</h2>
+        <div>
+          <div class="links-box card mb-3">
+            <div class="links-inner">
+              <div class="accordion" id="accordionExample">
+                <div class="link-item mb-3">
+                  <button class="text-left video-category-main-item" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                    <img src="/static/images/ploygon.png" alt="" />
+                    Github
+                  </button>
+                  <div id="collapse1" class="collapse video-category-sub-list" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <a href="https://github.com/{{ subscription.user }}"><button class="video-category-subitem text-btn d-block mb-2 text-left">My Github Profile</button></a>
+
+                    <a href="https://github.com/issues?q=is%3Aopen+is%3Aissue+assignee%3A{{ subscription.user }}+archived%3Afalse+org%3Afuchicorp"><button class="video-category-subitem text-btn d-block mb-2 text-left">My Github Tickets</button></a>
+
+                    <a href="https://github.com/orgs/fuchicorp/projects/52?fullscreen=true"><button class="video-category-subitem text-btn d-block mb-2 text-left">Basic Dashboard</button></a>
+
+                    <a href="https://github.com/orgs/fuchicorp/projects/37?fullscreen=true"><button class="video-category-subitem text-btn d-block mb-2 text-left">Contributor Dashboard</button></a>
+
+                    <a href="https://github.com/orgs/fuchicorp/projects/50?fullscreen=true"><button class="video-category-subitem text-btn d-block mb-2 text-left">Sprint Retro Dashboard</button></a>
+                  </div>
+                </div>
+
+                <div class="link-item mb-3">
+                  <button class="text-left video-category-main-item" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    <img src="/static/images/ploygon.png" alt="" />
+                    Isitup
+                  </button>
+
+                  <div id="collapse2" class="collapse video-category-sub-list" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <a href="https://isitup.fuchicorp.com/"><button class="video-category-subitem text-btn d-block mb-2 text-left">Main Page</button></a>
+
+                    <a href="https://isitup.fuchicorp.com/"><button class="video-category-subitem text-btn d-block mb-2 text-left">My deployments</button></a>
+                  </div>
+                </div>
+
+                <div class="link-item mb-3">
+                  <button class="text-left video-category-main-item" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    <img src="/static/images/ploygon.png" alt="" />
+                    Documentation
+                  </button>
+                  <div id="collapse3" class="collapse video-category-sub-list" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <a href="https://github.com/fuchicorp/main/wiki"><button class="video-category-subitem text-btn d-block mb-2 text-left">Demo Cards</button></a>
+
+                    <button class="video-category-subitem text-btn d-block mb-2 text-left">Basic Intro Information</button>
+
+                    <button class="video-category-subitem text-btn d-block mb-2 text-left">Contributor Intro Information</button>
+
+                    <a href="https://github.com/fuchicorp/main/issues?q=is%3Aissue+"><button class="video-category-subitem text-btn d-block mb-2 text-left">FAQ Troubleshooting Issues</button></a>
+
+                    <a href="/contact"><button class="video-category-subitem text-btn d-block mb-2 text-left">Ask an Expert</button></a>
+
+                    <a href="/accounting/terms-and-conditions"><button class="video-category-subitem text-btn d-block mb-2 text-left">Terms of Service</button></a>
+
+                    <a href="/accounting/privacy-policy"><button class="video-category-subitem text-btn d-block mb-2 text-left">Privacy Policy</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

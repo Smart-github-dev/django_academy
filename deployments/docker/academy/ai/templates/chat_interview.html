@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  {% include 'leftbar.html' %}
+  <link rel="stylesheet" href="/static/styles/lucy_chat.css" type="text/css" />
+
+  <div class="page-container one-line">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="right-side">
+      <div class="lucy-chat__right">
+        <h1 class="lucy-chat__right-title">Interview Prep</h1>
+        <p class="lucy-chat__right-subtitle">Prepare for the next interview with Lucy</p>
+        <div class="lucy-chat__info">
+          <div class="lucy-chat__info-inner">
+            <img src="/static/images/lucy.png" alt="lucy" />
+            <div class="lucy-chat__info-text">
+              <p>Lucy is FuchiCorp’s AI designed to assist with DevOps questions & interview prep. It provides accurate and up-to-date information on various DevOps topics, and can simulate interview scenarios to help you prepare.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lucy-chat__questions">
+          <div class="lucy-chat__questions-item">
+            <div class="lucy-chat__questions-item__inner">
+              <p>DevOps Interview Training</p>
+              <span>10 Questions</span>
+            </div>
+            <button class="base-btn">click to start</button>
+          </div>
+          <div class="lucy-chat__questions-item">
+            <div class="lucy-chat__questions-item__inner">
+              <p>Terraform Interview Training</p>
+              <span>10 Questions</span>
+            </div>
+            <button class="base-btn">click to start</button>
+          </div>
+          <div class="lucy-chat__questions-item">
+            <div class="lucy-chat__questions-item__inner">
+              <p>Kubernetes Interview Training</p>
+              <span>10 Questions</span>
+            </div>
+            <button class="base-btn">click to start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

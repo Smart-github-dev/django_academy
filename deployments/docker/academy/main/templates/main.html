@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+{% load static %}
+{% block content %}
+  <style>
+    header {
+      background-image: unset;
+    }
+
+    .main-content {
+      display: block;
+      height: auto;
+      padding-top: 0 !important;
+    }
+  </style>
+
+  <div class="main-body">
+    <div class="home-section">
+      <div class="home-contents mx-auto">
+        <h1 class="home-title text-center text-white mb-0">Welcome to Academy</h1>
+        <div class="home-box-wrapper mx-auto">
+          <div class="home-box">
+            <img src="/static/images/header-banner.png" alt="" width="100%" height="100%" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="services-section" id="services">
+      <div class="service-contents mx-auto">
+        <p class="service-subtitle text-uppercase font-weight-bold">featured</p>
+        <h3 class="service-title fm-group-title" id="subscriptions">Subscriptions</h3>
+        <form action="" method="post" onsubmit="return makeSureUserAgreed()">
+          {% csrf_token %}
+          <div class="d-flex flex-wrap justify-content-between row">
+            {% for plan in plans %}
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="service-card bg-white">
+                  <div class="service-card-head d-flex align-items-center">
+                    <div class="service-logo service-starter d-flex align-items-center justify-content-center" style="background-color: #1FCC8E;">
+                      <img src="/static/images/fuchi_symbol_rgb-white.png" alt="" />
+                    </div>
+                    <h5 class="service-card-title mb-0 font-weight-bold">{{ plan.name }}</h5>
+                  </div>
+
+                  <div class="service-card-content">
+                    <div class="service-detail mb-3">{{ plan.description|markdownify }}</div>
+                  </div>
+
+                  <div class="service-card-footer">
+                    <div class="service-price d-flex align-items-center">
+                      <label class="checkbox-contailer">
+                        <input type="checkbox" class="subscription-plans" id="{{ plan.id }}" onclick="selectOnlyThis(this)" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <div class="service-price-detail">
+                        <h6 class="mb-0"><span class="font-weight-bold">${{ plan.price }}</span> Per Month</h6>
+                        <p class="mb-0 font-italic">Your paypal monthly subscription</p>
+                      </div>
+                    </div>
+                    <a href="/accounting/{{ plan.id }}/learn-more"><button type="button" class="btn p-0 d-block mx-auto">CLICK HERE TO LEARN MORE</button></a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+            <div class="col-12">
+              <p class="service-footer-note text-center font-weight-bold">Please click the box for your chosen subscription plan above</p>
+
+              <div class="d-flex justify-content-center">
+                <label class="privacy-contailer">
+                  <a style="color: blue;" href="/accounting/terms-and-conditions">Terms & Conditions and</a>
+                  <a style="color: blue;" href="/accounting/privacy-policy">Privacy Policy</a>
+                </label>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <label class="checkbox-contailer">
+                  Checking this box acknowledges, I have read and agree to the Terms & Conditions and Privacy Policy<input type="checkbox" name="user_agreed" id="agree" />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="d-flex justify-content-center">
+                <!-- The Javascript is changing the hiding items value django is using the following plans -->
+                <input type="hidden" id="selectedPlanId" name="plan_id" value="" />
+                <input type="submit" id="submit" class="btn text-white subscribe-btn d-block mx-auto" value="Subscribe" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="courses-section" id="courses">
+      <div class="course-contents d-flex flex-wrap mx-auto justify-content-between">
+        <div class="course-left d-flex">
+          <div class="mx-auto my-auto">
+            <p class="course-subtitle">collaborate with us</p>
+            <h3 class="text-white course-title">About the Project</h3>
+            <p class="course-desc text-white">
+              Do you want hands-on experience with leading DevOps tools? Would you like the opportunity to learn in a working environment?<br /><br />
+              Come and join us! Learn, contribute and expand your knowledge in IT with FuchiCorp Academy. <br /> <br />
+              Gain hands-on experinece with these tools: Kubernetes, Docker, Helm, Packer, Terraform, Jenkins (CI/CD), Nexus, Prometheus, Grafana, ELK Stack, Cert-manager, Ingress Controller, External DNS, Sonarqube, Rancher, Lens and more!<br /><br />
+              We offer live online classes, videos, help and guidance on all professional experience levels. Check out our subscriptions above for more information for each or contact us!
+            </p>
+            <div class="form-group mail-form">
+              <form action="https://fuchicorp.us14.list-manage.com/subscribe/post?u=ec74b40b2e92ddb8070ee103f&amp;id=b0abd6bcaa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                  <div class="indicates-required">
+                    <span class="asterisk">*</span> indicates required
+                  </div>
+                  <div class="mc-field-group">
+                    <label for="mce-EMAIL">Subscribe to our mail list & find out latest news<span class="asterisk">*</span></label>
+                    <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" />
+                  </div>
+                  <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                  </div>
+                  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups -->
+                  <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" name="b_ec74b40b2e92ddb8070ee103f_b0abd6bcaa" tabindex="-1" value="" />
+                  </div>
+                  <div class="clear">
+                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button" />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="course-right">
+          <img src="/static/images/about-banner.png" alt="" width="100%" />
+        </div>
+      </div>
+    </div>
+
+    <div class="who-section" id="who">
+      <div class="who-contents mx-auto">
+        <h3 class="text-white who-title fm-group-title text-center">About Us</h3>
+        <div class="who-card-2 bg-white d-flex flex-wrap">
+          <div class="who-card-img-section position-relative">
+            <img src="/static/images/Farkhod_pic.png" alt="Farkhod" width="100%" height="100%" />
+          </div>
+          <div class="who-card-2-contents">
+            <div>
+              <h6 class="who-card-title mb-2">
+                Farkhod Sadykov&nbsp;
+                <span>FOUNDER | CEO</span>
+              </h6>
+              <p class="who-card-desc mb-0">Founding his own company FuchiCorp in 2018. Experienced Senior DevOps Engineer and Developer, Farkhod is movitated to create effiencent Cloud enviroments for all customers. Learning and teaching new tools to be well-informed with the competitive and ever changing Cloud technology.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="who-card-2 who-card-2-right bg-white d-flex flex-wrap mb-0">
+          <div class="who-card-2-contents">
+            <div>
+              <h6 class="who-card-title mb-2">
+                Kelly Salrin &nbsp;
+                <span>SENIOR DEVOPS ENGINEER | SCRUM MASTER</span>
+              </h6>
+              <p class="who-card-desc mb-0">Senior DevOps Engineer and Scrum Master of the FuchiCorp team. Extensive experience with multi-cloud enviroments and Kubernetes clusters. Leading the team to create cloud enviroments quickly, efficiently for the customer.</p>
+            </div>
+          </div>
+          <div class="who-card-img-section who-right-image position-relative">
+            <img src="/static/images/kelly-profile 1.png" alt="Farkhod" width="100%" height="100%" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-section" id="contact-us">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="text-center">Contact Us</h3>
+            <p class="text-center">Questions? Want to know more? Connect with us!</p>
+            <a href="/contact"><button class="btn d-block mx-auto text-white">CONNECT</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <!-- Begin Mailchimp Signup Form -->
+  <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+  <script type="text/javascript">
+    ;(function ($) {
+      window.fnames = new Array()
+      window.ftypes = new Array()
+      fnames[0] = 'EMAIL'
+      ftypes[0] = 'email'
+      fnames[1] = 'FNAME'
+      ftypes[1] = 'text'
+      fnames[2] = 'LNAME'
+      ftypes[2] = 'text'
+      fnames[3] = 'ADDRESS'
+      ftypes[3] = 'address'
+      fnames[4] = 'PHONE'
+      ftypes[4] = 'phone'
+      fnames[5] = 'BIRTHDAY'
+      ftypes[5] = 'birthday'
+    })(jQuery)
+
+    var $mcj = jQuery.noConflict(true)
+  </script>
+  <!-- End mc_embed_signup -->
+{% endblock %}

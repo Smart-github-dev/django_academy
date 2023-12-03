@@ -1,0 +1,6 @@
+academy_root_css
+*.playground*
+*pyc
+workspace
+celerybeat-schedule
+.env

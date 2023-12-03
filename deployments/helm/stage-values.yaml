@@ -1,0 +1,179 @@
+academy:
+  replicaCount: 2
+
+  image:
+    repository: docker.fuchicorp.com/academy-dev:latest
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 80
+
+
+nameOverride: ""
+fullnameOverride: ""
+
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/whitelist-source-range: '0.0.0.0/0'
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "180"
+
+  hosts:
+  - host: "stage-academy.fuchicorp.com"
+    paths:
+    - /
+
+  tls:
+   - secretName: academy-chart-tls
+     hosts:
+       - "stage-academy.fuchicorp.com"
+
+globalEnvironments:
+  enabled: true
+  environments:
+
+  - name: MYSQL_USER
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: mysql_user
+
+  - name: MYSQL_HOST
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: mysql_host
+
+  - name: MYSQL_DATABASE
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: mysql_database
+
+  - name: MYSQL_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: mysql_password
+
+  - name: ADMIN_USER
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: admin_user
+
+
+  - name: ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: admin_password
+
+
+  - name: APPLICATION_ENDPOINT
+    value: "stage-academy.fuchicorp.com"
+
+  - name: GIT_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: github_token
+
+  - name: SOCIAL_AUTH_GITHUB_KEY
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: github_client_id
+
+  - name: SOCIAL_AUTH_GITHUB_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: github_client_secret
+
+  - name: SOCIAL_AUTH_GITHUB_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: github_client_secret
+
+  - name: SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: application_secret
+
+
+  - name: VIMEO_ACCESS_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: vimeo_access_token
+
+  - name: VIMEO_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: vimeo_client_id
+
+  - name: VIMEO_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: vimeo_client_secret
+
+  - name: ENVIRONMENT
+    value: 'dev'
+
+  - name: PAYPAL_RECEIVER_EMAIL
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: paypal_receiver_email
+
+  - name: RECAPTCHA_PUBLIC_KEY
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: recaptcha_public_key
+
+  - name: RECAPTCHA_PRIVATE_KEY
+    valueFrom:
+      secretKeyRef:
+        name: academy-credentials
+        key: recaptcha_private_key
+
+  - name: INSTANCE
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+
+imageSecret:
+  enabled: true
+  allSecrets:
+  - name: nexus-creds
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div id="forbidden">
+    <div id="img">
+        <img src="{% static 'images/updateerror_1.png' %}" alt="forbidden">
+    </div>
+    <div id="error-message">
+        You tried to access page you dont have authorization for
+    </div>
+    <div id="contactpage">
+        <a href="/contact">
+            Take me back to contact page
+        </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+  - id: check-yaml
+    exclude: |
+      (?x)^(
+        deployments/helm/.*
+      )$
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  - id: check-json
+
+- repo: https://github.com/antonbabenko/pre-commit-terraform
+  rev: v1.76.0
+  hooks:
+  - id: terraform_fmt
+  - id: terraform_validate
+
+- repo: https://github.com/jumanjihouse/pre-commit-hooks
+  rev: 3.0.0
+  hooks:
+  - id: shellcheck

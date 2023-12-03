@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+  <link rel="stylesheet" href="/static/css/settings.css" type="text/css" />
+  <body>
+    <!-- Inclouded left bar which is contians dashboard and some profile links -->
+    {% include 'leftbar.html' %}
+    <div id="right-content" class="page-container one-line">
+      <div class="right-side">
+        <div class="settings-form">
+          <h1>Finish setting up your account</h1>
+          <p>It turns out we don't have enought information please provide all information to get better service</p>
+          <form method="POST">
+            <input type="hidden" name="settingsForm" value="EditProfileSubmit" />
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" />
+          </form>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div id="message-box" class="modal-header">
+              <span class="close">&times;</span>
+              <h2>Message</h2>
+            </div>
+            <div class="modal-body">
+              <h3 id="messageBox"></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // Get the <span> element that closes the modal
+    var modal = document.getElementById('myModal')
+    var span = document.getElementsByClassName('close')
+    var messageBox = document.getElementById('messageBox')
+    var backendResponse = JSON.parse('')
+    var messageBoxHeader = document.getElementById('message-box')
+
+    if (backendResponse.status == 'error') {
+      messageBoxHeader.style.backgroundColor = 'red'
+      modal.style.display = 'block'
+      messageBox.innerHTML = backendResponse.message
+    }
+
+    if (backendResponse.status == 'success') {
+      modal.style.display = 'block'
+      messageBox.innerHTML = backendResponse.message
+    }
+
+    span.onclick = function () {
+      modal.style.display = 'none'
+    }
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = 'none'
+      }
+    }
+  </script>
+{% endblock %}
