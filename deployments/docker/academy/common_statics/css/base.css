@@ -291,7 +291,8 @@ a {
 }
 
 .card-content {
-	padding: 26px 0 48px;
+	padding: 20px 0 48px;
+	overflow-y: auto;
 }
 
 .card-content p {
@@ -522,6 +523,7 @@ a {
 	border: 1px solid #C4C4C4;
 	border-radius: 12px;
 	height: 40px;
+	min-width: 200px;
 }
 
 input.form-control {

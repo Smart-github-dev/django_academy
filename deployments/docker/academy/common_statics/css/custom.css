@@ -1279,6 +1279,10 @@ div.d-flex p.no-width.mb-0.text-base {
         padding: 24px 16px;
     }
 
+    .dashboard-card{
+        width: 100% !important;
+    }
+
     .dashboard-card-inner {
         padding: 0 16px;
     }
@@ -1299,6 +1303,14 @@ div.d-flex p.no-width.mb-0.text-base {
 
     .dashboard-card-title p {
         font-size: 16px;
+    }
+
+    /* --- table response ----*/
+
+    .table td, .table th {
+        padding: 0.15rem !important;
+        /* vertical-align: top; */
+        /* border-top: 1px solid #dee2e6; */
     }
 }
 

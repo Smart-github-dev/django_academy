@@ -7,15 +7,34 @@
     <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
     <div class="contents-inner">
       <div class="dashboard-view-wrapper">
-        <h3 class="page-title mb-4">History</h3>
+        <h5 class="page-title mb-2">History</h5>
         <div class="dashboard-inner d-flex justify-content-between flex-wrap">
           <div class="dashboard-card card" style="width: 48%;">
             <div class="dashboard-card-inner">
-              <div class="dashboard-card-title d-flex align-items-center">
+              <div class="dashboard-card-title d-flex align-items-center justify-content-between">
                 <h6 class="mb-0 font-weight-bold text-base">Deactived Users</h6>
+                <div class="text-btn font-italic mr-4">date</div>
               </div>
               <div class="card-content">
-                <div class="class-box">{{ subscription.plan.schedule|markdownify|safe }}</div>
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Basic</td>
+                      <td style=" ">[ksalrin] Kelly Salrin</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Contribution</td>
+                      <td style="">[ksalrin] Kelly Salrin</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Pro</td>
+                      <td style=" width: 80%;">[ksalrin] Kelly Salrin</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -25,65 +44,57 @@
                 <h6 class="mb-0 font-weight-bold text-base">
                   <i class="fa fa-user-times text-info" aria-hidden="true"></i>
                   Paypal Cancellations
-                </h6><div>
                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
-                </div>
+                </h6>
                 <div class="text-btn font-italic">date</div>
               </div>
               <div class="card-content">
-                {% for video in videos %}
-                  <div class="dashboard-video-item d-flex align-items-center mb-2">
-                    <div class="video-folder-item-mark d-flex align-items-center justify-content-center">
-                      <img src="/static/images/ploygon.png" alt="" />
-                    </div>
-                    <a href="/videos/watch/{{ video.resource_key }}" class="mb-0 text-base" title="{{ video.name }}">{{ video.name }}</a>
-                  </div>
-                {% endfor %}
+                <div class="d-flex justify-content-between mt-1">
+                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
+                  <div>2/21/2022</div>
+                </div>
+                <div class="d-flex justify-content-between mt-1">
+                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
+                  <div>2/21/2022</div>
+                </div>
+                <div class="d-flex justify-content-between mt-1">
+                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
+                  <div>2/21/2022</div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="dashboard-card card">
             <div class="dashboard-card-inner">
-              <div class="dashboard-card-title d-flex flex-wrap align-items-center justify-content-between">
+              <div class="dashboard-card-title d-flex align-items-center justify-content-between">
                 <h6 class="mb-0 font-weight-bold text-base mr-3">
                   <i class="fa fa-address-card-o text-info" aria-hidden="true"></i>
                   Mentor Changes History
                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </h6>
-                <div class="text-btn font-italic">date</div>
+                <div class="text-btn font-italic mr-5">date</div>
               </div>
               <div class="card-content">
-                <p class="text-base mb-2">
-                  <span class="font-weight-bold">My plan:</span> &nbsp;
-                  {{ subscription.plan.name}}
-                </p>
-                <p class="mb-0 text-base mb-2">
-                  <span class="font-weight-bold">First Name:</span> &nbsp;
-                  {{ subscription.first_name }}
-                </p>
-                <p class="mb-0 text-base mb-2">
-                  <span class="font-weight-bold">Last Name:</span> &nbsp;
-                  {{ subscription.last_name }}
-                </p>
-                <p class="text-base mb-2">
-                  <span class="font-weight-bold">Username:</span> &nbsp;
-                  {{ subscription.user }}
-                </p>
-                <p class="mb-0 text-base mb-2">
-                  <span class="font-weight-bold">Email:</span> &nbsp;
-                  {{ subscription.email }}
-                </p>
-                <div class="d-flex align-items-center justify-content-between flex-wrap mt-3">
-                  <p class="mb-0 text-base font-italic no-width">Username Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
-                  <div class="d-flex subscription-links align-items-center">
-                    <a href="/accoutning/transactions/{{ request.user.username }}" class="text-info">All My Transactions</a>
-                    <span class="text-base">|</span>
-                    <a href="/#subscriptions" class="text-info">Upgrade</a>
-                    <span class="text-base">|</span>
-                    <a class="text-info" href="/accounting/cancel">Cancel my subscription</a>
-                  </div>
-                </div>
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td style="text-align: right;width: 30%;font-weight: bold;">Kelly Salrin</td>
+                      <td>Update user info [ksalrin] Kelly Salrin</td>
+                      <td class="text-center" style="width: 10%;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;width: 30%;font-weight: bold;">Farkhod Sadykov</td>
+                      <td>Deactivate [ksalrin] Kelly Salrin</td>
+                      <td class="text-center">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;width: 30%;font-weight: bold;">Madina Samarbekova</td>
+                      <td>Activate [ksalrin] Kelly Salrin</td>
+                      <td class="text-center">2/21/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -96,9 +107,29 @@
                   User Change History
                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </h6>
-                <div class="text-btn font-italic">Date</div>
+                <div class="text-btn font-italic mr-5">Date</div>
               </div>
-              <div class="card-content"></div>
+              <div class="card-content">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td style="text-align: right;width: 25%;font-weight: bold;">Kelly Salrin</td>
+                      <td>Updated email address</td>
+                      <td class="text-center" style="width: 10%;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;font-weight: bold;">John Nameistoolong. . .</td>
+                      <td>Upgraded to Pro subscription</td>
+                      <td class="text-center">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;font-weight: bold;">Jane Smithson</td>
+                      <td>Cancel Subscription</td>
+                      <td class="text-center">2/21/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
