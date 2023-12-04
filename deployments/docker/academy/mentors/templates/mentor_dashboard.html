@@ -15,7 +15,18 @@
                 <h6 class="mb-0 font-weight-bold text-base"><i class="fa fa-user-circle-o text-info" aria-hidden="true"></i> Subscription Totals</h6>
               </div>
               <div class="card-content">
-                <div class="class-box">{{ subscription.plan.schedule|markdownify|safe }}</div>
+                <div class="class-box mt-1">
+                  <div class="font-weight-bold">Basic:</div> 25 Users
+                </div>
+                <div class="class-box mt-1">
+                  <div class="font-weight-bold">Contribution:</div> 25 Users
+                </div>
+                <div class="class-box mt-1">
+                  <div class="font-weight-bold">Pro:</div> 25 Users
+                </div>
+                <div class="class-box mt-1">
+                  <div class="font-weight-bold">Premium:</div> 25 Users
+                </div>
               </div>
             </div>
           </div>
@@ -28,17 +39,21 @@
                 </h6><div>
                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </div>
-                <button class="text-btn">date</button>
+                <div class="text-btn font-italic mx-4">date</div>
               </div>
               <div class="card-content">
-                {% for video in videos %}
-                  <div class="dashboard-video-item d-flex align-items-center mb-2">
-                    <div class="video-folder-item-mark d-flex align-items-center justify-content-center">
-                      <img src="/static/images/ploygon.png" alt="" />
-                    </div>
-                    <a href="/videos/watch/{{ video.resource_key }}" class="mb-0 text-base" title="{{ video.name }}">{{ video.name }}</a>
-                  </div>
-                {% endfor %}
+                <div class="d-flex justify-content-between mt-1">
+                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
+                  <div>2/21/2022</div>
+                </div>
+                <div class="d-flex justify-content-between mt-1">
+                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
+                  <div>2/21/2022</div>
+                </div>
+                <div class="d-flex justify-content-between mt-1">
+                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
+                  <div>2/21/2022</div>
+                </div>
               </div>
             </div>
           </div>
@@ -49,64 +64,121 @@
                 <h6 class="mb-0 font-weight-bold text-base mr-3">
                   <i class="fa fa-user-plus text-info" aria-hidden="true"></i>
                   Recent Subscribed Users
-                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
+                  <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </h6>
-                <div class="text-btn">date</div>
+                <div class="text-btn font-italic px-4">date</div>
               </div>
               <div class="card-content">
-                <p class="text-base mb-2">
-                  <span class="font-weight-bold">My plan:</span> &nbsp;
-                  {{ subscription.plan.name }}
-                </p>
-                <p class="mb-0 text-base mb-2">
-                  <span class="font-weight-bold">First Name:</span> &nbsp;
-                  {{ subscription.first_name }}
-                </p>
-                <p class="mb-0 text-base mb-2">
-                  <span class="font-weight-bold">Last Name:</span> &nbsp;
-                  {{ subscription.last_name }}
-                </p>
-                <p class="text-base mb-2">
-                  <span class="font-weight-bold">Username:</span> &nbsp;
-                  {{ subscription.user }}
-                </p>
-                <p class="mb-0 text-base mb-2">
-                  <span class="font-weight-bold">Email:</span> &nbsp;
-                  {{ subscription.email }}
-                </p>
-                <div class="d-flex align-items-center justify-content-between flex-wrap mt-3">
-                  <p class="mb-0 text-base font-italic no-width">Username Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
-                  <div class="d-flex subscription-links align-items-center">
-                    <a href="/accoutning/transactions/{{ request.user.username }}" class="text-info">All My Transactions</a>
-                    <span class="text-base">|</span>
-                    <a href="/#subscriptions" class="text-info">Upgrade</a>
-                    <span class="text-base">|</span>
-                    <a class="text-info" href="/accounting/cancel">Cancel my subscription</a>
-                  </div>
-                </div>
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Basic</td>
+                      <td style=" ">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Contribution</td>
+                      <td style="">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Pro</td>
+                      <td style=" width: 80%;">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
 
           <div class="dashboard-card card">
             <div class="dashboard-card-inner">
-              <div class="dashboard-card-title">
-                <h6 class="mb-0 font-weight-bold text-base">Quick Links</h6>
+              <div class="dashboard-card-title d-flex justify-content-between">
+                <h6 class="mb-0 font-weight-bold text-base">
+                  <i class="fa fa-shield text-info" aria-hidden="true"></i> Expired Subscriptions
+                  <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
+                </h6>
+                <div class="text-btn font-italic">Expiration Date</div>
               </div>
               <div class="card-content">
-                <div class="quick-links d-flex align-items-center flex-wrap">
-                  <a href="https://github.com/issues?q=is%3Aopen+is%3Aissue+assignee%3A{{ ubscription.user.username }}+archived%3Afalse+org%3Afuchicorp">My Tickets</a>
-                  <span>|</span>
-                  <a href="https://github.com/fuchicorp">FuchiCorp Github</a>
-                  <span>|</span>
-                  <a href="https://isitup.fuchicorp.com/">Isitup</a>
-                  <span>|</span>
-                  <a href="https://github.com/fuchicorp/main/milestones?direction=asc&sort=title&state=open">Basic milestone</a>
-                  <span>|</span>
-                  <a href="https://github.com/orgs/fuchicorp/projects/52?fullscreen=true">Basic Dashboard</a>
-                  <span>|</span>
-                  <a href="/contact">Ask an Expert</a>
-                </div>
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Basic</td>
+                      <td style=" ">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Contribution</td>
+                      <td style="">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 15%;font-weight:bold;">Pro</td>
+                      <td style=" width: 80%;">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card card">
+            <div class="dashboard-card-inner">
+              <div class="dashboard-card-title d-flex justify-content-between">
+                <h6 class="mb-0 font-weight-bold text-base">
+                  <i class="fa fa-github text-info" aria-hidden="true"></i>
+                  Github Activity Tracker
+                  <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
+                </h6>
+                <div class="text-btn font-italic mx-4">date</div>
+              </div>
+              <div class="card-content">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td style="text-align: center;width: 5%;font-weight:bold;">
+                        <svg width="18" height="23" viewBox="0 0 18 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="2.75509" cy="4.37716" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                          <circle cx="2.75509" cy="19.5305" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                          <circle cx="15.2448" cy="19.1018" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                          <path d="M6.85693 3.85674L11.0355 0.516376L11.0355 7.19711L6.85693 3.85674Z" fill="#05ADA6" />
+                          <line x1="2.71436" y1="6" x2="2.71435" y2="18.3979" stroke="#05ADA6" stroke-width="2" />
+                          <path d="M15.4285 16.9287V7.50016C15.5 6.00017 14.6143 3.17161 10.5 3.85732" stroke="#05ADA6" stroke-width="2" />
+                        </svg>
+                      </td>
+                      <td style=" ">mirlanimash [fuchicorp/basic] (PR #892) feature/883</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 5%;font-weight:bold;">
+                        <svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="10.2013" cy="4.50035" r="3.25035" transform="rotate(90 10.2013 4.50035)" stroke="#04ADA6" stroke-width="2.5" />
+                          <line x1="8.40088" y1="3.9502" x2="0.000227928" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
+                          <line x1="21.0015" y1="3.9502" x2="12.6008" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
+                        </svg>
+                      </td>
+                      <td style="">fsadykov [fuchicorp/basic] (319ce3c) feature/883</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;width: 5%;font-weight:bold;">
+                        <svg width="18" height="23" viewBox="0 0 18 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="2.75509" cy="4.37716" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                          <circle cx="2.75509" cy="19.5305" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                          <circle cx="15.2448" cy="19.1018" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                          <path d="M6.85693 3.85674L11.0355 0.516376L11.0355 7.19711L6.85693 3.85674Z" fill="#05ADA6" />
+                          <line x1="2.71436" y1="6" x2="2.71435" y2="18.3979" stroke="#05ADA6" stroke-width="2" />
+                          <path d="M15.4285 16.9287V7.50016C15.5 6.00017 14.6143 3.17161 10.5 3.85732" stroke="#05ADA6" stroke-width="2" />
+                        </svg>
+                      </td>
+                      <td style=" width: 90%;">mirlanimash [fuchicorp/common_tools] (PR #936) feature/883</td>
+                      <td style="text-align: center;">2/21/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

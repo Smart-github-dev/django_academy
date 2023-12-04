@@ -30,3 +30,93 @@ def mentorDashboard(request):
     else:
         return redirect(reverse('/'))
     return render(request,'mentor_dashboard.html',locals())
+
+
+def mentorHistory(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else: 
+        return redirect(reverse('/'))
+    return render(request,'mentor_history.html',locals())
+
+def mentorPayPal(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else:
+        return redirect(reverse('/'))
+    return render(request,'mentor_paypal.html',locals())
+
+def mentorChanges(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else:
+        return redirect(reverse('/'))
+    return render(request,'mentor_changes.html',locals())
+
+def mentorUpdateUser(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else:
+        return redirect(reverse('/'))
+    return render(request,'mentor_update_user.html',locals())
+
+def mentorUserInfo(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else:
+        return redirect(reverse('/'))
+    return render(request,'mentor_userInfo.html',locals())
+
+
+def mentorUserInfoDetails(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else:
+        return redirect(reverse('/'))
+    return render(request,'mentor_userdetails.html',locals())
+
+def mentorAccessControl(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else:
+        return redirect(reverse('/'))
+    return render(request,'mentor_access_control.html',locals())
+
+
+
+def mentorManageUser(request):
+    logger.info(f"The user '{request.user.username}' login to the academy")
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        videos = get_new_videos()[0:6]
+    else:
+        return redirect(reverse('/'))
+    return render(request,'mentor_manage_user.html',locals())
+
+
+
+
+
+   

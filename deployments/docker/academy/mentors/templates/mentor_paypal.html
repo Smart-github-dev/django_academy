@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% load markdownify %}
+  {% include 'mentor_leftbar.html' %}
+
+  <div class="page-container">
+    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <div class="contents-inner">
+      <div class="dashboard-view-wrapper">
+        <div class="d-flex justify-content-between">
+          <h3 class="page-title mb-4">PayPal</h3>
+          <div class="w-50 d-flex align-items-center">
+            <input type="text" class="form-control form-control-sm" placeholder="name" id="usr" />
+            <button type="button" class="mx-4 btn btn-info btn-sm d-block">SEARCH</button>
+          </div>
+        </div>
+        <div class="dashboard-inner d-flex justify-content-between flex-wrap">
+          <div class="dashboard-card card" style="width: 100%;">
+            <div class="dashboard-card-inner">
+              <div class="dashboard-card-title d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 font-weight-bold text-base">
+                  <i class="fa fa-user-times text-info" aria-hidden="true"></i>
+                  Paypal Cancellations
+                </h6>
+              </div>
+              <div class="card-content">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr style="font-style: italic;border-bottom: .5px solid rgb(77, 77, 77);">
+                      <th style="text-align: right; width: 15%;font-weight: 10 !important;">Plan</th>
+                      <th style="font-weight: 10 !important;  width: 75%;">Username | Name | Email</th>
+                      <th style="font-weight: 10 !important;text-align: center;">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="text-align: right;width: 15%;font-weight: bold;">Basic</td>
+                      <td>[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td class="text-center">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;width: 15%;font-weight: bold;">Contribution</td>
+                      <td>[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td class="text-center">2/21/2022</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;width: 15%;font-weight: bold;">Pro</td>
+                      <td>[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
+                      <td class="text-center">2/21/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
