@@ -66,7 +66,7 @@ class ContentViewSet(viewsets.ModelViewSet):
 @csrf_exempt
 def set_github_activitys(request):
     # logger.info(f"listen event from github")
-    print(request)
+    print(request.json())
     return JsonResponse({'message': 'Success'})
     # if response.status_code == 200:
     #     data = response.json()
