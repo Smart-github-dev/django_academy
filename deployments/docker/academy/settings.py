@@ -31,7 +31,7 @@ CELERY_BEAT_SCHEDULE = {
     #     'schedule': crontab(hour='9,17', minute=0),
     # },
     # 'task-every-hour': {
-    #     'task': 'myapp.tasks.task_every_hour',
+    #     'task': 'mentors.tasks.get_github_activitys',
     #     'schedule': crontab(minute=0),
     # },
     # 'task-every-30-minutes': {
@@ -361,3 +361,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+
+
+#github project endpoints
+GITHUB_PROJECT_ACTIVITY_ENDPOINT='https://api.github.com/repos/SuperStar91031/degentown-frontend/events'
+GITHUB_ACCESS_TOKEN='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'

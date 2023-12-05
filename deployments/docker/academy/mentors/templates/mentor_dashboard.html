@@ -12,21 +12,18 @@
           <div class="dashboard-card card" style="width: 40%;">
             <div class="dashboard-card-inner">
               <div class="dashboard-card-title d-flex align-items-center">
-                <h6 class="mb-0 font-weight-bold text-base"><i class="fa fa-user-circle-o text-info" aria-hidden="true"></i> Subscription Totals</h6>
+                <h6 class="mb-0 font-weight-bold text-base">
+                  <i class="fa fa-user-circle-o text-info mx-2" aria-hidden="true"></i>
+                  Subscription Totals
+                </h6>
               </div>
               <div class="card-content pb-3">
-                <div class="class-box mt-1">
-                  <div class="font-weight-bold">Basic : </div>25 Users
-                </div>
-                <div class="class-box mt-1">
-                  <div class="font-weight-bold">Contribution : </div>25 Users
-                </div>
-                <div class="class-box mt-1">
-                  <div class="font-weight-bold">Pro : </div>25 Users
-                </div>
-                <div class="class-box mt-1">
-                  <div class="font-weight-bold">Premium : </div>25 Users
-                </div>
+                {% for plans in plans_subscription_totals %}
+                  <div class="class-box mt-1">
+                    <div class="font-weight-bold">{{ plans.name }} :</div>
+                    <div class="mx-2">{{ plans.counts }} Users</div>
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -34,25 +31,19 @@
             <div class="dashboard-card-inner">
               <div class="dashboard-card-title d-flex justify-content-between align-items-center">
                 <h6 class="mb-0 font-weight-bold text-base">
-                  <i class="fa fa-user-times text-info" aria-hidden="true"></i>
+                  <i class="fa fa-user-times text-info mx-2" aria-hidden="true"></i>
                   Paypal Cancellations
                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </h6>
                 <div class="text-btn font-italic mx-4">date</div>
               </div>
               <div class="card-content">
-                <div class="d-flex justify-content-between mt-1">
-                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
-                  <div>2/21/2022</div>
-                </div>
-                <div class="d-flex justify-content-between mt-1">
-                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
-                  <div>2/21/2022</div>
-                </div>
-                <div class="d-flex justify-content-between mt-1">
-                  <div style="font-weight: bold;font-size: 17px;">ksalrin | Kelly Salrin</div>
-                  <div>2/21/2022</div>
-                </div>
+                {% for paypal_cancellation in paypal_cancellations %}
+                  <div class="d-flex justify-content-between mt-1">
+                    <div style="font-weight: bold;font-size: 17px;">{{ paypal_cancellation.user_name }} | {{ paypal_cancellation.first_name }} {{ paypal_cancellation.last_name }}</div>
+                    <div>{{ paypal_cancellation.date }}</div>
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -61,7 +52,7 @@
             <div class="dashboard-card-inner">
               <div class="dashboard-card-title d-flex align-items-center justify-content-between">
                 <h6 class="mb-0 font-weight-bold text-base mr-3">
-                  <i class="fa fa-user-plus text-info" aria-hidden="true"></i>
+                  <i class="fa fa-user-plus text-info mx-2" aria-hidden="true"></i>
                   Recent Subscribed Users
                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </h6>
@@ -70,32 +61,23 @@
               <div class="card-content">
                 <table class="table table-borderless">
                   <tbody>
-                    <tr>
-                      <td style="text-align: center;width: 15%;font-weight:bold;">Basic</td>
-                      <td style=" ">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center;width: 15%;font-weight:bold;">Contribution</td>
-                      <td style="">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center;width: 15%;font-weight:bold;">Pro</td>
-                      <td style=" width: 80%;">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
+                    {% for subscriber in subscribed_users %}
+                      <tr>
+                        <td style="text-align: center;width: 15%;font-weight:bold;">{{ subscriber.plan_name }}</td>
+                        <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
+                        <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
+                      </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-
           <div class="dashboard-card card">
             <div class="dashboard-card-inner">
               <div class="dashboard-card-title d-flex justify-content-between">
                 <h6 class="mb-0 font-weight-bold text-base">
-                  <i class="fa fa-shield text-info" aria-hidden="true"></i> Expired Subscriptions
+                  <i class="fa fa-shield text-info mx-2" aria-hidden="true"></i> Expired Subscriptions
                   <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </h6>
                 <div class="text-btn font-italic">Expiration Date</div>
@@ -103,21 +85,13 @@
               <div class="card-content">
                 <table class="table table-borderless">
                   <tbody>
-                    <tr>
-                      <td style="text-align: center;width: 15%;font-weight:bold;">Basic</td>
-                      <td style=" ">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center;width: 15%;font-weight:bold;">Contribution</td>
-                      <td style="">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center;width: 15%;font-weight:bold;">Pro</td>
-                      <td style=" width: 80%;">[ksalrin] Kelly Salrin salrindesigngeek@gmail.com</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
+                    {% for subscriber in expired_subscriptions %}
+                      <tr>
+                        <td style="text-align: center;width: 15%;font-weight:bold;">{{ subscriber.plan_name }}</td>
+                        <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
+                        <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
+                      </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -128,54 +102,38 @@
             <div class="dashboard-card-inner">
               <div class="dashboard-card-title d-flex justify-content-between">
                 <h6 class="mb-0 font-weight-bold text-base">
-                  <i class="fa fa-github text-info" aria-hidden="true"></i>
+                  <i class="fa fa-github text-info mx-2" aria-hidden="true"></i>
                   Github Activity Tracker
-                  <a href="/mentor_userinfo"><button class="text-btn text-info">View all</button></a>
                 </h6>
-                <div class="text-btn font-italic mx-4">date</div>
+                <div class="text-btn font-italic mx-4 text-center">date</div>
               </div>
               <div class="card-content">
                 <table class="table table-borderless">
                   <tbody>
-                    <tr>
-                      <td style="text-align: center;width: 5%;font-weight:bold;">
-                        <svg width="18" height="23" viewBox="0 0 18 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="2.75509" cy="4.37716" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                          <circle cx="2.75509" cy="19.5305" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                          <circle cx="15.2448" cy="19.1018" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                          <path d="M6.85693 3.85674L11.0355 0.516376L11.0355 7.19711L6.85693 3.85674Z" fill="#05ADA6" />
-                          <line x1="2.71436" y1="6" x2="2.71435" y2="18.3979" stroke="#05ADA6" stroke-width="2" />
-                          <path d="M15.4285 16.9287V7.50016C15.5 6.00017 14.6143 3.17161 10.5 3.85732" stroke="#05ADA6" stroke-width="2" />
-                        </svg>
-                      </td>
-                      <td style=" ">mirlanimash [fuchicorp/basic] (PR #892) feature/883</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center;width: 5%;font-weight:bold;">
-                        <svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="10.2013" cy="4.50035" r="3.25035" transform="rotate(90 10.2013 4.50035)" stroke="#04ADA6" stroke-width="2.5" />
-                          <line x1="8.40088" y1="3.9502" x2="0.000227928" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
-                          <line x1="21.0015" y1="3.9502" x2="12.6008" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
-                        </svg>
-                      </td>
-                      <td style="">fsadykov [fuchicorp/basic] (319ce3c) feature/883</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center;width: 5%;font-weight:bold;">
-                        <svg width="18" height="23" viewBox="0 0 18 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="2.75509" cy="4.37716" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                          <circle cx="2.75509" cy="19.5305" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                          <circle cx="15.2448" cy="19.1018" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                          <path d="M6.85693 3.85674L11.0355 0.516376L11.0355 7.19711L6.85693 3.85674Z" fill="#05ADA6" />
-                          <line x1="2.71436" y1="6" x2="2.71435" y2="18.3979" stroke="#05ADA6" stroke-width="2" />
-                          <path d="M15.4285 16.9287V7.50016C15.5 6.00017 14.6143 3.17161 10.5 3.85732" stroke="#05ADA6" stroke-width="2" />
-                        </svg>
-                      </td>
-                      <td style=" width: 90%;">mirlanimash [fuchicorp/common_tools] (PR #936) feature/883</td>
-                      <td style="text-align: center;">2/21/2022</td>
-                    </tr>
+                    {% for event in github_activity_trakers %}
+                      <tr>
+                        <td style="width: 1%;font-weight:bold;">
+                          {% if event.event_type == 'PushEvent' %}
+                            <svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="10.2013" cy="4.50035" r="3.25035" transform="rotate(90 10.2013 4.50035)" stroke="#04ADA6" stroke-width="2.5" />
+                              <line x1="8.40088" y1="3.9502" x2="0.000227928" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
+                              <line x1="21.0015" y1="3.9502" x2="12.6008" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
+                            </svg>
+                          {% else %}
+                            <svg width="18" height="23" viewBox="0 0 18 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="2.75509" cy="4.37716" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                              <circle cx="2.75509" cy="19.5305" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                              <circle cx="15.2448" cy="19.1018" r="1.75509" stroke="#05ADA6" stroke-width="2" />
+                              <path d="M6.85693 3.85674L11.0355 0.516376L11.0355 7.19711L6.85693 3.85674Z" fill="#05ADA6" />
+                              <line x1="2.71436" y1="6" x2="2.71435" y2="18.3979" stroke="#05ADA6" stroke-width="2" />
+                              <path d="M15.4285 16.9287V7.50016C15.5 6.00017 14.6143 3.17161 10.5 3.85732" stroke="#05ADA6" stroke-width="2" />
+                            </svg>
+                          {% endif %}
+                        </td>
+                        <td style=" ">{{ event.user_name }} [{{ event.repo_name }}] ({{ event.event_id }})</td>
+                        <td style="text-align: center;width: 10%;">{{ event.created_date }}</td>
+                      </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>

@@ -189,9 +189,14 @@ class FrontEndMessage():
         self.now                = timezone.now()
         return self.expire <= self.now
 
-
-
-
+class GitHubActivitys(models.Model):
+    event_id                = models.CharField(max_length=20)
+    event_type              = models.CharField(max_length=20)
+    user_name               = models.CharField(max_length=20)
+    repo_name               = models.CharField(max_length=20)
+    created_date            = models.DateTimeField(blank=True, null=True, help_text="HH:MM:SS DD Mmm YY, YYYY PST")
+    def __str__(self):
+            return  self.event_id
 
 from main.models import FrontEndMessage
 message = FrontEndMessage('Hello World')

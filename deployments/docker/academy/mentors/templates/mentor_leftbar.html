@@ -1,13 +1,13 @@
 <div id="left_menu" class="left-menu">
     <div class="left-side" id="open_left">
-  
+
       <!-- Two buttoms controlling the left bar to open and close -->
-      <a href="javascript:void(0)" class="closebtn" id='closebtn' onclick="closeNav()">
+      <a href="javascript:void(0)" class="closebtn" id="closebtn" onclick="closeNav()">
         <i class="fa fa-times" aria-hidden="true"></i>
       </a>
-  
+
       <!-- <span style="font-size:30px;cursor:pointer;" id="openbnt"  onclick="openNav()">&#9776;</span> -->
-  
+
       <!-- User logo and first and last name  -->
       <div class="user-info" id="user-info">
         <a href="/profile/{{ user.username }}" class="d-block">
@@ -16,9 +16,9 @@
         <h2 class="text-center font-weight-bold">{{ subscription.first_name }} {{ subscription.last_name }}</h2>
         <p class="text-center font-weight-bold mb-0 txt-uppercase">{{ subscription.plan.name }}</p>
       </div>
-  
+
       <!-- User options which is forwarding to some urls -->
-      <ul id="user-options" class='dropdown'>
+      <ul id="user-options" class="dropdown">
         {% comment %} <li><a href="/videos/folders" class="font-weight-bold">
             <span class="svg-icon icon-video">
               <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,12 +28,8 @@
               </svg>
             </span>Videos</a>
         </li> {% endcomment %}
-     
-        {% if request.path == '/mentors/dashboard' %}
-          <li style="background-color:#b1ffe9">
-        {% else %}
-          <li>
-        {% endif %}
+        
+        <li style="{% if request.path == '/mentors/dashboard' %}background-color:#b1ffe9{% else %}{% endif %}">
           <a href="/mentors/dashboard" class="font-weight-bold">
             <span class="svg-icon icon-dashboard">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,69 +44,38 @@
                   stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>Dashboard</a>
-        </li>  
-
-      {% if request.path == '/mentors/history' %}
-        <li style="background-color:#b1ffe9">
-      {% else %}
-        <li>
-      {% endif %}
+        </li>
+        <li style="{% if request.path == '/mentors/history' %}background-color:#b1ffe9{% else %} {% endif %}">
           <a href="/mentors/history" class="font-weight-bold">
             <i class="fa fa-file-text" aria-hidden="true"></i>
-            </span>History</a>
-        </li>  
-      {% if request.path == '/mentors/paypal' %}
-        <li style="background-color:#b1ffe9">
-      {% else %}
-        <li>
-      {% endif %}
+            History</a>
+        </li>
+        <li style="{% if request.path == '/mentors/paypal' %}background-color:#b1ffe9{% else %}{% endif %}">
           <a href="/mentors/paypal" class="side-bar-sub-link">
-          </span>Paypal</a>
-        </li>      
-      {% if request.path == '/mentors/mentor_changes' %}
-        <li style="background-color:#b1ffe9">
-      {% else %}
-        <li>
-      {% endif %}
+          Paypal</a>
+        </li>
+        <li style="{% if request.path == '/mentors/mentor_changes' %}background-color:#b1ffe9{% else %}{%endif%}">
           <a href="/mentors/mentor_changes" class="side-bar-sub-link">
-          </span>Mentor Changes</a>
-        </li> 
-      {% if request.path == '/mentors/update_user' %}
-        <li style="background-color:#b1ffe9">
-      {% else %}
-        <li>
-      {% endif %}
+          Mentor Changes</a>
+        </li>
+        <li style="{% if request.path == '/mentors/update_user' %}background-color:#b1ffe9{%else%}{% endif %}">
           <a href="/mentors/update_user" class="side-bar-sub-link">
-          </span>User Updates</a>
-        </li> 
-
-      {% if request.path == '/mentors/manage_user' %}
-        <li style="background-color:#b1ffe9">
-      {% else %}
-        <li>
-      {% endif %}
+          User Updates</a>
+        </li>
+        <li style="{% if request.path == '/mentors/manage_user' %}background-color:#b1ffe9{% else %}{% endif %}">
           <a href="/mentors/manage_user" class="font-weight-bold">
             <i class="fa fa-users" aria-hidden="true"></i>
-            </span>Mange Users</a>
-        </li>  
-      {% if request.path == '/mentors/user_infos' %}
-        <li style="background-color:#b1ffe9">
-      {% else %}
-        <li>
-      {% endif %}
+            Mange Users</a>
+        </li>
+        <li style="{% if request.path == '/mentors/user_infos' %}background-color:#b1ffe9{% else %}{% endif %}">
           <a href="/mentors/user_infos" class="side-bar-sub-link">
-          </span>Users info</a>
-        </li>      
-      {% if request.path == '/mentors/access_control' %}
-        <li style="background-color:#b1ffe9">
-      {% else %}
-        <li>
-      {% endif %}
+          Users info</a>
+        </li>
+        <li style="{% if request.path == '/mentors/access_control' %}background-color:#b1ffe9{% else %}{% endif %}">
           <a href="/mentors/access_control" class="side-bar-sub-link">
-          </span>Access Control</a>
-        </li> 
+          Access Control</a>
+        </li>
       </ul>
       <a href="/#subscriptions"><button class="btn text-white bg-info mx-auto d-block">SWITCH</button></a>
     </div>
   </div>
-  
