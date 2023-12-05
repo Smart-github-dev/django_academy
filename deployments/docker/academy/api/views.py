@@ -8,6 +8,9 @@ from .serializers import PlansSerializer, SubscriberSerializer, ContentSerialize
 from django.utils import timezone
 from messenger import get_messenger
 from main.models import GitHubActivitys
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
 
 class JsonViewSet(viewsets.ModelViewSet):
     queryset = JsonStore.objects.all()
@@ -60,11 +63,11 @@ class ContentViewSet(viewsets.ModelViewSet):
     serializer_class = ContentSerializer
 
 
-
+@csrf_exempt
 def set_github_activitys(request):
     # logger.info(f"listen event from github")
-    print("request")
-    return ""
+    print(request)
+    return JsonResponse({'message': 'Success'})
     # if response.status_code == 200:
     #     data = response.json()
     #     for event in data:
