@@ -76,7 +76,7 @@ def set_github_activitys(request):
 
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data.commits)
+        print(data['commits'])
         return HttpResponse(status=200)  # Return a 200 OK response
     else:
         return HttpResponse(status=405)  
