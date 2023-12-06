@@ -18,6 +18,7 @@ from common import get_common_variables, send_message
 from collections import namedtuple
 from django.contrib import messages
 import logging
+import json
 
 
 logger = logging.getLogger(__name__)
@@ -174,15 +175,17 @@ def get_paypal_cancellations():
 
 def get_github_activitys():
     github_activitys = []
-    new_activitys=namedtuple("activitys",['event_id','event_type','user_name','repo_name','created_date'])
+    new_activitys=namedtuple("activitys",['commit_id','distinct','tree_id','message','created_date','committer'])
     for ativity in GitHubActivitys.objects.all()[:4]:
+        commiter=json.loads(ativity.committer)
         github_activitys.append(
             new_activitys(
-                event_id=ativity.event_id,
-                event_type=ativity.event_type,
-                user_name=ativity.user_name,
-                repo_name=ativity.repo_name,
-                created_date=ativity.created_date.strftime('%d/%m/%Y')
+                commit_id=ativity.commit_id,
+                distinct=ativity.distinct,
+                tree_id=ativity.tree_id,
+                message=ativity.message,
+                created_date=ativity.created_date.strftime('%d/%m/%Y'),
+                committer=commiter
             )
         )
     return github_activitys

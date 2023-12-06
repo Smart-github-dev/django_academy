@@ -73,11 +73,11 @@ class ContentViewSet(viewsets.ModelViewSet):
 @require_POST
 @csrf_exempt
 def set_github_activitys(request):
-
     if request.method == 'POST':
         data = json.loads(request.body)
         for commit in data['commits']:
-    
+            print(commit['id'])
+            print('\n')
             eventdata={
                 'commit_id':commit['id'], 
                 'distinct':commit['distinct'], 
@@ -96,9 +96,4 @@ def set_github_activitys(request):
         return HttpResponse(status=200)  # Return a 200 OK response
     else:
         return HttpResponse(status=405)  
-    
-    # logger.info(f"listen event from github")
-    # if response.status_code == 200:
-    #     data = response.json()
-    #     for event in data:
 
