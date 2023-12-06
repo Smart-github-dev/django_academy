@@ -73,10 +73,9 @@ class ContentViewSet(viewsets.ModelViewSet):
 @require_POST
 @csrf_exempt
 def set_github_activitys(request):
-
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data)
+        print(data.commits)
         return HttpResponse(status=200)  # Return a 200 OK response
     else:
         return HttpResponse(status=405)  
