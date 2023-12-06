@@ -146,8 +146,10 @@ INSTALLED_APPS = [
     'videos',
     'info',
     'ai',
-    'corsheaders'
+    'corsheaders',
 ]
+
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://91.218.183.231:8000",  # Example: React development server

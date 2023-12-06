@@ -15,5 +15,5 @@ router.register(r'contents', ContentViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('docs/', include_docs_urls(title='Academy api documentation!!')),
-    path('set_activity',views.set_github_activitys)
+    path('set_activity',views.set_github_activitys,name='github_webhook_hander')
 ]

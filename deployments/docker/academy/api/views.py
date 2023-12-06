@@ -10,6 +10,7 @@ from messenger import get_messenger
 from main.models import GitHubActivitys
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.http import HttpResponse
 
 
 class JsonViewSet(viewsets.ModelViewSet):
@@ -65,9 +66,9 @@ class ContentViewSet(viewsets.ModelViewSet):
 
 @csrf_exempt
 def set_github_activitys(request):
-    # logger.info(f"listen event from github")
-    print(request.json())
-    return JsonResponse({'message': 'Success'})
+    print(f'Received GitHub webhook for event type: ')
+    print(f'Payload: ')
+    return HttpResponse(status=200)
     # if response.status_code == 200:
     #     data = response.json()
     #     for event in data:
