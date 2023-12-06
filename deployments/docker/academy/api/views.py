@@ -8,7 +8,7 @@ from .serializers import PlansSerializer, SubscriberSerializer, ContentSerialize
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseForbidden, HttpResponseServerError
+from django.http import HttpResponse
 
 from messenger import get_messenger
 
