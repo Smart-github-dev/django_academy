@@ -76,14 +76,10 @@ def set_github_activitys(request):
     if request.method == 'POST':
         event_type = request.headers.get('X-GitHub-Event')
         data = json.loads(request.body)
-        eventdata={
-            'event_type' : event_type ,
-            'username'   : data['sender']['login'], 
-            'url':data['repository']['full_name'], 
-            'created_at':data['repository']['updated_at'],
-            'evnet_content':data
-        }
-        GitHubActivitys.objects.create(eventdata)
+
+        newActivity=GitHubActivitys(event_type=event_type, username=data['sender']['login'],url=data['repository']['full_name'],created_at=data['repository']['updated_at'], evnet_content=request.body)
+        newActivity.save()
+        
         return HttpResponse(status=200)
         if event_type == 'ping':
             return 'pong'
