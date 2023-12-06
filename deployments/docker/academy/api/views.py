@@ -9,6 +9,8 @@ from django.utils import timezone
 from messenger import get_messenger
 from main.models import GitHubActivitys
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
 from django.http import JsonResponse
 from django.http import HttpResponse
 
@@ -63,11 +65,13 @@ class ContentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = ContentSerializer
 
-
+@require_POST
 @csrf_exempt
-def set_github_activitys(request):
+def set_github_activitys(requests):
     print(f'Received GitHub webhook for event type: ')
     print(f'Payload: ')
+    whitelist = requests.get('https://api.github.com/meta').json()['hooks']
+
     return HttpResponse(status=200)
     # if response.status_code == 200:
     #     data = response.json()
