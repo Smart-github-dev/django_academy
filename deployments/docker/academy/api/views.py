@@ -6,6 +6,10 @@ from accounting.models import Plans, Subscriber, Content
 from django.contrib.auth.models import User
 from .serializers import PlansSerializer, SubscriberSerializer, ContentSerializer
 from django.utils import timezone
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseServerError
+
 from messenger import get_messenger
 
 class JsonViewSet(viewsets.ModelViewSet):
@@ -57,3 +61,22 @@ class ContentViewSet(viewsets.ModelViewSet):
     queryset = Content.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = ContentSerializer
+
+@require_POST
+@csrf_exempt
+def set_github_activitys(request):
+    # logger.info(f"listen event from github")
+    print(request)
+    return HttpResponse(status=200)
+    # if response.status_code == 200:
+    #     data = response.json()
+    #     for event in data:
+    #         eventdata={
+    #             'event_id':event['id'], 
+    #             'event_type':event['type'], 
+    #             'user_name':event['actor']['login'],
+    #             'repo_name':event['repo']['name'],
+    #             'created_date':event['created_at']
+    #         }
+    #         if not GitHubActivitys.objects.filter(event_id=event['id']).exists():
+    #             GitHubActivitys.objects.create(**eventdata)

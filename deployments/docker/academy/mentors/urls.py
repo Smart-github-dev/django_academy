@@ -11,6 +11,5 @@ urlpatterns = [
     path("user_infos",views.mentor_user_info,name="mentor_user_infos"),
     path("user_infos/details",views.mentor_user_info_details,name="mentor_user_details"),
     path("access_control",views.mentor_access_control,name="mentor_access_control"),
-    path("manage_user",views.mentor_manage_user,name="mentor_manage_user"),
-    path("api/git_activitys",views.set_github_activitys)
+    path("manage_user",views.mentor_manage_user,name="mentor_manage_user")
 ]

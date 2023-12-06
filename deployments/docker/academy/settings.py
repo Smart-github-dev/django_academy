@@ -145,7 +145,15 @@ INSTALLED_APPS = [
     'mentors',
     'videos',
     'info',
-    'ai'
+    'ai',
+]
+
+# GITHUB_WEBHOOK_SECRET = 'academy_secret_123'  # Replace with your secret
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://91.218.183.231:8000",  # Example: React development server
+    "https://api.github.com",
 ]
 
 MIDDLEWARE = [

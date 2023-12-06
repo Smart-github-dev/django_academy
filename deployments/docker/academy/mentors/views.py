@@ -187,22 +187,6 @@ def get_github_activitys():
         )
     return github_activitys
 
-def set_github_activitys(request):
-    logger.info(f"listen event from github")
-    print(request)
-    # if response.status_code == 200:
-    #     data = response.json()
-    #     for event in data:
-    #         eventdata={
-    #             'event_id':event['id'], 
-    #             'event_type':event['type'], 
-    #             'user_name':event['actor']['login'],
-    #             'repo_name':event['repo']['name'],
-    #             'created_date':event['created_at']
-    #         }
-    #         if not GitHubActivitys.objects.filter(event_id=event['id']).exists():
-    #             GitHubActivitys.objects.create(**eventdata)
-
-
+ 
         
  
