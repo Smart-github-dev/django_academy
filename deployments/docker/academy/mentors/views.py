@@ -183,7 +183,7 @@ def get_github_activitys():
                 event_type=activity.event_type,
                 username=activity.username,
                 url=activity.url,
-                created_at=activity.created_at
+                created_at=activity.created_at.strftime('%d/%m/%Y')
             )
         )
     return github_activitys
