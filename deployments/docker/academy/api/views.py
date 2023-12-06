@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+import json
 
 from messenger import get_messenger
 
@@ -65,9 +66,15 @@ class ContentViewSet(viewsets.ModelViewSet):
 @require_POST
 @csrf_exempt
 def set_github_activitys(request):
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data)
+        return HttpResponse(status=200)  # Return a 200 OK response
+    else:
+        return HttpResponse(status=405)  
+    
     # logger.info(f"listen event from github")
-    print(request)
-    return HttpResponse(status=200)
     # if response.status_code == 200:
     #     data = response.json()
     #     for event in data:
