@@ -74,26 +74,63 @@ class ContentViewSet(viewsets.ModelViewSet):
 @csrf_exempt
 def set_github_activitys(request):
     if request.method == 'POST':
+        event_type = request.headers.get('X-GitHub-Event')
         data = json.loads(request.body)
-        for commit in data['commits']:
-            print(commit['id'])
-            print('\n')
+        eventdata={
+            'event_type' : event_type ,
+            'username'   : data['sender']['login'], 
+            'url':data['repository']['full_name'], 
+            'created_at':data['repository']['updated_at'],
+            'evnet_content':data
+        }
+        GitHubActivitys.objects.create(eventdata)
+        return HttpResponse(status=200)
+        if event_type == 'ping':
+            return 'pong'
+        elif event_type=='member':
+            data = json.loads(request.body)
             eventdata={
-                'commit_id':commit['id'], 
-                'distinct':commit['distinct'], 
-                'tree_id':commit['tree_id'],
-                'message':commit['message'],
-                'author':commit['author'],
-                'created_date':commit['timestamp'],
-                'url':commit['url'],
-                'committer':commit['committer'],
-                "added":commit['added'],
-                'removed':commit['removed'],
-                'modified':commit['modified']
+                'event_type' : event_type ,
+                'username'   : data['sender']['login'], 
+                'url':data['repository']['full_name'], 
+                'created_at':data['repository']['updated_at'],
+                'evnet_content':data
             }
-            if not GitHubActivitys.objects.filter(commit_id=commit['id']).exists():
-                GitHubActivitys.objects.create(**eventdata)
-        return HttpResponse(status=200)  # Return a 200 OK response
-    else:
-        return HttpResponse(status=405)  
+            GitHubActivitys.objects.create(eventdata)
+            return HttpResponse(status=200)
+        elif event_type == 'push':
+            data = json.loads(request.body)
+            eventdata={
+                'event_type' : event_type ,
+                'username'   : data['sender']['login'], 
+                'url':data['repository']['full_name'], 
+                'created_at':data['repository']['updated_at'],
+                'evnet_content':data
+            }
+            GitHubActivitys.objects.create(eventdata)
+            return HttpResponse(status=200)   
+        elif event_type == 'pull_request':
+            data = json.loads(request.body)
+            eventdata={
+                'event_type' : event_type ,
+                'username'   : data['sender']['login'], 
+                'url':data['repository']['full_name'], 
+                'created_at':data['repository']['updated_at'],
+                'evnet_content':data
+            }
+            GitHubActivitys.objects.create(eventdata)
+            return HttpResponse(status=200)
+        elif event_type == 'issues':
+            data = json.loads(request.body)
+            eventdata={
+                'event_type' : event_type ,
+                'username'   : data['sender']['login'], 
+                'url':data['repository']['full_name'], 
+                'created_at':data['repository']['updated_at'],
+                'evnet_content':data
+            }
+            GitHubActivitys.objects.create(eventdata)
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=405)  
 

@@ -190,19 +190,13 @@ class FrontEndMessage():
         return self.expire <= self.now
 
 class GitHubActivitys(models.Model):
-    commit_id               = models.CharField(max_length=20)
-    distinct                = models.CharField(max_length=20)
-    tree_id                 = models.CharField(max_length=20)
+    event_type              = models.CharField(max_length=20)
+    username                = models.CharField(max_length=20)
     url                     = models.CharField(max_length=20)
-    message                 = models.TextField(max_length=200,  blank=True, validators=[MaxLengthValidator(200)])
-    author                  = models.TextField(max_length=1750, blank=True, validators=[MaxLengthValidator(1750)])
-    committer               = models.TextField(max_length=1750, blank=True, validators=[MaxLengthValidator(1750)])
-    added                   = models.TextField(max_length=1750, blank=True, validators=[MaxLengthValidator(1750)])
-    removed                 = models.TextField(max_length=1750, blank=True, validators=[MaxLengthValidator(1750)])
-    modified                = models.TextField(max_length=1750, blank=True, validators=[MaxLengthValidator(1750)])
-    created_date            = models.DateTimeField(blank=True, null=True, help_text="HH:MM:SS DD Mmm YY, YYYY PST")
+    created_at              = models.CharField(max_length=20)
+    evnet_content           = models.TextField(max_length=15750, blank=True, validators=[MaxLengthValidator(15750)])
     def __str__(self):
-            return  self.commit_id
+        return  self.commit_id
 
 from main.models import FrontEndMessage
 message = FrontEndMessage('Hello World')
