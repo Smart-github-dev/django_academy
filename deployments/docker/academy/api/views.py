@@ -6,6 +6,11 @@ from accounting.models import Plans, Subscriber, Content
 from django.contrib.auth.models import User
 from .serializers import PlansSerializer, SubscriberSerializer, ContentSerializer
 from django.utils import timezone
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+import json
+
 from messenger import get_messenger
 from main.models import GitHubActivitys
 from django.views.decorators.csrf import csrf_exempt
@@ -67,12 +72,16 @@ class ContentViewSet(viewsets.ModelViewSet):
 
 @require_POST
 @csrf_exempt
-def set_github_activitys(requests):
-    print(f'Received GitHub webhook for event type: ')
-    print(f'Payload: ')
-    whitelist = requests.get('https://api.github.com/meta').json()['hooks']
+def set_github_activitys(request):
 
-    return HttpResponse(status=200)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data)
+        return HttpResponse(status=200)  # Return a 200 OK response
+    else:
+        return HttpResponse(status=405)  
+    
+    # logger.info(f"listen event from github")
     # if response.status_code == 200:
     #     data = response.json()
     #     for event in data:

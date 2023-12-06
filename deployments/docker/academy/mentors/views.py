@@ -187,7 +187,6 @@ def get_github_activitys():
         )
     return github_activitys
 
-
-
+ 
         
  
