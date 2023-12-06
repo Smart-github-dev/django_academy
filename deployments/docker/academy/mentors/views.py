@@ -176,16 +176,17 @@ def get_paypal_cancellations():
 def get_github_activitys():
     github_activitys = []
     new_activitys=namedtuple("activitys",['commit_id','distinct','tree_id','message','created_date','committer'])
-    for ativity in GitHubActivitys.objects.all()[:4]:
-        commiter=json.loads(ativity.committer)
+    for activity in GitHubActivitys.objects.all()[:4]:
+        committer=json.loads(activity.committer.replace("'", '"'))
+
         github_activitys.append(
             new_activitys(
-                commit_id=ativity.commit_id,
-                distinct=ativity.distinct,
-                tree_id=ativity.tree_id,
-                message=ativity.message,
-                created_date=ativity.created_date.strftime('%d/%m/%Y'),
-                committer=commiter
+                commit_id=activity.commit_id[:5]+'...',
+                distinct=activity.distinct,
+                tree_id=activity.tree_id,
+                message=activity.message,
+                created_date=activity.created_date.strftime('%d/%m/%Y'),
+                committer=committer
             )
         )
     return github_activitys
