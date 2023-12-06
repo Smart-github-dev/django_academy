@@ -77,7 +77,22 @@ def set_github_activitys(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         for commit in data['commits']:
-            print(commit)
+    
+            eventdata={
+                'commit_id':commit['id'], 
+                'distinct':commit['distinct'], 
+                'tree_id':commit['tree_id'],
+                'message':commit['message'],
+                'author':commit['author'],
+                'created_date':commit['timestamp'],
+                'url':commit['url'],
+                'committer':commit['committer'],
+                "added":commit['added'],
+                'removed':commit['removed'],
+                'modified':commit['modified']
+            }
+            if not GitHubActivitys.objects.filter(commit_id=commit['id']).exists():
+                GitHubActivitys.objects.create(**eventdata)
         return HttpResponse(status=200)  # Return a 200 OK response
     else:
         return HttpResponse(status=405)  
@@ -86,12 +101,4 @@ def set_github_activitys(request):
     # if response.status_code == 200:
     #     data = response.json()
     #     for event in data:
-    #         eventdata={
-    #             'event_id':event['id'], 
-    #             'event_type':event['type'], 
-    #             'user_name':event['actor']['login'],
-    #             'repo_name':event['repo']['name'],
-    #             'created_date':event['created_at']
-    #         }
-    #         if not GitHubActivitys.objects.filter(event_id=event['id']).exists():
-    #             GitHubActivitys.objects.create(**eventdata)
+
