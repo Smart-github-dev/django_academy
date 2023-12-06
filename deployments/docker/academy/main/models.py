@@ -204,8 +204,6 @@ class GitHubActivitys(models.Model):
     def __str__(self):
             return  self.commit_id
 
-
-
 from main.models import FrontEndMessage
 message = FrontEndMessage('Hello World')
 message.is_expired()
