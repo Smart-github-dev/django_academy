@@ -12,6 +12,13 @@ from django.http import HttpResponse
 import json
 
 from messenger import get_messenger
+from main.models import GitHubActivitys
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
+from django.http import JsonResponse
+from django.http import HttpResponse
+
 
 class JsonViewSet(viewsets.ModelViewSet):
     queryset = JsonStore.objects.all()

@@ -146,10 +146,9 @@ INSTALLED_APPS = [
     'videos',
     'info',
     'ai',
-    'corsheaders'
+    'corsheaders',
 ]
 
-# GITHUB_WEBHOOK_SECRET = 'academy_secret_123'  # Replace with your secret
 
 
 CORS_ALLOWED_ORIGINS = [
