@@ -36,6 +36,6 @@ urlpatterns = [
     path('api/', include(api_urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('mentors/', include('mentors.urls'))
-]
+] 
 
 init_script()
