@@ -146,6 +146,7 @@ INSTALLED_APPS = [
     'videos',
     'info',
     'ai',
+    'corsheaders'
 ]
 
 # GITHUB_WEBHOOK_SECRET = 'academy_secret_123'  # Replace with your secret
@@ -165,6 +166,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'urls'
