@@ -517,13 +517,11 @@ a {
 }
 
 .form-control {
-	padding: 10px 15px !important;
 	font-size: 17px;
-	color: #A2A3A5;
+	color: #000000;
 	border: 1px solid #C4C4C4;
 	border-radius: 12px;
 	height: 40px;
-	min-width: 200px;
 }
 
 input.form-control {
@@ -534,6 +532,15 @@ input.form-control {
 .form-group label {
 	font-size: 20px;
 	margin-bottom: 15px;
+}
+
+
+@media screen and (max-width: 576px) {
+	.form-control{
+		padding: 6px 10x !important;
+		font-size: 13px;
+		height: 35px;
+	}
 }
 
 
@@ -619,6 +626,11 @@ input.form-control {
 
 	.left-side .closebtn {
 		display: block;
+	}
+
+
+	.custom-switch {
+		transform: scale(1) !important;
 	}
 
 }

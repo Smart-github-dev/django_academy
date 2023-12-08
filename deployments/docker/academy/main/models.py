@@ -196,7 +196,7 @@ class GitHubActivitys(models.Model):
     created_at              = models.DateTimeField(blank=True, null=True, help_text="HH:MM:SS DD Mmm YY, YYYY PST")
     evnet_content           = models.TextField(max_length=15750, blank=True, validators=[MaxLengthValidator(15750)])
     def __str__(self):
-        return  self.commit_id
+        return  self.event_type
 
 from main.models import FrontEndMessage
 message = FrontEndMessage('Hello World')

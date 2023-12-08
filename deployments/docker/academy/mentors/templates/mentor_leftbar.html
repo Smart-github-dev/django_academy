@@ -1,81 +1,60 @@
 <div id="left_menu" class="left-menu">
-    <div class="left-side" id="open_left">
+  <div class="left-side" id="open_left">
+    <!-- Two buttoms controlling the left bar to open and close -->
+    <a href="javascript:void(0)" class="closebtn" id="closebtn" onclick="closeNav()"><i class="fa fa-times" aria-hidden="true"></i></a>
 
-      <!-- Two buttoms controlling the left bar to open and close -->
-      <a href="javascript:void(0)" class="closebtn" id="closebtn" onclick="closeNav()">
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </a>
+    <!-- <span style="font-size:30px;cursor:pointer;" id="openbnt" onclick="openNav()">&#9776;</span> -->
 
-      <!-- <span style="font-size:30px;cursor:pointer;" id="openbnt"  onclick="openNav()">&#9776;</span> -->
-
-      <!-- User logo and first and last name  -->
-      <div class="user-info" id="user-info">
-        <a href="/profile/{{ user.username }}" class="d-block">
-          <img src="/static/images/user-avatar-1.png" class="d-block mx-auto" alt="user-avatar" />
-        </a>
-        <h2 class="text-center font-weight-bold">{{ subscription.first_name }} {{ subscription.last_name }}</h2>
-        <p class="text-center font-weight-bold mb-0 txt-uppercase">{{ subscription.plan.name }}</p>
-      </div>
-
-      <!-- User options which is forwarding to some urls -->
-      <ul id="user-options" class="dropdown">
-        {% comment %} <li><a href="/videos/folders" class="font-weight-bold">
-            <span class="svg-icon icon-video">
-              <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M14 6L18.553 3.724C18.7054 3.64784 18.8748 3.61188 19.045 3.61955C19.2152 3.62721 19.3806 3.67825 19.5256 3.76781C19.6706 3.85736 19.7902 3.98248 19.8733 4.13127C19.9563 4.28007 19.9999 4.44761 20 4.618V11.382C19.9999 11.5524 19.9563 11.7199 19.8733 11.8687C19.7902 12.0175 19.6706 12.1426 19.5256 12.2322C19.3806 12.3218 19.2152 12.3728 19.045 12.3805C18.8748 12.3881 18.7054 12.3522 18.553 12.276L14 10V6ZM4 14H12C12.5304 14 13.0391 13.7893 13.4142 13.4142C13.7893 13.0391 14 12.5304 14 12V4C14 3.46957 13.7893 2.96086 13.4142 2.58579C13.0391 2.21071 12.5304 2 12 2H4C3.46957 2 2.96086 2.21071 2.58579 2.58579C2.21071 2.96086 2 3.46957 2 4V12C2 12.5304 2.21071 13.0391 2.58579 13.4142C2.96086 13.7893 3.46957 14 4 14Z"
-                  stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>Videos</a>
-        </li> {% endcomment %}
-        
-        <li style="{% if request.path == '/mentors/dashboard' %}background-color:#b1ffe9{% else %}{% endif %}">
-          <a href="/mentors/dashboard" class="font-weight-bold">
-            <span class="svg-icon icon-dashboard">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M2.29289 2.29289C2.10536 2.48043 2 2.73478 2 3V5C2 5.26522 2.10536 5.51957 2.29289 5.70711C2.48043 5.89464 2.73478 6 3 6H17C17.2652 6 17.5196 5.89464 17.7071 5.70711C17.8946 5.51957 18 5.26522 18 5V3C18 2.73478 17.8946 2.48043 17.7071 2.29289C17.5196 2.10536 17.2652 2 17 2H3C2.73478 2 2.48043 2.10536 2.29289 2.29289Z"
-                  stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-                <path
-                  d="M2.29289 10.2929C2.10536 10.4804 2 10.7348 2 11V17C2 17.2652 2.10536 17.5196 2.29289 17.7071C2.48043 17.8946 2.73478 18 3 18H9C9.26522 18 9.51957 17.8946 9.70711 17.7071C9.89464 17.5196 10 17.2652 10 17V11C10 10.7348 9.89464 10.4804 9.70711 10.2929C9.51957 10.1054 9.26522 10 9 10H3C2.73478 10 2.48043 10.1054 2.29289 10.2929Z"
-                  stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-                <path
-                  d="M14.2929 10.2929C14.1054 10.4804 14 10.7348 14 11V17C14 17.2652 14.1054 17.5196 14.2929 17.7071C14.4804 17.8946 14.7348 18 15 18H17C17.2652 18 17.5196 17.8946 17.7071 17.7071C17.8946 17.5196 18 17.2652 18 17V11C18 10.7348 17.8946 10.4804 17.7071 10.2929C17.5196 10.1054 17.2652 10 17 10H15C14.7348 10 14.4804 10.1054 14.2929 10.2929Z"
-                  stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>Dashboard</a>
-        </li>
-        <li style="{% if request.path == '/mentors/history' %}background-color:#b1ffe9{% else %} {% endif %}">
-          <a href="/mentors/history" class="font-weight-bold">
-            <i class="fa fa-file-text" aria-hidden="true"></i>
-            History</a>
-        </li>
-        <li style="{% if request.path == '/mentors/paypal' %}background-color:#b1ffe9{% else %}{% endif %}">
-          <a href="/mentors/paypal" class="side-bar-sub-link">
-          Paypal</a>
-        </li>
-        <li style="{% if request.path == '/mentors/mentor_changes' %}background-color:#b1ffe9{% else %}{%endif%}">
-          <a href="/mentors/mentor_changes" class="side-bar-sub-link">
-          Mentor Changes</a>
-        </li>
-        <li style="{% if request.path == '/mentors/update_user' %}background-color:#b1ffe9{%else%}{% endif %}">
-          <a href="/mentors/update_user" class="side-bar-sub-link">
-          User Updates</a>
-        </li>
-        <li style="{% if request.path == '/mentors/manage_user' %}background-color:#b1ffe9{% else %}{% endif %}">
-          <a href="/mentors/manage_user" class="font-weight-bold">
-            <i class="fa fa-users" aria-hidden="true"></i>
-            Mange Users</a>
-        </li>
-        <li style="{% if request.path == '/mentors/user_infos' %}background-color:#b1ffe9{% else %}{% endif %}">
-          <a href="/mentors/user_infos" class="side-bar-sub-link">
-          Users info</a>
-        </li>
-        <li style="{% if request.path == '/mentors/access_control' %}background-color:#b1ffe9{% else %}{% endif %}">
-          <a href="/mentors/access_control" class="side-bar-sub-link">
-          Access Control</a>
-        </li>
-      </ul>
-      <a href="/#subscriptions"><button class="btn text-white bg-info mx-auto d-block">SWITCH</button></a>
+    <!-- User logo and first and last name -->
+    <div class="user-info" id="user-info">
+      <a href="/profile/{{ user.username }}" class="d-block"><img src="/static/images/user-avatar-1.png" class="d-block mx-auto" alt="user-avatar" /></a>
+      <h2 class="text-center font-weight-bold">{{ subscription.first_name }} {{ subscription.last_name }}</h2>
+      <p class="text-center font-weight-bold mb-0 txt-uppercase">{{ subscription.plan.name }}</p>
     </div>
+
+    <ul id="user-options" class="dropdown">
+      <li class="mt-1" style="{% if request.path == '/mentors/dashboard' %}{% endif %}">
+        <a href="/mentors/dashboard" class="font-weight-bold d-flex align-items-center">
+          <span class="svg-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4.29289 4.29289C4.10536 4.48043 4 4.73478 4 5V7C4 7.26522 4.10536 7.51957 4.29289 7.70711C4.48043 7.89464 4.73478 8 5 8H19C19.2652 8 19.5196 7.89464 19.7071 7.70711C19.8946 7.51957 20 7.26522 20 7V5C20 4.73478 19.8946 4.48043 19.7071 4.29289C19.5196 4.10536 19.2652 4 19 4H5C4.73478 4 4.48043 4.10536 4.29289 4.29289Z" stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4.29289 12.2929C4.10536 12.4804 4 12.7348 4 13V19C4 19.2652 4.10536 19.5196 4.29289 19.7071C4.48043 19.8946 4.73478 20 5 20H11C11.2652 20 11.5196 19.8946 11.7071 19.7071C11.8946 19.5196 12 19.2652 12 19V13C12 12.7348 11.8946 12.4804 11.7071 12.2929C11.5196 12.1054 11.2652 12 11 12H5C4.73478 12 4.48043 12.1054 4.29289 12.2929Z" stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16.2929 12.2929C16.1054 12.4804 16 12.7348 16 13V19C16 19.2652 16.1054 19.5196 16.2929 19.7071C16.4804 19.8946 16.7348 20 17 20H19C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19V13C20 12.7348 19.8946 12.4804 19.7071 12.2929C19.5196 12.1054 19.2652 12 19 12H17C16.7348 12 16.4804 12.1054 16.2929 12.2929Z" stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="mx-1">Dashboard</span>
+        </a>
+      </li>
+      <li class="mt-1" style="{% if request.path == '/mentors/history' %}{% endif %}">
+        <a href="/mentors/history" class="font-weight-bold d-flex align-items-center">
+          <span class="svg-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M10 21.001H17C17.5304 21.001 18.0391 20.7903 18.4142 20.4152C18.7893 20.0401 19 19.5314 19 19.001V9.41498C18.9999 9.14978 18.8945 8.89547 18.707 8.70798L13.293 3.29398C13.1055 3.10643 12.8512 3.00103 12.586 3.00098H7C6.46957 3.00098 5.96086 3.21169 5.58579 3.58676C5.21071 3.96184 5 4.47054 5 5.00098V16.001M5 21.001L9.879 16.122M9.879 16.122C10.1567 16.4043 10.4876 16.6289 10.8525 16.7827C11.2174 16.9365 11.6092 17.0166 12.0052 17.0182C12.4012 17.0199 12.7936 16.9431 13.1598 16.7924C13.5261 16.6416 13.8588 16.4198 14.1388 16.1398C14.4189 15.8598 14.6408 15.5271 14.7916 15.161C14.9425 14.7948 15.0193 14.4024 15.0177 14.0064C15.0162 13.6104 14.9362 13.2186 14.7825 12.8536C14.6287 12.4887 14.4043 12.1577 14.122 11.88C13.5579 11.3249 12.7973 11.0151 12.0059 11.0183C11.2145 11.0214 10.4564 11.3371 9.8967 11.8967C9.33702 12.4562 9.02111 13.2143 9.0178 14.0057C9.01448 14.7971 9.32402 15.5578 9.879 16.122Z" stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="mx-1">History</span>
+        </a>
+      </li>
+      <li style="{% if request.path == '/mentors/paypal' %}{% endif %}">
+        <a href="/mentors/paypal" class="side-bar-sub-link mx-3">Paypal</a>
+      </li>
+      <li style="{% if request.path == '/mentors/mentor_changes' %}{% endif %}">
+        <a href="/mentors/mentor_changes" class="side-bar-sub-link mx-3">Mentor Changes</a>
+      </li>
+      <li style="{% if request.path == '/mentors/update_user' %}{% endif %}">
+        <a href="/mentors/update_user" class="side-bar-sub-link mx-3">User Updates</a>
+      </li>
+      <li class="mt-1" style="{% if request.path == '/mentors/manage_user' %}{% endif %}">
+        <a href="/mentors/manage_user" class="font-weight-bold d-flex align-items-center">
+          <span class="svg-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M17 20H22V18C22 17.3765 21.8057 16.7686 21.4441 16.2606C21.0826 15.7527 20.5718 15.37 19.9827 15.1658C19.3937 14.9615 18.7556 14.9459 18.1573 15.121C17.5589 15.2962 17.03 15.6534 16.644 16.143M17 20H7M17 20V18C17 17.344 16.874 16.717 16.644 16.143M16.644 16.143C16.2726 15.215 15.6318 14.4195 14.804 13.8591C13.9762 13.2988 12.9996 12.9993 12 12.9993C11.0004 12.9993 10.0238 13.2988 9.196 13.8591C8.36825 14.4195 7.72736 15.215 7.356 16.143M7 20H2V18C2.00005 17.3765 2.19434 16.7686 2.55586 16.2606C2.91739 15.7527 3.42819 15.37 4.01725 15.1658C4.60632 14.9615 5.24438 14.9459 5.84274 15.121C6.4411 15.2962 6.97003 15.6534 7.356 16.143M7 20V18C7 17.344 7.126 16.717 7.356 16.143M15 7C15 7.79565 14.6839 8.55871 14.1213 9.12132C13.5587 9.68393 12.7956 10 12 10C11.2044 10 10.4413 9.68393 9.87868 9.12132C9.31607 8.55871 9 7.79565 9 7C9 6.20435 9.31607 5.44129 9.87868 4.87868C10.4413 4.31607 11.2044 4 12 4C12.7956 4 13.5587 4.31607 14.1213 4.87868C14.6839 5.44129 15 6.20435 15 7ZM21 10C21 10.5304 20.7893 11.0391 20.4142 11.4142C20.0391 11.7893 19.5304 12 19 12C18.4696 12 17.9609 11.7893 17.5858 11.4142C17.2107 11.0391 17 10.5304 17 10C17 9.46957 17.2107 8.96086 17.5858 8.58579C17.9609 8.21071 18.4696 8 19 8C19.5304 8 20.0391 8.21071 20.4142 8.58579C20.7893 8.96086 21 9.46957 21 10ZM7 10C7 10.5304 6.78929 11.0391 6.41421 11.4142C6.03914 11.7893 5.53043 12 5 12C4.46957 12 3.96086 11.7893 3.58579 11.4142C3.21071 11.0391 3 10.5304 3 10C3 9.46957 3.21071 8.96086 3.58579 8.58579C3.96086 8.21071 4.46957 8 5 8C5.53043 8 6.03914 8.21071 6.41421 8.58579C6.78929 8.96086 7 9.46957 7 10Z" stroke="#525559" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="mx-1">Mange Users</span>
+        </a>
+      </li>
+    </ul>
+    <a href="/dashboard"><button class="btn text-white bg-info mx-auto d-block">SWITCH</button></a>
   </div>
+</div>
