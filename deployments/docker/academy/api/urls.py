@@ -6,14 +6,13 @@ from api.views import JsonViewSet, PlansViewSet, SubscriberViewSet, ContentViewS
 from api import views
 
 router = routers.DefaultRouter()
-router.register(r'json-store', JsonViewSet)
-router.register(r'plans', PlansViewSet)
-router.register(r'subscribers', SubscriberViewSet)
-router.register(r'contents', ContentViewSet)
-
+router.register(r"json-store", JsonViewSet)
+router.register(r"plans", PlansViewSet)
+router.register(r"subscribers", SubscriberViewSet)
+router.register(r"contents", ContentViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('docs/', include_docs_urls(title='Academy api documentation!!')),
-    path('set_activity',views.set_github_activitys,name='github_webhook_hander')
+    path("", include(router.urls)),
+    path("docs/", include_docs_urls(title="Academy api documentation!!")),
+    path("set_activity", views.set_github_activitys, name="github_webhook_hander"),
 ]

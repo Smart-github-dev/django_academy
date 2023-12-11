@@ -537,7 +537,7 @@ input.form-control {
 
 @media screen and (max-width: 576px) {
 	.form-control{
-		padding: 6px 10x !important;
+		padding: 6px 10px !important;
 		font-size: 13px;
 		height: 35px;
 	}
@@ -990,4 +990,9 @@ input.form-control {
 	a {
 		font-size: 13px;
 	}
+}
+
+
+caption{
+	display: none;
 }

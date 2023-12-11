@@ -2,6 +2,8 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 
+app_name = "mentors"
+
 urlpatterns = [
     path("", views.mentor_dashboard, name="mentors"),
     path("dashboard", views.mentor_dashboard, name="mentors_dashboard"),
@@ -18,4 +20,10 @@ urlpatterns = [
     path(
         "update_status_change", views.update_status_change, name="update_status_change"
     ),
+    path(
+        "github_activitys",
+        views.github_activitys,
+        name="github_activitys",
+    ),
+    path("recent_subscribers", views.recent_subscribers, name="recent_subscribers"),
 ]

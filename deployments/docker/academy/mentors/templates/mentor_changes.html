@@ -9,10 +9,12 @@
       <div class="dashboard-view-wrapper">
         <div class="d-flex justify-content-between flex-wrap">
           <div class="page-title mb-2 h3 mb-4">Mentor Changes</div>
-          <form action="{{ request.path }}" method="GET" class="d-flex align-items-center mb-2" style="width: 40%;min-width: 400px;">
-            <input type="text" class="form-control form-control-sm mr-4" placeholder="name" value="{{ search }}" name="search" />
-            <button type="submit" class="btn btn-info btn-sm d-block">SEARCH</button>
-          </form>
+          <div style="width: 40%;min-width: 350px;">
+            <div class="d-flex align-items-center mb-2">
+              <input type="text" class="form-control form-control-sm mr-4" placeholder="name" value="{{ search }}" id="search" name="search" />
+              <button type="button" onclick="search_pagination_control()" class="btn bg-info text-white">SEARCH</button>
+            </div>
+          </div>
         </div>
         <div class="dashboard-inner d-flex justify-content-between flex-wrap">
           <div class="dashboard-card card" style="width: 100%;">
@@ -26,9 +28,10 @@
               </div>
               <div class="card-content">
                 <table class="table table-borderless">
+                  <caption>Table</caption>
                   <thead>
                     <tr style="font-style: italic;border-bottom: .6px solid #979595">
-                      <th style="text-align: right; width: 15%;font-weight: 10 !important;">Name</th>
+                      <th style="text-align: right; width: 12%;font-weight: 10 !important;">Name</th>
                       <th style="font-weight: 10 !important;  width: 75%;">Description</th>
                       <th style="font-weight: 10 !important;text-align: center;">Date</th>
                     </tr>
@@ -36,7 +39,7 @@
                   <tbody>
                     {% for action in change_historys %}
                       <tr>
-                        <td style="text-align: right;width: 15%;font-weight: bold;">{{ action.mentor_name }}</td>
+                        <td style="text-align: right;width: 12%;font-weight: bold;">{{ action.mentor_name }}</td>
                         <td>Update user info [{{ action.user_name }}] {{ action.description }}</td>
                         <td class="text-center" style="width: 10%;">{{ action.created_at }}</td>
                       </tr>
@@ -50,25 +53,70 @@
         <div class="d-flex justify-content-end">
           <ul class="pagination justify-content-end d-flex">
             <li class="page-item mx-1">
-              <a class="" href="{{ request.path }}?s={{ pagination.previounum }}&e=15">Previous</a>
+              <a class="" href="javascript:search_pagination_control({{ pagination.previounum }},15)">Previous</a>
             </li>
             {% if pagination.minshow %}
               <li class="page-item mx-1">...</li>
             {% endif %}
             {% for j in pagination.totalleng %}
               <li class="page-item mx-1 {% if pagination.selected == j %}{{ 'active' }}{% endif %}">
-                <a class="" href="{{ request.path }}?s={{ j }}&e=15">{{ j }}</a>
+                <a class="" href="javascript:search_pagination_control({{ j }},15)">{{ j }}</a>
               </li>
             {% endfor %}
             {% if pagination.maxshow %}
               <li class="page-item mx-1">...</li>
             {% endif %}
             <li class="page-item mx-1">
-              <a class="" href="{{ request.path }}?s={{ pagination.nextnum }}&e=15">Next</a>
+              <a class="" href="javascript:search_pagination_control({{ pagination.nextnum }},15)">Next</a>
             </li>
           </ul>
         </div>
       </div>
     </div>
   </div>
+  <script>
+    function search_pagination_control(s, e) {
+      var search = document.getElementById('search').value
+      var parseurl = getParams(document.location.href)
+      if (search.length > 0) {
+        parseurl.params['search'] = search
+      } else {
+        delete parseurl.params['search']
+      }
+
+      if (s) {
+        parseurl.params['s'] = s
+      }
+
+      if (e) {
+        parseurl.params['e'] = e
+      }
+
+      var url = jsonToQueryString(parseurl.params)
+      document.location.href = parseurl.url + '?' + url
+    }
+
+    function getParams(url) {
+      var params = {}
+      var urlParts = url.split('?')
+      if (urlParts.length >= 2) {
+        var paramString = urlParts[1]
+        var paramArray = paramString.split('&')
+        paramArray.forEach(function (param) {
+          var keyValue = param.split('=')
+          params[keyValue[0]] = keyValue[1]
+        })
+      }
+
+      return { params, url: urlParts[0] }
+    }
+
+    function jsonToQueryString(jsonData) {
+      return Object.keys(jsonData)
+        .map(function (key) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(jsonData[key])
+        })
+        .join('&')
+    }
+  </script>
 {% endblock %}

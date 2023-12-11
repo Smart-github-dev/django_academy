@@ -36,14 +36,14 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M21 12.001H15M13 7.00098C13 8.06184 12.5786 9.07926 11.8284 9.8294C11.0783 10.5795 10.0609 11.001 9 11.001C7.93913 11.001 6.92172 10.5795 6.17157 9.8294C5.42143 9.07926 5 8.06184 5 7.00098C5 5.94011 5.42143 4.92269 6.17157 4.17255C6.92172 3.4224 7.93913 3.00098 9 3.00098C10.0609 3.00098 11.0783 3.4224 11.8284 4.17255C12.5786 4.92269 13 5.94011 13 7.00098ZM9 14.001C7.4087 14.001 5.88258 14.6331 4.75736 15.7583C3.63214 16.8836 3 18.4097 3 20.001V21.001H15V20.001C15 18.4097 14.3679 16.8836 13.2426 15.7583C12.1174 14.6331 10.5913 14.001 9 14.001Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
                   </svg><span class="mx-2 mr-4">Paypal Cancellations</span>
-                  <a href="/mentors/paypal" class="text-btn text-info ">View all</a>
+                  <a href="/mentors/paypal" class="text-btn text-info">View all</a>
                 </div>
                 <div class="text-btn font-italic text-center" style="width:10%">Date</div>
               </div>
               <div class="card-content">
                 {% for paypal_cancellation in paypal_cancellations %}
                   <div class="d-flex justify-content-between mt-2">
-                    <div style="font-weight: bold;font-size: 16px;">{{ paypal_cancellation.user_name }} | {{ paypal_cancellation.first_name }} {{ paypal_cancellation.last_name }}</div>
+                    <div style="font-size: 1rem;">{{ paypal_cancellation.user_name }} | {{ paypal_cancellation.first_name }} {{ paypal_cancellation.last_name }}</div>
                     <div>{{ paypal_cancellation.date }}</div>
                   </div>
                 {% endfor %}
@@ -58,21 +58,26 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M18 9.00098V12.001V9.00098ZM18 12.001V15.001V12.001ZM18 12.001H21H18ZM18 12.001H15H18ZM13 7.00098C13 8.06184 12.5786 9.07926 11.8284 9.8294C11.0783 10.5795 10.0609 11.001 9 11.001C7.93913 11.001 6.92172 10.5795 6.17157 9.8294C5.42143 9.07926 5 8.06184 5 7.00098C5 5.94011 5.42143 4.92269 6.17157 4.17255C6.92172 3.4224 7.93913 3.00098 9 3.00098C10.0609 3.00098 11.0783 3.4224 11.8284 4.17255C12.5786 4.92269 13 5.94011 13 7.00098V7.00098ZM3 20.001C3 18.4097 3.63214 16.8836 4.75736 15.7583C5.88258 14.6331 7.4087 14.001 9 14.001C10.5913 14.001 12.1174 14.6331 13.2426 15.7583C14.3679 16.8836 15 18.4097 15 20.001V21.001H3V20.001Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
                   </svg><span class="mx-2 mr-4">Recent Subscribed Users</span>
-                  <a href="/mentor_userinfo" class="text-btn text-info">View all</a>
+                  <a href="/mentors/recent_subscribers" class="text-btn text-info">View all</a>
                 </div>
                 <div class="text-btn font-italic text-center" style="width:10%">Date</div>
               </div>
               <div class="card-content">
+                <!-- Table showing subscribed users -->
                 <table class="table table-borderless">
-                  <tbody>
-                    {% for subscriber in subscribed_users %}
-                      <tr>
-                        <td style="text-align: center;width: 15%;font-weight:bold;">{{ subscriber.plan_name }}</td>
-                        <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
-                        <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
+                  <caption>Table</caption>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  {% for subscriber in subscribed_users %}
+                    <tr>
+                      <td style="text-align: center;width: 12%;font-weight:bold;">{{ subscriber.plan_name }}</td>
+                      <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
+                      <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
+                    </tr>
+                  {% endfor %}
                 </table>
               </div>
             </div>
@@ -84,21 +89,26 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 8.99936V10.9994M12 14.9994H12.01M20.618 5.98336C17.4561 6.15127 14.3567 5.05797 12 2.94336C9.64327 5.05797 6.5439 6.15127 3.382 5.98336C3.12754 6.96847 2.99918 7.98191 3 8.99936C3 14.5904 6.824 19.2894 12 20.6214C17.176 19.2894 21 14.5914 21 8.99936C21 7.95736 20.867 6.94736 20.618 5.98336Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
                   </svg><span class="mx-2 mr-4">Expired Subscriptions</span>
-                  <a href="/mentor_userinfo" class="text-btn text-info">View all</a>
+                  <a href="{{ request.path }}" class="text-btn text-info">View all</a>
                 </div>
                 <div class="text-btn font-italic text-center" style="width:10%">Expiration Date</div>
               </div>
               <div class="card-content">
+                <!-- Table showing expire subscriber -->
                 <table class="table table-borderless">
-                  <tbody>
-                    {% for subscriber in expired_subscriptions %}
-                      <tr>
-                        <td style="text-align: center;width: 15%;font-weight:bold;">{{ subscriber.plan_name }}</td>
-                        <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
-                        <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
+                  <caption>Table</caption>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  {% for subscriber in expired_subscriptions %}
+                    <tr>
+                      <td style="text-align: center;width: 12%;font-weight:bold;">{{ subscriber.plan_name }}</td>
+                      <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
+                      <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
+                    </tr>
+                  {% endfor %}
                 </table>
               </div>
             </div>
@@ -107,39 +117,30 @@
           <div class="dashboard-card card">
             <div class="dashboard-card-inner">
               <div class="dashboard-card-title d-flex justify-content-between">
-                <div class="mb-0 h4 font-weight-bold text-base">
+                <div class="mb-0 font-weight-bold text-base h4 d-flex align-items-center">
                   <span class="mx-2 mr-4">Github Activity Tracker</span>
+                  <a href="/mentors/recent_github_activitys" class="text-btn text-info">View all</a>
                 </div>
                 <div class="text-btn font-italic text-center" style="width:10%">Date</div>
               </div>
               <div class="card-content">
+                <!-- Table showing github activity historys -->
                 <table class="table table-borderless">
-                  <tbody>
-                    {% for activity in github_activity_trakers %}
-                      <tr>
-                        <td style="width: 1%;font-weight:bold;">
-                          {% if event.event_type == 'pull_request' %}
-                            <svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle cx="10.2013" cy="4.50035" r="3.25035" transform="rotate(90 10.2013 4.50035)" stroke="#04ADA6" stroke-width="2.5" />
-                              <line x1="8.40088" y1="3.9502" x2="0.000227928" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
-                              <line x1="21.0015" y1="3.9502" x2="12.6008" y2="3.9502" stroke="#04ADA6" stroke-width="2.5" />
-                            </svg>
-                          {% else %}
-                            <svg width="18" height="23" viewBox="0 0 18 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle cx="2.75509" cy="4.37716" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                              <circle cx="2.75509" cy="19.5305" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                              <circle cx="15.2448" cy="19.1018" r="1.75509" stroke="#05ADA6" stroke-width="2" />
-                              <path d="M6.85693 3.85674L11.0355 0.516376L11.0355 7.19711L6.85693 3.85674Z" fill="#05ADA6" />
-                              <line x1="2.71436" y1="6" x2="2.71435" y2="18.3979" stroke="#05ADA6" stroke-width="2" />
-                              <path d="M15.4285 16.9287V7.50016C15.5 6.00017 14.6143 3.17161 10.5 3.85732" stroke="#05ADA6" stroke-width="2" />
-                            </svg>
-                          {% endif %}
-                        </td>
-                        <td style=" ">{{ activity.username }} [{{ activity.url }}]</td>
-                        <td style="text-align: center;width: 10%;">{{ activity.created_at }}</td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
+                  <caption>Table</caption>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  {% for activity in github_activity_trakers %}
+                    <tr>
+                      <td style="width: 1%;font-weight:bold;">
+                        <img src="/static/images/github-icons/{{ activity.event_type }}.png" alt="" />
+                      </td>
+                      <td style=" ">{{ activity.github_name }} [{{ activity.repo_name }}] {{ activity.activity }}</td>
+                      <td style="text-align: center;width: 10%;">{{ activity.created_date }}</td>
+                    </tr>
+                  {% endfor %}
                 </table>
               </div>
             </div>

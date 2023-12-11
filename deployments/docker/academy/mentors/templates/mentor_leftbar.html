@@ -44,6 +44,12 @@
       <li style="{% if request.path == '/mentors/update_user' %}{% endif %}">
         <a href="/mentors/update_user" class="side-bar-sub-link mx-3">User Updates</a>
       </li>
+      <li style="{% if request.path == '/mentors/github_activitys' %}{% endif %}">
+        <a href="/mentors/github_activitys" class="side-bar-sub-link mx-3">Github Activity</a>
+      </li>
+      <li style="{% if request.path == '/mentors/recent_subscribers' %}{% endif %}">
+        <a href="/mentors/recent_subscribers" class="side-bar-sub-link mx-3">Recent Subscribers</a>
+      </li>
       <li class="mt-1" style="{% if request.path == '/mentors/manage_user' %}{% endif %}">
         <a href="/mentors/manage_user" class="font-weight-bold d-flex align-items-center">
           <span class="svg-icon">

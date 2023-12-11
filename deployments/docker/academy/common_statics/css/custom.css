@@ -332,7 +332,7 @@ a p.user-name {
 
 .checkbox-contailer input:checked~.checkmark {
     background-color: #CACECE;
- }
+}
 
 .checkbox-contailer .checkmark:after {
     content: "";
@@ -1201,10 +1201,9 @@ div.d-flex p.no-width.mb-0.text-base {
     margin: 0.5rem 0.5rem;
 }
 
-
-
-.table td, .table th {
-    padding: .7rem 1rem  !important;
+.table td,
+.table th {
+    padding: .7rem 1rem !important;
     vertical-align: top;
 }
 
@@ -1286,7 +1285,7 @@ div.d-flex p.no-width.mb-0.text-base {
         padding: 24px 16px;
     }
 
-    .dashboard-card{
+    .dashboard-card {
         width: 100% !important;
     }
 
@@ -1314,15 +1313,22 @@ div.d-flex p.no-width.mb-0.text-base {
 
     /* --- table response ----*/
 
-    .table td, .table th {
+    .table td,
+    .table th {
         padding: 0.15rem !important;
         font-size: 13px;
     }
 
-    .dashboard-card-title{
+    .dashboard-card-title {
         font-size: .8rem;
     }
-    .h4{
+
+    .filter-card-title{
+        flex-direction: column !important;
+        align-items: start !important;
+    }
+
+    .h4 {
         font-size: 1.2rem;
     }
 }
@@ -1951,7 +1957,7 @@ table.mobile {
 /* pagination */
 
 
-.pagination{
+.pagination {
     background-color: transparent !important;
 }
 
@@ -1969,23 +1975,18 @@ table.mobile {
     background-color: rgba(187, 187, 187, 0.274);
 }
 
-.pagination .active a{
+.pagination .active a {
     border-bottom: 1px solid rgb(46, 45, 45);
 }
 
 
-/* .footer-bottom p, a {
-    color: black;
-} */
 /* end pagination*/
 
 /* ----------------------------------------------------------------- */
 
-/* start    */
-
 /* select input */
 
-.custom-select-m{
+.custom-select-m {
     position: relative;
     display: inline-block;
     padding: 0 !important;
@@ -2003,39 +2004,26 @@ table.mobile {
     background-position: 95% 50%;
 }
 
-
-  /* end select input */
-
+/* end select input */
 
 
-  /* svg icon */
-  
-  .svg-icon{
+/* svg icon */
+
+.svg-icon {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
 
-  /* cursor icon */
-  .cursor-pointer{
+/* cursor icon */
+.cursor-pointer {
     cursor: pointer;
     user-select: none;
-  }
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 .animate {

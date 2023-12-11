@@ -1,7 +1,7 @@
 from django.shortcuts import render, reverse
 from django.contrib.auth.models import User
 from django.db.models import Prefetch
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -61,7 +61,7 @@ def mentor_dashboard(request):
         expired_subscriptions = get_expired_subscriptions()
         paypal_cancellations = get_paypal_cancellations(Subscriber.objects.all()[0:4])
 
-        github_activity_trakers = get_github_activitys()
+        github_activity_trakers = get_github_activitys()[0:6]
     else:
         return redirect(reverse("/"))
     return render(request, "mentor_dashboard.html", locals())
@@ -277,11 +277,17 @@ def mentor_manage_user(request):
     if Subscriber.objects.filter(user=current_user):
         subscription = Subscriber.objects.get(user=current_user)
         search = request.GET.get("search")
+        expire_date = request.GET.get("expire_date")
+
         if search is not None:
             subscribers = Subscriber.objects.filter(Q(user__username__icontains=search))
         else:
             search = ""
             subscribers = Subscriber.objects.all()
+
+        if expire_date is not None:
+            subscribers = subscribers.filter(expire_date__gte=expire_date)
+
         totalnum = subscribers.count()
         param1 = request.GET.get("s")
         param2 = request.GET.get("e")
@@ -292,6 +298,81 @@ def mentor_manage_user(request):
     else:
         return redirect(reverse("/"))
     return render(request, "mentor_manage_user.html", locals())
+
+
+@login_required
+def recent_subscribers(request):
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        param1 = request.GET.get("s")
+        param2 = request.GET.get("e")
+        search = request.GET.get("search")
+        filter = request.GET.get("filter")
+        plans = Plans.objects.all()
+        if search is not None:
+            subscribeds = Subscriber.objects.filter(
+                Q(first_name__icontains=search)
+                | Q(last_name__icontains=search)
+                | Q(email__icontains=search)
+                | Q(user__username__icontains=search)
+            )
+        else:
+            search = ""
+            subscribeds = Subscriber.objects.all()
+        today_date = datetime.today().date()
+        if filter is not None:
+            if filter == "today":
+                subscribeds = subscribeds.filter(expire_date__gte=today_date)
+            elif filter == "week":
+                last_week_date = today_date - timedelta(weeks=1)
+                subscribeds = subscribeds.filter(expire_date__gte=last_week_date)
+            elif filter == "month":
+                last_month_date = today_date.replace(day=1) - timedelta(days=1)
+                subscribeds = subscribeds.filter(expire_date__gte=last_month_date)
+            else:
+                subscribeds = subscribeds.filter(plan_id=filter)
+                filter = int(filter)
+        else:
+            subscribeds = subscribeds.filter(expire_date__gte=today_date)
+
+        totalnum = subscribeds.count()
+        pagination = get_pagination(param1, param2, totalnum)
+        start_index = pagination["param1"] * pagination["param2"]
+        end_index = start_index + pagination["param2"]
+        subscribed_users = list(
+            map(subscriber_change_date, subscribeds[start_index:end_index])
+        )
+    else:
+        return redirect(reverse("/"))
+    return render(request, "mentor_recent_subscriber.html", locals())
+
+
+@login_required
+def github_activitys(request):
+    current_user = User.objects.get(username=request.user.username)
+    if Subscriber.objects.filter(user=current_user):
+        subscription = Subscriber.objects.get(user=current_user)
+        param1 = request.GET.get("s")
+        param2 = request.GET.get("e")
+        search = request.GET.get("search")
+        if search is not None:
+            githubactivitys = GitHubActivitys.objects.filter(
+                Q(github_name__icontains=search) | Q(repo_name__icontains=search)
+            )
+        else:
+            search = ""
+            githubactivitys = GitHubActivitys.objects.all()
+        totalnum = githubactivitys.count()
+        pagination = get_pagination(param1, param2, totalnum)
+        start_index = pagination["param1"] * pagination["param2"]
+        end_index = start_index + pagination["param2"]
+        github_activity_trackers = list(
+            map(subscriber_change_date, githubactivitys[start_index:end_index])
+        )
+    else:
+        return redirect(reverse("/"))
+    return render(request, "mentor_github_trackers.html", locals())
 
 
 def get_subscribed_users():
@@ -364,15 +445,18 @@ def get_paypal_cancellations(subscribeds):
 def get_github_activitys():
     github_activitys = []
     new_activitys = namedtuple(
-        "activitys", ["event_type", "username", "url", "created_at"]
+        "activitys",
+        ["event_type", "github_name", "repo_name", "activity", "created_date"],
     )
-    for activity in GitHubActivitys.objects.all()[:4]:
+
+    for activity in GitHubActivitys.objects.order_by("-created_date").all():
         github_activitys.append(
             new_activitys(
                 event_type=activity.event_type,
-                username=activity.username,
-                url=activity.url,
-                created_at=activity.created_at.strftime("%d/%m/%Y"),
+                github_name=activity.github_name,
+                repo_name=activity.repo_name,
+                activity=activity.activity_description,
+                created_date=activity.created_date.strftime("%d/%m/%Y"),
             )
         )
     return github_activitys
