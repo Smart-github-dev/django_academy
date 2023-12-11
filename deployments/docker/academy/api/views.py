@@ -88,6 +88,7 @@ def set_github_activitys(request):
 def handle_github_event(event_type, payload):
     repo_name = payload["repository"]["name"]
     username = payload["repository"]["owner"]["login"]
+    print("event handle")
     if event_type == "ping":
         description = "Ping event received"
     elif event_type == "push":
