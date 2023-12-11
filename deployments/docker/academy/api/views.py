@@ -190,7 +190,6 @@ def handle_github_event(event_type, payload):
     print("GitHub event received:", description)
     # Additional handling logic
 
-
 # Add handling methods for each event type
 def handle_push_event(payload, event_type):
     # Handle push event logic
