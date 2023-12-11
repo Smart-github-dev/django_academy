@@ -332,7 +332,7 @@ a p.user-name {
 
 .checkbox-contailer input:checked~.checkmark {
     background-color: #CACECE;
- }
+}
 
 .checkbox-contailer .checkmark:after {
     content: "";
@@ -753,7 +753,7 @@ a p.user-name {
 }
 
 #user-options li a {
-    font-size: 20px;
+    font-size: 24px;
     text-align: center;
     line-height: 33px;
     color: #525559;
@@ -1201,6 +1201,12 @@ div.d-flex p.no-width.mb-0.text-base {
     margin: 0.5rem 0.5rem;
 }
 
+.table td,
+.table th {
+    padding: .7rem 1rem !important;
+    vertical-align: top;
+}
+
 @media screen and (max-width: 1200px) {
     .video-folder-search {
         width: 100%;
@@ -1279,7 +1285,7 @@ div.d-flex p.no-width.mb-0.text-base {
         padding: 24px 16px;
     }
 
-    .dashboard-card{
+    .dashboard-card {
         width: 100% !important;
     }
 
@@ -1307,10 +1313,23 @@ div.d-flex p.no-width.mb-0.text-base {
 
     /* --- table response ----*/
 
-    .table td, .table th {
+    .table td,
+    .table th {
         padding: 0.15rem !important;
-        /* vertical-align: top; */
-        /* border-top: 1px solid #dee2e6; */
+        font-size: 13px;
+    }
+
+    .dashboard-card-title {
+        font-size: .8rem;
+    }
+
+    .filter-card-title{
+        flex-direction: column !important;
+        align-items: start !important;
+    }
+
+    .h4 {
+        font-size: 1.2rem;
     }
 }
 
@@ -1930,25 +1949,81 @@ table.mobile {
 }
 
 
+
+
 /* end process */
+
+
+/* pagination */
+
+
+.pagination {
+    background-color: transparent !important;
+}
+
+
+.pagination a {
+    padding: 0px 5px;
+    /* border-radius: px; */
+    font-size: 16px;
+    text-align: center;
+    color: black;
+}
+
+.pagination a:hover {
+    border-radius: 0px;
+    background-color: rgba(187, 187, 187, 0.274);
+}
+
+.pagination .active a {
+    border-bottom: 1px solid rgb(46, 45, 45);
+}
+
+
+/* end pagination*/
 
 /* ----------------------------------------------------------------- */
 
-/* start    */
+/* select input */
+
+.custom-select-m {
+    position: relative;
+    display: inline-block;
+    padding: 0 !important;
+}
 
 
+.custom-select-m select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    margin: 0;
+    background-image: url(../images/arrow-icom.svg);
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+/* end select input */
 
 
+/* svg icon */
+
+.svg-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
-
-
-
-
-
-
-
-
+/* cursor icon */
+.cursor-pointer {
+    cursor: pointer;
+    user-select: none;
+}
 
 
 .animate {

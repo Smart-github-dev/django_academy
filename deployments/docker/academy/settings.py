@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 from dotenv import load_dotenv
+
 load_dotenv()
 
 import os
@@ -18,9 +19,9 @@ from celery.schedules import crontab
 
 
 CELERY_BEAT_SCHEDULE = {
-    'check-subscriptions-every-day': {
-        'task': 'automation.tasks.check_subscriptions',
-        'schedule': crontab(hour=0, minute=0),
+    "check-subscriptions-every-day": {
+        "task": "automation.tasks.check_subscriptions",
+        "schedule": crontab(hour=0, minute=0),
     },
     # 'task-every-5-minutes': {
     #     'task': 'myapp.tasks.task_every_5_minutes',
@@ -57,35 +58,31 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 
-
-
-
-
-
-
 LOGGING_CONFIG = None
-logging.config.dictConfig({
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'console': {
-            # exact format is not important, this is the minimum information
-            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+logging.config.dictConfig(
+    {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "console": {
+                # exact format is not important, this is the minimum information
+                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+            },
         },
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "console",
+            },
         },
-    },
-    'loggers': {
-        '': {
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'handlers': ['console'],
+        "loggers": {
+            "": {
+                "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+                "handlers": ["console"],
+            },
         },
-    },
-})
+    }
+)
 
 
 logger = logging.getLogger(__name__)
@@ -99,139 +96,141 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^oasvepw0s)@e!950p%$byfn$&dayut062i)i-a+_nm6-19#zz'
+SECRET_KEY = "^oasvepw0s)@e!950p%$byfn$&dayut062i)i-a+_nm6-19#zz"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-if os.environ.get('ENVIRONMENT'):
-    environment = os.environ.get('ENVIRONMENT').lower()
-    if 'prod' not in  environment:
+if os.environ.get("ENVIRONMENT"):
+    environment = os.environ.get("ENVIRONMENT").lower()
+    if "prod" not in environment:
         DEBUG = True
-        logger.warning('The application is running on DEBUG mode!!')
+        logger.warning("The application is running on DEBUG mode!!")
 
 
 ## Making sure allowed host is configured properly
 if DEBUG:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ["*"]
 else:
     ALLOWED_HOSTS = [
-        'academy.fuchicorp.com',
-        'stage.academy.fuchicorp.com',
-        'qa.academy.fuchicorp.com',
-        'dev.academy.fuchicorp.com',
-        'test.academy.fuchicorp.com',
+        "academy.fuchicorp.com",
+        "stage.academy.fuchicorp.com",
+        "qa.academy.fuchicorp.com",
+        "dev.academy.fuchicorp.com",
+        "test.academy.fuchicorp.com",
     ]
 
-    ALLOWED_HOSTS += ['10.{}.{}.{}'.format(i,j,d) for i in range(256) for j in range(256) for d in range(256)]
+    ALLOWED_HOSTS += [
+        "10.{}.{}.{}".format(i, j, d)
+        for i in range(256)
+        for j in range(256)
+        for d in range(256)
+    ]
 
 ## List of apps that you installed or created
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'paypal.standard.ipn',
-    'rest_framework',
-    'markdownify',
-    'social_django',
-    'django_filters',
-    'django_extensions',
-    'captcha',
-    'accounting',
-    'automation',
-    'main',
-    'mentors',
-    'videos',
-    'info',
-    'ai',
-    'corsheaders',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "paypal.standard.ipn",
+    "rest_framework",
+    "markdownify",
+    "social_django",
+    "django_filters",
+    "django_extensions",
+    "captcha",
+    "accounting",
+    "automation",
+    "main",
+    "mentors",
+    "videos",
+    "info",
+    "ai",
 ]
 
-
-
-CORS_ALLOWED_ORIGINS = [
-    "http://91.218.183.231:8000",  # Example: React development server
-    "https://api.github.com",
-]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "middleware.AuthMiddleware",
 ]
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = "urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['common_templates', os.path.join(BASE_DIR, "templates")],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["common_templates", os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
+    "social_core.backends.github.GithubOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
 )
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ],
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'authentication.GitHubTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ]
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "authentication.GitHubTokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
 }
 
 
-
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = "wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if os.environ.get('MYSQL_HOST') or os.environ.get('MYSQL_PASSWORD') or os.environ.get('MYSQL_USER') or os.environ.get('MYSQL_DATABASE'):
+if (
+    os.environ.get("MYSQL_HOST")
+    or os.environ.get("MYSQL_PASSWORD")
+    or os.environ.get("MYSQL_USER")
+    or os.environ.get("MYSQL_DATABASE")
+):
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_DATABASE'),
-            'USER': os.environ.get('MYSQL_USER'),
-            'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-            'HOST': os.environ.get('MYSQL_HOST'),
-            'OPTIONS': {
-                'sql_mode': 'traditional',
-            }
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ.get("MYSQL_DATABASE"),
+            "USER": os.environ.get("MYSQL_USER"),
+            "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
+            "HOST": os.environ.get("MYSQL_HOST"),
+            "OPTIONS": {
+                "sql_mode": "traditional",
+            },
         }
     }
 else:
-    logger.warning('< Using local sqlite datbase for academy >')
+    logger.warning("< Using local sqlite datbase for academy >")
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': "db.sqlite3",
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": "db.sqlite3",
         }
     }
 
@@ -241,16 +240,16 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -258,10 +257,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'America/Chicago'
-DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+TIME_ZONE = "America/Chicago"
+DATE_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 USE_I18N = True
 
@@ -275,104 +274,120 @@ USE_TZ = True
 
 ## This static will work only for deployment
 # if not DEBUG:
-STATIC_ROOT = 'academy_root_css'
+STATIC_ROOT = "academy_root_css"
 
 ## While developing we will use listed folders for improvements
-STATICFILES_DIRS = [
-    'common_statics'
-]
+STATICFILES_DIRS = ["common_statics"]
 
 ## On each app folder name
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 ## Login and logout urls aslo after logout and login will redirect
-LOGIN_URL = '/login'
-LOGOUT_URL = '/logout'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = "/login"
+LOGOUT_URL = "/logout"
+LOGOUT_REDIRECT_URL = "/"
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL='/login'
-LOGIN_REDIRECT_URL = '/dashboard'
+LOGIN_REDIRECT_URL = "/dashboard"
 
 ## Markdown configuration
 MARKDOWNIFY_STRIP = False
 MARKDOWNIFY_WHITELIST_TAGS = {
- 'a', 'p',
- 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7',
- 'ul', 'li', 'span', 'ol',
- 'strong', 'br', 'em'
+    "a",
+    "p",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "h7",
+    "ul",
+    "li",
+    "span",
+    "ol",
+    "strong",
+    "br",
+    "em",
 }
 
 ## Social auth is working with only GITHUB for now
-SOCIAL_AUTH_GITHUB_KEY = os.environ.get('SOCIAL_AUTH_GITHUB_KEY')
-SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('SOCIAL_AUTH_GITHUB_SECRET')
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get("SOCIAL_AUTH_GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")
 SOCIAL_AUTH_GITHUB_ORG_KEY = SOCIAL_AUTH_GITHUB_KEY
 SOCIAL_AUTH_GITHUB_ORG_SECRET = SOCIAL_AUTH_GITHUB_SECRET
 # SOCIAL_AUTH_GITHUB_SCOPE = "read:org"
-SESSION_COOKIE_SECURE=False
+SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = None
-SESSION_SAVE_EVERY_REQUEST=True
+SESSION_SAVE_EVERY_REQUEST = True
 ## Vimeo configurations
-VIMEO_ACCESS_TOKEN = os.environ.get('VIMEO_ACCESS_TOKEN')
-VIMEO_CLIENT_ID = os.environ.get('VIMEO_CLIENT_ID')
-VIMEO_CLIENT_SECRET = os.environ.get('VIMEO_CLIENT_SECRET')
+VIMEO_ACCESS_TOKEN = os.environ.get("VIMEO_ACCESS_TOKEN")
+VIMEO_CLIENT_ID = os.environ.get("VIMEO_CLIENT_ID")
+VIMEO_CLIENT_SECRET = os.environ.get("VIMEO_CLIENT_SECRET")
 APPEND_SLASH = True
 
 ## OpenAI configurations
-OPEN_AI_TOKEN = os.environ.get('OPEN_AI_TOKEN', None)
-OPENAI_MODEL_NAME = os.environ.get('OPENAI_MODEL_NAME', "gpt-3.5-turbo")
+OPEN_AI_TOKEN = os.environ.get("OPEN_AI_TOKEN", None)
+OPENAI_MODEL_NAME = os.environ.get("OPENAI_MODEL_NAME", "gpt-3.5-turbo")
 
 ## Academy settings
-ACADEMY_CONTENTS_FOLDER = 'academy-contents'
-ACADEMY_ZOOM_FOLDER = 'academy-zoom-videos'
-ACADEMY_VIDEO_TITLE_MAX_NUM = os.environ.get('ACADEMY_VIDEO_TITLE_MAX_NUM', 4000)
+ACADEMY_CONTENTS_FOLDER = "academy-contents"
+ACADEMY_ZOOM_FOLDER = "academy-zoom-videos"
+ACADEMY_VIDEO_TITLE_MAX_NUM = os.environ.get("ACADEMY_VIDEO_TITLE_MAX_NUM", 4000)
 
-#INFO page containt
-INSTANCE = os.environ.get('INSTANCE')
-RELEASE = os.environ.get('RELEASE')
-ENVIRONMENT = os.environ.get('ENVIRONMENT')
-SOCIAL_AUTH_GITHUB_ORG_NAME= 'fuchicorp'
+# INFO page containt
+INSTANCE = os.environ.get("INSTANCE")
+RELEASE = os.environ.get("RELEASE")
+ENVIRONMENT = os.environ.get("ENVIRONMENT")
+SOCIAL_AUTH_GITHUB_ORG_NAME = "fuchicorp"
 
 ## Common Variables
-FLAG_VIDEOS_LESS_DATE=3
+FLAG_VIDEOS_LESS_DATE = 3
 
-#smtp info
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+# smtp info
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
 
 
-#Google Recaptcha
-if os.environ.get('RECAPTCHA_PUBLIC_KEY') and os.environ.get('RECAPTCHA_PRIVATE_KEY'):
-    RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
-    RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
-    RECAPTCHA_DOMAIN = 'www.google.com'
+# Google Recaptcha
+if os.environ.get("RECAPTCHA_PUBLIC_KEY") and os.environ.get("RECAPTCHA_PRIVATE_KEY"):
+    RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+    RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+    RECAPTCHA_DOMAIN = "www.google.com"
 else:
-    logger.warning('Warning: Missing the <RECAPTCHA_PUBLIC_KEY> and <RECAPTCHA_PRIVATE_KEY> django will not use the recaptcha!!')
-    SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+    logger.warning(
+        "Warning: Missing the <RECAPTCHA_PUBLIC_KEY> and <RECAPTCHA_PRIVATE_KEY> django will not use the recaptcha!!"
+    )
+    SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 ## Paypal Configuration
-if os.environ.get('ENVIRONMENT'):
-    environment = os.environ.get('ENVIRONMENT').lower()
+if os.environ.get("ENVIRONMENT"):
+    environment = os.environ.get("ENVIRONMENT").lower()
 
-    if 'prod' == environment:
+    if "prod" == environment:
         PAYPAL_TEST = False
     else:
         PAYPAL_TEST = True
 
-PAYPAL_RECEIVER_EMAIL = os.environ.get('PAYPAL_RECEIVER_EMAIL', None)
-SLACK_WEBHOOK_URL = os.environ.get('SLACK_WEBHOOK_URL', '')
+PAYPAL_RECEIVER_EMAIL = os.environ.get("PAYPAL_RECEIVER_EMAIL", None)
+SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "")
 
 
 # Celery Configuration
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379/0')
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+CELERY_BROKER_URL = os.environ.get(
+    "CELERY_BROKER_URL", "redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379/0"
+)
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
 
 
-#github project endpoints
-GITHUB_PROJECT_ACTIVITY_ENDPOINT='https://api.github.com/repos/SuperStar91031/degentown-frontend/events'
-GITHUB_ACCESS_TOKEN='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'
+# github project endpoints
+GITHUB_PROJECT_ACTIVITY_ENDPOINT = (
+    "https://api.github.com/repos/SuperStar91031/degentown-frontend/events"
+)
+GITHUB_ACCESS_TOKEN = "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"

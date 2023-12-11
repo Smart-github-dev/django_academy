@@ -8,53 +8,115 @@
     <div class="contents-inner">
       <div class="dashboard-view-wrapper">
         <div class="d-flex justify-content-between flex-wrap">
-          <h5 class="page-title mb-2">Mentor Changes</h5>
-          <div class="d-flex align-items-center mb-2">
-            <input type="text" class="form-control form-control-sm mr-4" placeholder="name"   />
-            <button type="button" class="btn btn-info btn-sm d-block">SEARCH</button>
+          <div class="page-title mb-2 h3 mb-4">Mentor Changes</div>
+          <div style="width: 40%;min-width: 350px;">
+            <div class="d-flex align-items-center mb-2">
+              <input type="text" class="form-control form-control-sm mr-4" placeholder="name" value="{{ search }}" id="search" name="search" />
+              <button type="button" onclick="search_pagination_control()" class="btn bg-info text-white">SEARCH</button>
+            </div>
           </div>
         </div>
         <div class="dashboard-inner d-flex justify-content-between flex-wrap">
           <div class="dashboard-card card" style="width: 100%;">
             <div class="dashboard-card-inner">
               <div class="dashboard-card-title d-flex justify-content-between align-items-center">
-                <h6 class="mb-0 font-weight-bold text-base">
-                  <i class="fa fa-address-card-o text-info" aria-hidden="true"></i>
-                  Mentor Changes History
-                </h6>
+                <div class="mb-0 font-weight-bold h4 text-base d-flex justify-content-center align-items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <path d="M11.6667 7H5.83333C5.21449 7 4.621 7.24583 4.18342 7.68342C3.74583 8.121 3.5 8.71449 3.5 9.33333V19.8333C3.5 20.4522 3.74583 21.0457 4.18342 21.4832C4.621 21.9208 5.21449 22.1667 5.83333 22.1667H22.1667C22.7855 22.1667 23.379 21.9208 23.8166 21.4832C24.2542 21.0457 24.5 20.4522 24.5 19.8333V9.33333C24.5 8.71449 24.2542 8.121 23.8166 7.68342C23.379 7.24583 22.7855 7 22.1667 7H16.3333M11.6667 7V5.83333C11.6667 5.21449 11.9125 4.621 12.3501 4.18342C12.7877 3.74583 13.3812 3.5 14 3.5C14.6188 3.5 15.2123 3.74583 15.6499 4.18342C16.0875 4.621 16.3333 5.21449 16.3333 5.83333V7M11.6667 7C11.6667 7.61884 11.9125 8.21233 12.3501 8.64992C12.7877 9.0875 13.3812 9.33333 14 9.33333C14.6188 9.33333 15.2123 9.0875 15.6499 8.64992C16.0875 8.21233 16.3333 7.61884 16.3333 7M10.5 16.3333C11.1188 16.3333 11.7123 16.0875 12.1499 15.6499C12.5875 15.2123 12.8333 14.6188 12.8333 14C12.8333 13.3812 12.5875 12.7877 12.1499 12.3501C11.7123 11.9125 11.1188 11.6667 10.5 11.6667C9.88116 11.6667 9.28767 11.9125 8.85008 12.3501C8.4125 12.7877 8.16667 13.3812 8.16667 14C8.16667 14.6188 8.4125 15.2123 8.85008 15.6499C9.28767 16.0875 9.88116 16.3333 10.5 16.3333ZM10.5 16.3333C12.0237 16.3333 13.3198 17.3075 13.8017 18.6667M10.5 16.3333C9.77595 16.3331 9.06964 16.5574 8.47834 16.9753C7.88704 17.3932 7.43984 17.9841 7.19833 18.6667M17.5 12.8333H21M17.5 17.5H19.8333" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg><span class="ml-2">Mentor Changes History</span>
+                </div>
               </div>
               <div class="card-content">
                 <table class="table table-borderless">
+                  <caption>Table</caption>
                   <thead>
-                    <tr style="font-style: italic;border-bottom: .5px solid rgb(77, 77, 77);">
-                      <th style="text-align: right; width: 15%;font-weight: 10 !important;">Name</th>
+                    <tr style="font-style: italic;border-bottom: .6px solid #979595">
+                      <th style="text-align: right; width: 12%;font-weight: 10 !important;">Name</th>
                       <th style="font-weight: 10 !important;  width: 75%;">Description</th>
                       <th style="font-weight: 10 !important;text-align: center;">Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td style="text-align: right;width: 15%;font-weight: bold;">Kelly Salrin</td>
-                      <td>Update user info [ksalrin] Kelly Salrin</td>
-                      <td class="text-center">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: right;width: 15%;font-weight: bold;">Farkhod Sadykov</td>
-                      <td>Deactivate [ksalrin] Kelly Salrin</td>
-                      <td class="text-center">2/21/2022</td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: right;width: 15%;font-weight: bold;">Madina Samarbekova</td>
-                      <td>Activate [ksalrin] Kelly Salrin</td>
-                      <td class="text-center">2/21/2022</td>
-                    </tr>
+                    {% for action in change_historys %}
+                      <tr>
+                        <td style="text-align: right;width: 12%;font-weight: bold;">{{ action.mentor_name }}</td>
+                        <td>Update user info [{{ action.user_name }}] {{ action.description }}</td>
+                        <td class="text-center" style="width: 10%;">{{ action.created_at }}</td>
+                      </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
+        <div class="d-flex justify-content-end">
+          <ul class="pagination justify-content-end d-flex">
+            <li class="page-item mx-1">
+              <a class="" href="javascript:search_pagination_control({{ pagination.previounum }},15)">Previous</a>
+            </li>
+            {% if pagination.minshow %}
+              <li class="page-item mx-1">...</li>
+            {% endif %}
+            {% for j in pagination.totalleng %}
+              <li class="page-item mx-1 {% if pagination.selected == j %}{{ 'active' }}{% endif %}">
+                <a class="" href="javascript:search_pagination_control({{ j }},15)">{{ j }}</a>
+              </li>
+            {% endfor %}
+            {% if pagination.maxshow %}
+              <li class="page-item mx-1">...</li>
+            {% endif %}
+            <li class="page-item mx-1">
+              <a class="" href="javascript:search_pagination_control({{ pagination.nextnum }},15)">Next</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
+  <script>
+    function search_pagination_control(s, e) {
+      var search = document.getElementById('search').value
+      var parseurl = getParams(document.location.href)
+      if (search.length > 0) {
+        parseurl.params['search'] = search
+      } else {
+        delete parseurl.params['search']
+      }
+
+      if (s) {
+        parseurl.params['s'] = s
+      }
+
+      if (e) {
+        parseurl.params['e'] = e
+      }
+
+      var url = jsonToQueryString(parseurl.params)
+      document.location.href = parseurl.url + '?' + url
+    }
+
+    function getParams(url) {
+      var params = {}
+      var urlParts = url.split('?')
+      if (urlParts.length >= 2) {
+        var paramString = urlParts[1]
+        var paramArray = paramString.split('&')
+        paramArray.forEach(function (param) {
+          var keyValue = param.split('=')
+          params[keyValue[0]] = keyValue[1]
+        })
+      }
+
+      return { params, url: urlParts[0] }
+    }
+
+    function jsonToQueryString(jsonData) {
+      return Object.keys(jsonData)
+        .map(function (key) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(jsonData[key])
+        })
+        .join('&')
+    }
+  </script>
 {% endblock %}
