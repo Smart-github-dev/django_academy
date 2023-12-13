@@ -357,12 +357,12 @@ def github_activitys(request):
         param2 = request.GET.get("e")
         search = request.GET.get("search")
         if search is not None:
-            githubactivitys = GitHubActivitys.objects.filter(
+            githubactivitys = GitHubActivitys.objects.order_by("-created_date").filter(
                 Q(github_name__icontains=search) | Q(repo_name__icontains=search)
             )
         else:
             search = ""
-            githubactivitys = GitHubActivitys.objects.all()
+            githubactivitys = GitHubActivitys.objects.order_by("-created_date").all()
         totalnum = githubactivitys.count()
         pagination = get_pagination(param1, param2, totalnum)
         start_index = pagination["param1"] * pagination["param2"]

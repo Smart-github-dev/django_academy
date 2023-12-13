@@ -179,6 +179,7 @@ def handle_github_event(event_type, payload):
         description = "Requested event in {}".format(repo_name)
     else:
         description = "Unknown event type"
+        return
     GitHubActivitys.objects.create(
         event_type=event_type,
         github_name=username,

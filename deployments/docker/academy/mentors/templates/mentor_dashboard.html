@@ -1,152 +1,164 @@
 {% extends 'base.html' %}
 {% block content %}
-  {% load markdownify %}
-  {% include 'mentor_leftbar.html' %}
+{% load markdownify %}
+{% include 'mentor_leftbar.html' %}
 
-  <div class="page-container">
-    <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
-    <div class="contents-inner">
-      <div class="dashboard-view-wrapper">
-        <h5 class="page-title mb-4">Mentor Dashboard</h5>
-        <div class="dashboard-inner d-flex justify-content-between flex-wrap">
-          <div class="dashboard-card card" style="width: 40%;">
-            <div class="dashboard-card-inner">
-              <div class="dashboard-card-title">
-                <div class="mb-0 font-weight-bold text-base d-flex h4 align-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M5.121 17.805C7.21942 16.6189 9.58958 15.9973 12 16.001C14.5 16.001 16.847 16.656 18.879 17.805M15 10.001C15 10.7966 14.6839 11.5597 14.1213 12.1223C13.5587 12.6849 12.7956 13.001 12 13.001C11.2043 13.001 10.4413 12.6849 9.87868 12.1223C9.31607 11.5597 9 10.7966 9 10.001C9 9.20533 9.31607 8.44226 9.87868 7.87966C10.4413 7.31705 11.2043 7.00098 12 7.00098C12.7956 7.00098 13.5587 7.31705 14.1213 7.87966C14.6839 8.44226 15 9.20533 15 10.001ZM21 12.001C21 13.1829 20.7672 14.3532 20.3149 15.4451C19.8626 16.5371 19.1997 17.5292 18.364 18.3649C17.5282 19.2007 16.5361 19.8636 15.4441 20.3159C14.3522 20.7682 13.1819 21.001 12 21.001C10.8181 21.001 9.64778 20.7682 8.55585 20.3159C7.46392 19.8636 6.47177 19.2007 5.63604 18.3649C4.80031 17.5292 4.13738 16.5371 3.68508 15.4451C3.23279 14.3532 3 13.1829 3 12.001C3 9.61403 3.94821 7.32484 5.63604 5.63702C7.32387 3.94919 9.61305 3.00098 12 3.00098C14.3869 3.00098 16.6761 3.94919 18.364 5.63702C20.0518 7.32484 21 9.61403 21 12.001Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                  <span class="mx-2">Subscription Totals</span>
-                </div>
+<div class="page-container">
+  <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars"
+      aria-hidden="true"></i></button>
+  <div class="contents-inner">
+    <div class="dashboard-view-wrapper">
+      <h5 class="page-title mb-4">Mentor Dashboard</h5>
+      <div class="dashboard-inner d-flex justify-content-between flex-wrap">
+        <div class="dashboard-card card" style="width: 40%;">
+          <div class="dashboard-card-inner">
+            <div class="dashboard-card-title">
+              <div class="mb-0 font-weight-bold text-base d-flex h4 align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M5.121 17.805C7.21942 16.6189 9.58958 15.9973 12 16.001C14.5 16.001 16.847 16.656 18.879 17.805M15 10.001C15 10.7966 14.6839 11.5597 14.1213 12.1223C13.5587 12.6849 12.7956 13.001 12 13.001C11.2043 13.001 10.4413 12.6849 9.87868 12.1223C9.31607 11.5597 9 10.7966 9 10.001C9 9.20533 9.31607 8.44226 9.87868 7.87966C10.4413 7.31705 11.2043 7.00098 12 7.00098C12.7956 7.00098 13.5587 7.31705 14.1213 7.87966C14.6839 8.44226 15 9.20533 15 10.001ZM21 12.001C21 13.1829 20.7672 14.3532 20.3149 15.4451C19.8626 16.5371 19.1997 17.5292 18.364 18.3649C17.5282 19.2007 16.5361 19.8636 15.4441 20.3159C14.3522 20.7682 13.1819 21.001 12 21.001C10.8181 21.001 9.64778 20.7682 8.55585 20.3159C7.46392 19.8636 6.47177 19.2007 5.63604 18.3649C4.80031 17.5292 4.13738 16.5371 3.68508 15.4451C3.23279 14.3532 3 13.1829 3 12.001C3 9.61403 3.94821 7.32484 5.63604 5.63702C7.32387 3.94919 9.61305 3.00098 12 3.00098C14.3869 3.00098 16.6761 3.94919 18.364 5.63702C20.0518 7.32484 21 9.61403 21 12.001Z"
+                    stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="mx-2">Subscription Totals</span>
               </div>
-              <div class="card-content pb-3">
-                {% for plans in plans_subscription_totals %}
-                  <div class="class-box mt-1">
-                    <div class="font-weight-bold">{{ plans.name }} :</div>
-                    <div class="mx-2">{{ plans.counts }} Users</div>
-                  </div>
+            </div>
+            <div class="card-content pb-3">
+              {% for plans in plans_subscription_totals %}
+              <div class="class-box mt-1">
+                <div class="font-weight-bold">{{ plans.name }} :</div>
+                <div class="mx-2">{{ plans.counts }} Users</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-card card" style="width: 55%;">
+          <div class="dashboard-card-inner">
+            <div class="dashboard-card-title d-flex justify-content-between align-items-center">
+              <div class="mb-0 font-weight-bold text-base h4 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M21 12.001H15M13 7.00098C13 8.06184 12.5786 9.07926 11.8284 9.8294C11.0783 10.5795 10.0609 11.001 9 11.001C7.93913 11.001 6.92172 10.5795 6.17157 9.8294C5.42143 9.07926 5 8.06184 5 7.00098C5 5.94011 5.42143 4.92269 6.17157 4.17255C6.92172 3.4224 7.93913 3.00098 9 3.00098C10.0609 3.00098 11.0783 3.4224 11.8284 4.17255C12.5786 4.92269 13 5.94011 13 7.00098ZM9 14.001C7.4087 14.001 5.88258 14.6331 4.75736 15.7583C3.63214 16.8836 3 18.4097 3 20.001V21.001H15V20.001C15 18.4097 14.3679 16.8836 13.2426 15.7583C12.1174 14.6331 10.5913 14.001 9 14.001Z"
+                    stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+                </svg><span class="mx-2 mr-4">Paypal Cancellations</span>
+                <a href="/mentors/paypal" class="text-btn text-info">View all</a>
+              </div>
+              <div class="text-btn font-italic text-center" style="width:10%">Date</div>
+            </div>
+            <div class="card-content">
+              {% for paypal_cancellation in paypal_cancellations %}
+              <div class="d-flex justify-content-between mt-2">
+                <div style="font-size: 1rem;">{{ paypal_cancellation.user_name }} | {{ paypal_cancellation.first_name }}
+                  {{ paypal_cancellation.last_name }}</div>
+                <div>{{ paypal_cancellation.date }}</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card card">
+          <div class="dashboard-card-inner">
+            <div class="dashboard-card-title d-flex align-items-center justify-content-between">
+              <div class="mb-0 font-weight-bold text-base h4 mr-3 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M18 9.00098V12.001V9.00098ZM18 12.001V15.001V12.001ZM18 12.001H21H18ZM18 12.001H15H18ZM13 7.00098C13 8.06184 12.5786 9.07926 11.8284 9.8294C11.0783 10.5795 10.0609 11.001 9 11.001C7.93913 11.001 6.92172 10.5795 6.17157 9.8294C5.42143 9.07926 5 8.06184 5 7.00098C5 5.94011 5.42143 4.92269 6.17157 4.17255C6.92172 3.4224 7.93913 3.00098 9 3.00098C10.0609 3.00098 11.0783 3.4224 11.8284 4.17255C12.5786 4.92269 13 5.94011 13 7.00098V7.00098ZM3 20.001C3 18.4097 3.63214 16.8836 4.75736 15.7583C5.88258 14.6331 7.4087 14.001 9 14.001C10.5913 14.001 12.1174 14.6331 13.2426 15.7583C14.3679 16.8836 15 18.4097 15 20.001V21.001H3V20.001Z"
+                    stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+                </svg><span class="mx-2 mr-4">Recent Subscribed Users</span>
+                <a href="/mentors/recent_subscribers" class="text-btn text-info">View all</a>
+              </div>
+              <div class="text-btn font-italic text-center" style="width:10%">Date</div>
+            </div>
+            <div class="card-content">
+              <!-- Table showing subscribed users -->
+              <table class="table table-borderless">
+                <caption>Table</caption>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                {% for subscriber in subscribed_users %}
+                <tr>
+                  <td style="text-align: center;width: 12%;font-weight:bold;">{{ subscriber.plan_name }}</td>
+                  <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{
+                    subscriber.email }}</td>
+                  <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
+                </tr>
                 {% endfor %}
-              </div>
+              </table>
             </div>
           </div>
-          <div class="dashboard-card card" style="width: 55%;">
-            <div class="dashboard-card-inner">
-              <div class="dashboard-card-title d-flex justify-content-between align-items-center">
-                <div class="mb-0 font-weight-bold text-base h4 d-flex align-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M21 12.001H15M13 7.00098C13 8.06184 12.5786 9.07926 11.8284 9.8294C11.0783 10.5795 10.0609 11.001 9 11.001C7.93913 11.001 6.92172 10.5795 6.17157 9.8294C5.42143 9.07926 5 8.06184 5 7.00098C5 5.94011 5.42143 4.92269 6.17157 4.17255C6.92172 3.4224 7.93913 3.00098 9 3.00098C10.0609 3.00098 11.0783 3.4224 11.8284 4.17255C12.5786 4.92269 13 5.94011 13 7.00098ZM9 14.001C7.4087 14.001 5.88258 14.6331 4.75736 15.7583C3.63214 16.8836 3 18.4097 3 20.001V21.001H15V20.001C15 18.4097 14.3679 16.8836 13.2426 15.7583C12.1174 14.6331 10.5913 14.001 9 14.001Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg><span class="mx-2 mr-4">Paypal Cancellations</span>
-                  <a href="/mentors/paypal" class="text-btn text-info">View all</a>
-                </div>
-                <div class="text-btn font-italic text-center" style="width:10%">Date</div>
+        </div>
+        <div class="dashboard-card card">
+          <div class="dashboard-card-inner">
+            <div class="dashboard-card-title d-flex justify-content-between">
+              <div class="mb-0 font-weight-bold text-base h4 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 8.99936V10.9994M12 14.9994H12.01M20.618 5.98336C17.4561 6.15127 14.3567 5.05797 12 2.94336C9.64327 5.05797 6.5439 6.15127 3.382 5.98336C3.12754 6.96847 2.99918 7.98191 3 8.99936C3 14.5904 6.824 19.2894 12 20.6214C17.176 19.2894 21 14.5914 21 8.99936C21 7.95736 20.867 6.94736 20.618 5.98336Z"
+                    stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+                </svg><span class="mx-2 mr-4">Expired Subscriptions</span>
+                <a href="{{ request.path }}" class="text-btn text-info">View all</a>
               </div>
-              <div class="card-content">
-                {% for paypal_cancellation in paypal_cancellations %}
-                  <div class="d-flex justify-content-between mt-2">
-                    <div style="font-size: 1rem;">{{ paypal_cancellation.user_name }} | {{ paypal_cancellation.first_name }} {{ paypal_cancellation.last_name }}</div>
-                    <div>{{ paypal_cancellation.date }}</div>
-                  </div>
+              <div class="text-btn font-italic text-center" style="width:10%">Expiration Date</div>
+            </div>
+            <div class="card-content">
+              <!-- Table showing expire subscriber -->
+              <table class="table table-borderless">
+                <caption>Table</caption>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                {% for subscriber in expired_subscriptions %}
+                <tr>
+                  <td style="text-align: center;width: 12%;font-weight:bold;">{{ subscriber.plan_name }}</td>
+                  <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{
+                    subscriber.email }}</td>
+                  <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
+                </tr>
                 {% endfor %}
-              </div>
+              </table>
             </div>
           </div>
+        </div>
 
-          <div class="dashboard-card card">
-            <div class="dashboard-card-inner">
-              <div class="dashboard-card-title d-flex align-items-center justify-content-between">
-                <div class="mb-0 font-weight-bold text-base h4 mr-3 d-flex align-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M18 9.00098V12.001V9.00098ZM18 12.001V15.001V12.001ZM18 12.001H21H18ZM18 12.001H15H18ZM13 7.00098C13 8.06184 12.5786 9.07926 11.8284 9.8294C11.0783 10.5795 10.0609 11.001 9 11.001C7.93913 11.001 6.92172 10.5795 6.17157 9.8294C5.42143 9.07926 5 8.06184 5 7.00098C5 5.94011 5.42143 4.92269 6.17157 4.17255C6.92172 3.4224 7.93913 3.00098 9 3.00098C10.0609 3.00098 11.0783 3.4224 11.8284 4.17255C12.5786 4.92269 13 5.94011 13 7.00098V7.00098ZM3 20.001C3 18.4097 3.63214 16.8836 4.75736 15.7583C5.88258 14.6331 7.4087 14.001 9 14.001C10.5913 14.001 12.1174 14.6331 13.2426 15.7583C14.3679 16.8836 15 18.4097 15 20.001V21.001H3V20.001Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg><span class="mx-2 mr-4">Recent Subscribed Users</span>
-                  <a href="/mentors/recent_subscribers" class="text-btn text-info">View all</a>
-                </div>
-                <div class="text-btn font-italic text-center" style="width:10%">Date</div>
+        <div class="dashboard-card card">
+          <div class="dashboard-card-inner">
+            <div class="dashboard-card-title d-flex justify-content-between">
+              <div class="mb-0 font-weight-bold text-base h4 d-flex align-items-center">
+                <span class="mx-2 mr-4">Github Activity Tracker</span>
+                <a href="/mentors/recent_github_activitys" class="text-btn text-info">View all</a>
               </div>
-              <div class="card-content">
-                <!-- Table showing subscribed users -->
-                <table class="table table-borderless">
-                  <caption>Table</caption>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  {% for subscriber in subscribed_users %}
-                    <tr>
-                      <td style="text-align: center;width: 12%;font-weight:bold;">{{ subscriber.plan_name }}</td>
-                      <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
-                      <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
-                    </tr>
-                  {% endfor %}
-                </table>
-              </div>
+              <div class="text-btn font-italic text-center" style="width:10%">Date</div>
             </div>
-          </div>
-          <div class="dashboard-card card">
-            <div class="dashboard-card-inner">
-              <div class="dashboard-card-title d-flex justify-content-between">
-                <div class="mb-0 font-weight-bold text-base h4 d-flex align-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 8.99936V10.9994M12 14.9994H12.01M20.618 5.98336C17.4561 6.15127 14.3567 5.05797 12 2.94336C9.64327 5.05797 6.5439 6.15127 3.382 5.98336C3.12754 6.96847 2.99918 7.98191 3 8.99936C3 14.5904 6.824 19.2894 12 20.6214C17.176 19.2894 21 14.5914 21 8.99936C21 7.95736 20.867 6.94736 20.618 5.98336Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg><span class="mx-2 mr-4">Expired Subscriptions</span>
-                  <a href="{{ request.path }}" class="text-btn text-info">View all</a>
-                </div>
-                <div class="text-btn font-italic text-center" style="width:10%">Expiration Date</div>
-              </div>
-              <div class="card-content">
-                <!-- Table showing expire subscriber -->
-                <table class="table table-borderless">
-                  <caption>Table</caption>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  {% for subscriber in expired_subscriptions %}
-                    <tr>
-                      <td style="text-align: center;width: 12%;font-weight:bold;">{{ subscriber.plan_name }}</td>
-                      <td style=" ">[{{ subscriber.user_name }}] {{ subscriber.first_name }} {{ subscriber.last_name }} {{ subscriber.email }}</td>
-                      <td style="text-align: center;width: 10%;">{{ subscriber.date }}</td>
-                    </tr>
-                  {% endfor %}
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div class="dashboard-card card">
-            <div class="dashboard-card-inner">
-              <div class="dashboard-card-title d-flex justify-content-between">
-                <div class="mb-0 font-weight-bold text-base h4 d-flex align-items-center">
-                  <span class="mx-2 mr-4">Github Activity Tracker</span>
-                  <a href="/mentors/recent_github_activitys" class="text-btn text-info">View all</a>
-                </div>
-                <div class="text-btn font-italic text-center" style="width:10%">Date</div>
-              </div>
-              <div class="card-content">
-                <!-- Table showing github activity historys -->
-                <table class="table table-borderless">
-                  <caption>Table</caption>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  {% for activity in github_activity_trakers %}
-                    <tr>
-                      <td style="width: 1%;font-weight:bold;">
-                        <img src="/static/images/github-icons/{{ activity.event_type }}.png" alt="" />
-                      </td>
-                      <td style=" ">{{ activity.github_name }} [{{ activity.repo_name }}] {{ activity.activity }}</td>
-                      <td style="text-align: center;width: 10%;">{{ activity.created_date }}</td>
-                    </tr>
-                  {% endfor %}
-                </table>
-              </div>
+            <div class="card-content">
+              <!-- Table showing github activity historys -->
+              <table class="table table-borderless">
+                <caption>Table</caption>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                {% for activity in github_activity_trakers %}
+                <tr>
+                  <td style="width: 1%;font-weight:bold;">
+                    <img width="22px" src="/static/images/github-icons/{{ activity.event_type }}.png" alt="" />
+                  </td>
+                  <td>{{ activity.github_name }} [{{ activity.repo_name }}] {{ activity.activity }}</td>
+                  <td style="text-align: center;width: 10%;">{{ activity.created_date }}</td>
+                </tr>
+                {% endfor %}
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
