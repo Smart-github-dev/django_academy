@@ -206,7 +206,9 @@ class GitHubActivitys(models.Model):
     event_type = models.CharField(max_length=20)
     github_name = models.CharField(max_length=20)
     repo_name = models.CharField(max_length=20)
-    activity_description = models.CharField(max_length=50)
+    activity_description = models.TextField(
+        max_length=100, blank=True, validators=[MaxLengthValidator(100)]
+    )
     evnet_content = models.TextField(
         max_length=15750, blank=True, validators=[MaxLengthValidator(15750)]
     )

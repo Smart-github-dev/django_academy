@@ -25,40 +25,38 @@
                     <path d="M18 9.00098V12.001V9.00098ZM18 12.001V15.001V12.001ZM18 12.001H21H18ZM18 12.001H15H18ZM13 7.00098C13 8.06184 12.5786 9.07926 11.8284 9.8294C11.0783 10.5795 10.0609 11.001 9 11.001C7.93913 11.001 6.92172 10.5795 6.17157 9.8294C5.42143 9.07926 5 8.06184 5 7.00098C5 5.94011 5.42143 4.92269 6.17157 4.17255C6.92172 3.4224 7.93913 3.00098 9 3.00098C10.0609 3.00098 11.0783 3.4224 11.8284 4.17255C12.5786 4.92269 13 5.94011 13 7.00098V7.00098ZM3 20.001C3 18.4097 3.63214 16.8836 4.75736 15.7583C5.88258 14.6331 7.4087 14.001 9 14.001C10.5913 14.001 12.1174 14.6331 13.2426 15.7583C14.3679 16.8836 15 18.4097 15 20.001V21.001H3V20.001Z" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
                   </svg><span class="ml-2">Recent Subscribers History</span>
                 </div>
-                <div class="d-flex mt-2">
-                  <div class="custom-select-m mr-2">
-                    <select class="form-control" style="min-width: 150px;" name="filter" id="filter">
-                      {% if filter == 'today' %}
-                        <option value="today" selected>today</option>
-                      {% else %}
-                        <option value="today">today</option>
-                      {% endif %}
-                      {% if filter == 'week' %}
-                        <option value="week" selected>week</option>
-                      {% else %}
-                        <option value="week">week</option>
-                      {% endif %}
-                      {% if filter == 'month' %}
-                        <option value="month" selected>month</option>
-                      {% else %}
-                        <option value="month">month</option>
-                      {% endif %}
-                      {% for plan in plans %}
-                        {% if filter == plan.id %}
-                          <option value="{{ plan.id }}" selected>{{ plan.name }}</option>
-                        {% else %}
-                          <option value="{{ plan.id }}">{{ plan.name }}</option>
-                        {% endif %}
-                      {% endfor %}
-                    </select>
-                  </div>
-                  <button class="text-btn d-flex align-items-center" onclick="filter_date()">
-                    <svg width="19" height="31" viewBox="0 0 19 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="dropdown dropleft">
+                  <button class="text-btn d-flex align-items-center btn-sm" data-toggle="dropdown">
+                    <svg width="15" height="25" viewBox="0 0 19 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M15.0413 18.9893L9.49967 24.5309L3.95801 18.9893" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
                       <path d="M3.95801 11.8747L9.49967 6.33301L15.0413 11.8747" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span class="mx-2">filter</span>
                   </button>
+                  <div class="dropdown-menu">
+                    {% if filter == 'today' %}
+                      <a class="dropdown-item active" href="javascript:filter_data('today')">Today</a>
+                    {% else %}
+                      <a class="dropdown-item" href="javascript:filter_data('today')">Today</a>
+                    {% endif %}
+                    {% if filter == 'week' %}
+                      <a class="dropdown-item active" href="javascript:filter_data('week')">Week</a>
+                    {% else %}
+                      <a class="dropdown-item" href="javascript:filter_data('week')">Week</a>
+                    {% endif %}
+                    {% if filter == 'month' %}
+                      <a class="dropdown-item active" href="javascript:filter_data('month')">Month</a>
+                    {% else %}
+                      <a class="dropdown-item" href="javascript:filter_data('month')">Month</a>
+                    {% endif %}
+                    {% for plan in plans %}
+                      {% if filter == plan.id %}
+                        <a class="dropdown-item active" href="javascript:filter_data('{{ plan.id }}')">{{ plan.name }}</a>
+                      {% else %}
+                        <a class="dropdown-item" href="javascript:filter_data('{{ plan.id }}')">{{ plan.name }}</a>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
               <div class="card-content">
@@ -131,10 +129,10 @@
       document.location.href = parseurl.url + '?' + url
     }
     
-    function filter_date(e) {
+    function filter_data(e) {
       var parseurl = getParams(document.location.href)
-      var expire_date = document.getElementById('filter').value
-      if (expire_date) parseurl.params['filter'] = expire_date
+      var data = e
+      if (data) parseurl.params['filter'] = data
       var url = jsonToQueryString(parseurl.params)
       document.location.href = parseurl.url + '?' + url
     }

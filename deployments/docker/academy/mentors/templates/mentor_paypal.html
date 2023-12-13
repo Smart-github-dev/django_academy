@@ -28,11 +28,12 @@
                 </div>
               </div>
               <div class="card-content">
-                <table class="table table-borderless"><!-- This table showing payal cancellation -->
+                <table class="table table-borderless">
+                  <!-- This table showing payal cancellation -->
                   <caption>Table</caption>
                   <thead>
-                    <tr style="font-style: italic;width: 12%;border-bottom: .6px solid #979595">
-                      <th style="text-align: right; width: 15%;font-weight: 10 !important;">Plan</th>
+                    <tr style="font-style: italic;border-bottom: .6px solid #979595">
+                      <th style="text-align: right; width: 12%;font-weight: 10 !important;">Plan</th>
                       <th style="font-weight: 10 !important;  width: 75%;">Username | Name | Email</th>
                       <th style="font-weight: 10 !important;text-align: center;">Date</th>
                     </tr>
@@ -84,19 +85,19 @@
       } else {
         delete parseurl.params['search']
       }
-
+    
       if (s) {
         parseurl.params['s'] = s
       }
-
+    
       if (e) {
         parseurl.params['e'] = e
       }
-
+    
       var url = jsonToQueryString(parseurl.params)
       document.location.href = parseurl.url + '?' + url
     }
-
+    
     function getParams(url) {
       var params = {}
       var urlParts = url.split('?')
@@ -108,10 +109,10 @@
           params[keyValue[0]] = keyValue[1]
         })
       }
-
+    
       return { params, url: urlParts[0] }
     }
-
+    
     function jsonToQueryString(jsonData) {
       return Object.keys(jsonData)
         .map(function (key) {

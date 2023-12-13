@@ -27,6 +27,25 @@
                     </svg>
                   </span><span class="mx-2">User Access</span>
                 </div>
+
+                <div class="dropdown dropleft">
+                  <button class="text-btn d-flex align-items-center btn-sm" data-toggle="dropdown">
+                    <svg width="15" height="25" viewBox="0 0 19 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15.0413 18.9893L9.49967 24.5309L3.95801 18.9893" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M3.95801 11.8747L9.49967 6.33301L15.0413 11.8747" stroke="#05ADA6" stroke-width="2.04493" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="mx-2">filter</span>
+                  </button>
+                  <div class="dropdown-menu">
+                    {% for key, value in filter_items.items %}
+                      {% if filter == key %}
+                        <a class="dropdown-item active" href="javascript:filter_data('{{ key }}')">{{ value }}</a>
+                      {% else %}
+                        <a class="dropdown-item" href="javascript:filter_data('{{ key }}')">{{ value }}</a>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
               </div>
               <div class="card-content">
                 <!-- This table showing users info -->
@@ -36,32 +55,34 @@
                     <tr style="font-style: italic; border-bottom: .6px solid #979595">
                       <th id="status" style="font-weight:10">Status</th>
                       <th id="user_name" style="font-weight: 10 !important; width: 15%;">Username</th>
-                      <th id="first_name" style="font-weight: 10 !important;">First Name</th>
+                      <th id="first_name" style="font-weight: 10 !important; width: 15%;">First Name</th>
                       <th id="last_name" style="font-weight: 10 !important; width: 15%;">Last Name</th>
                       <th id="plan" style="font-weight: 10 !important; text-align: center; width: 20%;">Plan</th>
-                      <th id="expiration_date" style="font-weight: 10 !important; text-align: center; width: 15%;">Expiration Date</th>
+                      <th id="expiration_date" style="font-weight: 10 !important; text-align: center; width: 15%;">Created Date</th>
+                      <th id="expiration_date" style="font-weight: 10 !important; text-align: center; width: 18%;">Expiration Date</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for user in users_info %}
                       <tr>
-                        <th id="body">
+                        <td id="body">
                           <div class="custom-control custom-switch ml-2" style="width: 10%;">
-                            {% if user.status == 'active' %}
+                            {% if user.status == True %}
                               <input type="checkbox" class="custom-control-input" id="status_{{ user.id }}" onchange="change_status('{{ user.id }}')" checked />
                             {% else %}
                               <input type="checkbox" class="custom-control-input" id="status_{{ user.id }}" onchange="change_status('{{ user.id }}')" />
                             {% endif %}
                             <label class="custom-control-label" for="status_{{ user.id }}"></label>
                           </div>
-                        </th>
-                        <td style="width: 20%;">
-                          <a href="{{ request.path }}/details?id={{ user.id }}" class="text-base">{{ user.user_name }}</a>
                         </td>
-                        <td class="text-base">{{ user.first_name }}</td>
-                        <td class="text-base">{{ user.last_name }}</td>
+                        <td style="width: 8%;">
+                          <a href="{{ request.path }}/details?id={{ user.id }}" class="text-base" style="font-size: 16px;">{{ user.user_name }}</a>
+                        </td>
+                        <td class="text-base" style="width: 8%;">{{ user.first_name }}</td>
+                        <td class="text-base" style="width: 8%;">{{ user.last_name }}</td>
                         <td style="text-align: center;font-weight: bold;">{{ user.plan_name }}</td>
-                        <td style="text-align: center;" class="text-base">{{ user.expiration_date }}</td>
+                        <td style="text-align: center">{{ user.created_date }}</td>
+                        <td style="text-align: center" class="text-base">{{ user.expiration_date }}</td>
                       </tr>
                     {% endfor %}
                   </tbody>
@@ -109,7 +130,7 @@
       }
       return cookieValue
     }
-
+    
     function change_status(id) {
       var csrftoken = getCookie('csrftoken')
       console.log(csrftoken)
@@ -128,7 +149,7 @@
         .then((data) => console.log(data))
         .catch((error) => console.error('Request failed:', error))
     }
-
+    
     function search_pagination_control(s, e) {
       var search = document.getElementById('search').value
       var parseurl = getParams(document.location.href)
@@ -137,19 +158,27 @@
       } else {
         delete parseurl.params['search']
       }
-
+    
       if (s) {
         parseurl.params['s'] = s
       }
-
+    
       if (e) {
         parseurl.params['e'] = e
       }
-
+    
       var url = jsonToQueryString(parseurl.params)
       document.location.href = parseurl.url + '?' + url
     }
-
+    
+    function filter_data(e) {
+      var parseurl = getParams(document.location.href)
+      var data = e
+      if (data) parseurl.params['filter'] = data
+      var url = jsonToQueryString(parseurl.params)
+      document.location.href = parseurl.url + '?' + url
+    }
+    
     function getParams(url) {
       var params = {}
       var urlParts = url.split('?')
@@ -161,10 +190,10 @@
           if (typeof keyValue[0] != 'undefined') params[keyValue[0]] = keyValue[1]
         })
       }
-
+    
       return { params, url: urlParts[0] }
     }
-
+    
     function jsonToQueryString(jsonData) {
       return Object.keys(jsonData)
         .map(function (key) {

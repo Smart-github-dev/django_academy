@@ -88,9 +88,9 @@ def set_github_activitys(request):
 def handle_github_event(event_type, payload):
     repo_name = payload["repository"]["name"]
     username = payload["repository"]["owner"]["login"]
-
     if event_type == "ping":
         description = "Ping event received"
+        return
     elif event_type == "push":
         description = "Pushed commits to {}".format(payload["ref"])
         handle_push_event(payload, event_type)
@@ -179,6 +179,7 @@ def handle_github_event(event_type, payload):
         description = "Requested event in {}".format(repo_name)
     else:
         description = "Unknown event type"
+        return
     GitHubActivitys.objects.create(
         event_type=event_type,
         github_name=username,
@@ -212,7 +213,7 @@ def handle_push_event(payload, event_type):
         # Additional handling logic
         print(description)
         GitHubActivitys.objects.create(
-            event_type=event_type,
+            event_type="commit",
             github_name=username,
             repo_name=repo_name,
             activity_description=description,

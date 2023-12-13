@@ -761,9 +761,16 @@ a p.user-name {
     display: block;
     text-decoration: none !important;
     transition: 0.3s;
+    margin-left: 20%;
+    font-size: 1.35rem;
+    white-space: nowrap; 
+    min-width: 250px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    text-align: left;
 }
 
-#user-options li a:hover {
+#user-options li:hover {
     background-color: #F3F1F1;
 }
 
@@ -771,16 +778,15 @@ a p.user-name {
     text-transform: uppercase;
 }
 
-#user-options li a {
-    text-align: left;
+
+#user-options li .side-bar-sub-link{
+    padding-left: 30px;
 }
 
-#user-options a.font-weight-bold {
-    padding-left: 135px;
-}
-
-#user-options a.side-bar-sub-link {
-    padding-left: 150px !important;
+@media screen and (max-width: 990px) {
+    #user-options li a{
+        font-size: 1.1rem;
+    }
 }
 
 /* ----------------------------------------------------------------- */
@@ -1094,6 +1100,10 @@ button.video-category-main-item[aria-expanded=true] img {
     border-bottom: 1px solid #979595;
 }
 
+.dashboard-card-title a {
+    white-space: nowrap; 
+}
+
 .dashboard-card-title h6 {
     font-size: 24px;
     line-height: 27px;
@@ -1152,7 +1162,7 @@ button.video-category-main-item[aria-expanded=true] img {
 }
 
 .dashboard-card .card-content {
-    padding: 12px 0 8px;
+    padding: 0px 0 8px;
 }
 
 .dashboard-card .class-box {
@@ -1203,8 +1213,19 @@ div.d-flex p.no-width.mb-0.text-base {
 
 .table td,
 .table th {
-    padding: .7rem 1rem !important;
+    padding: .7rem;
     vertical-align: top;
+}
+
+
+table tbody tr:first-child td {
+    padding-top: 1.5rem !important;  
+}
+
+@media screen and (max-width: 1400px) {
+    .dashboard-card {
+        width: 100% !important;
+    }
 }
 
 @media screen and (max-width: 1200px) {
@@ -1238,9 +1259,6 @@ div.d-flex p.no-width.mb-0.text-base {
         width: 100%;
     }
 
-    .dashborad-half-card {
-        width: 100% !important;
-    }
 }
 
 @media screen and (max-width: 991px) {
@@ -1285,10 +1303,6 @@ div.d-flex p.no-width.mb-0.text-base {
         padding: 24px 16px;
     }
 
-    .dashboard-card {
-        width: 100% !important;
-    }
-
     .dashboard-card-inner {
         padding: 0 16px;
     }
@@ -1311,12 +1325,18 @@ div.d-flex p.no-width.mb-0.text-base {
         font-size: 16px;
     }
 
+    
+
     /* --- table response ----*/
 
     .table td,
     .table th {
-        padding: 0.15rem !important;
+        padding: 0.25rem !important;
         font-size: 13px;
+    }
+
+    table tbody tr:first-child td{
+        padding-top: .6rem !important;  
     }
 
     .dashboard-card-title {
@@ -2050,3 +2070,54 @@ table.mobile {
         transform: scale(1)
     }
 }
+
+/* dropdown btn */
+
+
+.dropdown-item.active{
+    background-color:#F3F1F1 !important;
+    color: #B6B8BA;
+}
+
+.dropdown-item{
+    color: #B6B8BA !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+}
+
+.dropdown-menu{
+    border-radius: 12px;
+    border:1px solid #C4C4C4
+}
+
+/* scroll bar custom */
+::-webkit-scrollbar {
+	width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+	background-color: #f1f1f1;
+	border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+	background-color: #888;
+	border-radius: 5px;
+  }
+  
+  /* For Internet Explorer */
+  ::-ms-scrollbar {
+	width: 10px;
+    height: 10px;
+  }
+  
+  ::-ms-scrollbar-track {
+	background-color: #f1f1f1;
+	border-radius: 5px;
+  }
+  
+  ::-ms-scrollbar-thumb {
+	background-color: #888;
+	border-radius: 5px;
+  }
