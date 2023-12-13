@@ -466,7 +466,7 @@ def github_activitys(request):
             "oldest": "Oldest",
         }
         if search is not None:
-            githubactivitys = GitHubActivitys.objects.order_by("-created_date").filter(
+            githubactivitys = GitHubActivitys.objects.filter(
                 Q(github_name__icontains=search) | Q(repo_name__icontains=search)
             )
         else:

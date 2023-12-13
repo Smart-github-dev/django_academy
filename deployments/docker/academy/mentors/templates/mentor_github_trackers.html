@@ -114,20 +114,8 @@
       parseurl.params['s'] = s
     }
 
-    function filter_data(e) {
-      var parseurl = getParams(document.location.href)
-      var data = e
-      if (data) parseurl.params['filter'] = data
-      var url = jsonToQueryString(parseurl.params)
-      document.location.href = parseurl.url + '?' + url
-    }
-
-    function jsonToQueryString(jsonData) {
-      return Object.keys(jsonData)
-        .map(function (key) {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(jsonData[key])
-        })
-        .join('&')
+    if (e) {
+      parseurl.params['e'] = e
     }
 
     var url = jsonToQueryString(parseurl.params)
@@ -147,6 +135,14 @@
     }
 
     return { params, url: urlParts[0] }
+  }
+
+  function filter_data(e) {
+    var parseurl = getParams(document.location.href)
+    var data = e
+    if (data) parseurl.params['filter'] = data
+    var url = jsonToQueryString(parseurl.params)
+    document.location.href = parseurl.url + '?' + url
   }
 
   function jsonToQueryString(jsonData) {
