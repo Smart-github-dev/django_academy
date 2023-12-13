@@ -21,7 +21,7 @@
                 <div class="w-20 d-flex">
                   <div>Status</div>
                   <div class="mx-3 custom-control custom-switch">
-                    {% if user.status == 'active' %}
+                    {% if user.status == True %}
                       <input type="checkbox" class="custom-control-input" id="switch-1" onchange="change_status('{{ user.id }}')" checked />
                     {% else %}
                       <input type="checkbox" class="custom-control-input" id="switch-1" onchange="change_status('{{ user.id }}')" />
@@ -38,8 +38,8 @@
                     <caption>Table</caption>
                     <tbody>
                       <tr>
-                        <th style="width: 20%;text-align: right; line-height:2">Username</th>
-                        <td class="d-flex" style="width: 80%;min-width: 300px;">
+                        <th style="width: 20%;text-align: right; line-height:4">Username</th>
+                        <td class="d-flex" style="width: 80%;min-width: 230px;">
                           <input type="text" class="form-control" placeholder="Username" id="username" disabled name="username" value="{{ user.user.username }}" />
                           <div class="d-flex align-items-center ml-4 cursor-pointer" onclick="edit('username')">
                             <i class="fa fa-pencil text-info mr-1" aria-hidden="true"></i>EDIT
@@ -48,7 +48,7 @@
                       </tr>
                       <tr>
                         <th style=" text-align: right;line-height:2">First Name</th>
-                        <td class="d-flex" style="width: 80%;min-width: 300px;">
+                        <td class="d-flex" style="width: 80%;min-width: 230px;">
                           <input type="text" class="form-control" placeholder="First Name" id="first_name" disabled name="first_name" value="{{ user.first_name }}" />
                           <div class="d-flex align-items-center ml-4 cursor-pointer" onclick="edit('first_name')">
                             <i class="fa fa-pencil text-info mr-1" aria-hidden="true"></i> EDIT
@@ -57,7 +57,7 @@
                       </tr>
                       <tr>
                         <th style=" text-align: right;line-height:2">Last Name</th>
-                        <td class="d-flex" style="width: 80%;min-width: 300px;">
+                        <td class="d-flex" style="width: 80%;min-width: 230px;">
                           <input type="text" class="form-control" placeholder="Last Name" id="last_name" disabled name="last_name" value="{{ user.last_name }}" />
                           <div class="d-flex align-items-center ml-4 cursor-pointer" onclick="edit('last_name')">
                             <i class="fa fa-pencil text-info mr-1" aria-hidden="true"></i> EDIT
@@ -93,7 +93,7 @@
                       </tr>
                       <tr>
                         <th style="text-align: right;line-height:2">Email</th>
-                        <td class="d-flex" style="width: 80%;;min-width: 300px;">
+                        <td class="d-flex" style="width: 80%;;min-width: 230px;">
                           <input type="email" class="form-control" placeholder="Email" name="email" id="email" disabled value="{{ user.email }}" />
                           <div class="d-flex align-items-center ml-4 cursor-pointer" onclick="edit('email')">
                             <i class="fa fa-pencil text-info mr-1" aria-hidden="true"></i> EDIT
@@ -102,7 +102,7 @@
                       </tr>
                       <tr>
                         <th style=" text-align: right;line-height:2">Address</th>
-                        <td class="d-flex" style="width: 80%;;min-width: 300px;">
+                        <td class="d-flex" style="width: 80%;;min-width: 230px;">
                           <input type="text" class="form-control" placeholder="Address" name="address" id="address" disabled value="{{ user.address }}" />
                           <div class="d-flex align-items-center ml-4 cursor-pointer" onclick="edit('address')">
                             <i class="fa fa-pencil text-info mr-1" aria-hidden="true"></i> EDIT
@@ -173,7 +173,7 @@
       }
       return cookieValue
     }
-
+    
     function change_status(id) {
       var csrftoken = getCookie('csrftoken')
       console.log(csrftoken)
@@ -192,7 +192,7 @@
         .then((data) => console.log(data))
         .catch((error) => console.error('Request failed:', error))
     }
-
+    
     function edit(id) {
       document.getElementById(id).disabled = document.getElementById(id).disabled ? false : true
     }

@@ -569,8 +569,9 @@ input.form-control {
 /* start let menu */
 
 .left-menu {
-	width: 475px;
+	width: 25%;
 	height: auto;
+	min-width: 300px;
 	border-right: 3px solid #05A8A6;
 	background-color: white;
 }
@@ -582,9 +583,6 @@ input.form-control {
 	position: relative;
 }
 
-.side-bar-sub-link {
-	padding: 8px !important;
-}
 
 .left-side .closebtn {
 	text-decoration: none;
@@ -637,14 +635,6 @@ input.form-control {
 
 @media screen and (max-width: 576px) {
 
-	#user-options a.font-weight-bold {
-		padding-left: 85px;
-	}
-
-	#user-options a.side-bar-sub-link {
-		padding-left: 95px !important;
-	}
-
 	.left-menu.show {
 		opacity: 1;
 		transform: none;
@@ -670,7 +660,7 @@ input.form-control {
 
 .page-container {
 	height: 100%;
-	width: calc(100% - 475px);
+	width: calc(100% - 25%);
 	position: relative;
 }
 

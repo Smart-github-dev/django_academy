@@ -13,7 +13,7 @@
     </div>
 
     <ul id="user-options" class="dropdown">
-      <li class="mt-1" style="{% if request.path == '/mentors/dashboard' %}{% endif %}">
+      <li class="mt-1" style="{% if request.path == '/mentors/dashboard' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
         <a href="/mentors/dashboard" class="font-weight-bold d-flex align-items-center">
           <span class="svg-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -25,7 +25,7 @@
           <span class="mx-1">Dashboard</span>
         </a>
       </li>
-      <li class="mt-1" style="{% if request.path == '/mentors/history' %}{% endif %}">
+      <li class="mt-1" style="{% if request.path == '/mentors/history' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
         <a href="/mentors/history" class="font-weight-bold d-flex align-items-center">
           <span class="svg-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -35,22 +35,22 @@
           <span class="mx-1">History</span>
         </a>
       </li>
-      <li style="{% if request.path == '/mentors/paypal' %}{% endif %}">
-        <a href="/mentors/paypal" class="side-bar-sub-link mx-3">Paypal</a>
+      <li style="{% if request.path == '/mentors/paypal' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
+        <a href="/mentors/paypal" class="side-bar-sub-link">Paypal</a>
       </li>
-      <li style="{% if request.path == '/mentors/mentor_changes' %}{% endif %}">
-        <a href="/mentors/mentor_changes" class="side-bar-sub-link mx-3">Mentor Changes</a>
+      <li style="{% if request.path == '/mentors/mentor_changes' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
+        <a href="/mentors/mentor_changes" class="side-bar-sub-link">Mentor Changes</a>
       </li>
-      <li style="{% if request.path == '/mentors/update_user' %}{% endif %}">
-        <a href="/mentors/update_user" class="side-bar-sub-link mx-3">User Updates</a>
+      <li style="{% if request.path == '/mentors/update_user' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
+        <a href="/mentors/update_user" class="side-bar-sub-link">User Updates</a>
       </li>
-      <li style="{% if request.path == '/mentors/github_activitys' %}{% endif %}">
-        <a href="/mentors/github_activitys" class="side-bar-sub-link mx-3">Github Activity</a>
+      <li style="{% if request.path == '/mentors/github_activitys' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
+        <a href="/mentors/github_activitys" class="side-bar-sub-link">Github Activity</a>
       </li>
-      <li style="{% if request.path == '/mentors/recent_subscribers' %}{% endif %}">
-        <a href="/mentors/recent_subscribers" class="side-bar-sub-link mx-3">Recent Subscribers</a>
+      <li style="{% if request.path == '/mentors/recent_subscribers' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
+        <a href="/mentors/recent_subscribers" class="side-bar-sub-link">Recent Subscribers</a>
       </li>
-      <li class="mt-1" style="{% if request.path == '/mentors/manage_user' %}{% endif %}">
+      <li class="mt-1" style="{% if request.path == '/mentors/manage_user' %}{{ 'background-color:#F3F1F1' }}{% endif %}">
         <a href="/mentors/manage_user" class="font-weight-bold d-flex align-items-center">
           <span class="svg-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">

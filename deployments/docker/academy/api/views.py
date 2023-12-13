@@ -213,7 +213,7 @@ def handle_push_event(payload, event_type):
         # Additional handling logic
         print(description)
         GitHubActivitys.objects.create(
-            event_type=event_type,
+            event_type="commit",
             github_name=username,
             repo_name=repo_name,
             activity_description=description,

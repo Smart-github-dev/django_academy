@@ -131,6 +131,15 @@ def mentor_changes(request):
         param1 = request.GET.get("s")
         param2 = request.GET.get("e")
         search = request.GET.get("search")
+        filter = request.GET.get("filter")
+        filter_items = {
+            "today": "Today",
+            "week": "Week",
+            "month": "Month",
+            "recent": "Recent",
+            "oldest": "Oldest",
+        }
+
         if search is not None:
             historys = Users_activity.objects.filter(
                 Q(mentor_name__icontains=search) | Q(user_name__icontains=search)
@@ -138,6 +147,23 @@ def mentor_changes(request):
         else:
             search = ""
             historys = Users_activity.objects.all()
+        today_date = datetime.today().date()
+        if filter is not None:
+            if filter == "today":
+                historys = historys.filter(created_at__gte=today_date)
+            elif filter == "week":
+                historys = historys.filter(
+                    created_at__gte=today_date - timedelta(weeks=1)
+                )
+            elif filter == "month":
+                historys = historys.filter(
+                    created_at__gte=today_date.replace(day=1) - timedelta(days=1)
+                )
+            elif filter == "recent":
+                historys = historys.order_by("-created_at").all()[0:12]
+            elif filter == "oldest":
+                historys = historys.order_by("created_at").all()[0:12]
+
         totalnum = historys.count()
         pagination = get_pagination(param1, param2, totalnum)
         start_index = pagination["param1"] * pagination["param2"]
@@ -158,6 +184,15 @@ def mentor_update_user(request):
         param1 = request.GET.get("s")
         param2 = request.GET.get("e")
         search = request.GET.get("search")
+        filter = request.GET.get("filter")
+        filter_items = {
+            "today": "Today",
+            "week": "Week",
+            "month": "Month",
+            "recent": "Recent",
+            "oldest": "Oldest",
+        }
+
         if search is not None:
             historys = Users_activity.objects.filter(
                 Q(mentor_name__icontains=search) | Q(user_name__icontains=search)
@@ -165,6 +200,24 @@ def mentor_update_user(request):
         else:
             search = ""
             historys = Users_activity.objects.all()
+
+        today_date = datetime.today().date()
+        if filter is not None:
+            if filter == "today":
+                historys = historys.filter(created_at__gte=today_date)
+            elif filter == "week":
+                historys = historys.filter(
+                    created_at__gte=today_date - timedelta(weeks=1)
+                )
+            elif filter == "month":
+                historys = historys.filter(
+                    created_at__gte=today_date.replace(day=1) - timedelta(days=1)
+                )
+            elif filter == "recent":
+                historys = historys.order_by("-created_at").all()[0:12]
+            elif filter == "oldest":
+                historys = historys.order_by("created_at").all()[0:12]
+
         totalnum = historys.count()
         pagination = get_pagination(param1, param2, totalnum)
         start_index = pagination["param1"] * pagination["param2"]
@@ -251,8 +304,8 @@ def mentor_user_info_details(request):
                     )
 
                 state = request.POST.get("state")
-                if state is not None and state != user.state:
-                    user.state = state
+                if state is not None and state != user.user.is_active:
+                    user.user.is_active = state
                     mentor_activity_record(
                         "update", request.user.username, user.user.username, "State"
                     )
@@ -274,19 +327,66 @@ def mentor_user_info_details(request):
 @login_required
 def mentor_manage_user(request):
     current_user = User.objects.get(username=request.user.username)
+    print(1)
     if Subscriber.objects.filter(user=current_user):
         subscription = Subscriber.objects.get(user=current_user)
         search = request.GET.get("search")
-        expire_date = request.GET.get("expire_date")
+        filter = request.GET.get("filter")
+        filter_items = {
+            "active": "Status Active",
+            "deactive": "Status Deactivated",
+            "created_today": "Created Today",
+            "created_week": "Created Week",
+            "created_month": "Created Month",
+            "expired_today": "Expired Today",
+            "expired_week": "Expired Week",
+            "expired_month": "Expired Month",
+        }
+
+        plans = Plans.objects.all()
+
+        for plan in plans:
+            filter_items[plan.id] = plan.name
 
         if search is not None:
-            subscribers = Subscriber.objects.filter(Q(user__username__icontains=search))
+            subscribers = Subscriber.objects.filter(
+                Q(user__username__icontains=search)
+                | Q(first_name__icontains=search)
+                | Q(last_name__icontains=search)
+            )
         else:
             search = ""
             subscribers = Subscriber.objects.all()
 
-        if expire_date is not None:
-            subscribers = subscribers.filter(expire_date__gte=expire_date)
+        today_date = datetime.today().date()
+        if filter is not None:
+            if filter == "active":
+                subscribers = subscribers.filter(user__is_active=True)
+            elif filter == "deactive":
+                subscribers = subscribers.filter(user__is_active=False)
+            elif filter == "created_today":
+                subscribers = subscribers.filter(created_date__gte=today_date)
+            elif filter == "created_week":
+                subscribers = subscribers.filter(
+                    created_date__gte=today_date - timedelta(weeks=1)
+                )
+            elif filter == "created_month":
+                subscribers = subscribers.filter(
+                    created_date__gte=today_date.replace(day=1) - timedelta(days=1)
+                )
+            elif filter == "expired_today":
+                subscribers = subscribers.filter(expire_date__lt=today_date)
+            elif filter == "expired_week":
+                subscribers = subscribers.filter(
+                    expire_date__lt=today_date - timedelta(weeks=1)
+                )
+            elif filter == "expired_month":
+                subscribers = subscribers.filter(
+                    expire_date__lt=today_date.replace(day=1) - timedelta(days=1)
+                )
+            elif filter.isdigit():
+                filter = int(filter)
+                subscribers = subscribers.filter(plan_id=filter)
 
         totalnum = subscribers.count()
         param1 = request.GET.get("s")
@@ -356,13 +456,40 @@ def github_activitys(request):
         param1 = request.GET.get("s")
         param2 = request.GET.get("e")
         search = request.GET.get("search")
+        filter = request.GET.get("filter")
+
+        filter_items = {
+            "today": "Today",
+            "week": "Week",
+            "month": "Month",
+            "recent": "Recent",
+            "oldest": "Oldest",
+        }
         if search is not None:
             githubactivitys = GitHubActivitys.objects.order_by("-created_date").filter(
                 Q(github_name__icontains=search) | Q(repo_name__icontains=search)
             )
         else:
             search = ""
-            githubactivitys = GitHubActivitys.objects.order_by("-created_date").all()
+            githubactivitys = GitHubActivitys.objects.all()
+
+        today_date = datetime.today().date()
+        if filter is not None:
+            if filter == "today":
+                githubactivitys = githubactivitys.filter(created_date__gte=today_date)
+            elif filter == "week":
+                githubactivitys = githubactivitys.filter(
+                    created_date__gte=today_date - timedelta(weeks=1)
+                )
+            elif filter == "month":
+                githubactivitys = githubactivitys.filter(
+                    created_date__gte=today_date.replace(day=1) - timedelta(days=1)
+                )
+            elif filter == "recent":
+                githubactivitys = githubactivitys.order_by("-created_date").all()[0:12]
+            elif filter == "oldest":
+                githubactivitys = githubactivitys.order_by("created_date").all()[0:12]
+
         totalnum = githubactivitys.count()
         pagination = get_pagination(param1, param2, totalnum)
         start_index = pagination["param1"] * pagination["param2"]
@@ -468,7 +595,7 @@ def get_deactived_users():
         "subscribers",
         ["plan_name", "user_name", "first_name", "last_name", "date", "email"],
     )
-    for subscriber in Subscriber.objects.filter(status="new"):
+    for subscriber in Subscriber.objects.filter(user__is_active=False):
         deactives.append(
             new_subscriber(
                 plan_name=subscriber.plan.name,
@@ -492,6 +619,7 @@ def get_users_info(subscribers):
             "user_name",
             "first_name",
             "last_name",
+            "created_date",
             "expiration_date",
             "status",
         ],
@@ -504,8 +632,9 @@ def get_users_info(subscribers):
                 user_name=subscriber.user.username,
                 first_name=subscriber.first_name,
                 last_name=subscriber.last_name,
+                created_date=subscriber.created_date.strftime("%d/%m/%Y"),
                 expiration_date=subscriber.expire_date.strftime("%d/%m/%Y"),
-                status=subscriber.status,
+                status=subscriber.user.is_active,
             )
         )
     return users_info
@@ -575,13 +704,13 @@ def update_status_change(request):
             request_data = json.loads(request.body)
             subscription = Subscriber.objects.get(id=request_data["userid"])
             if request_data["value"] == True:
-                subscription.status = "active"
+                subscription.user.is_active = True
             else:
-                subscription.status = "new"
+                subscription.user.is_active = False
             mentor_activity_record(
                 "update", request.user.username, subscription.user.username, "Status"
             )
-            subscription.save()
+            subscription.user.save()
             return HttpResponse(status=200)
         except json.JSONDecodeError:
             return HttpResponse(status=400)
