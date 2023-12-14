@@ -53,10 +53,10 @@
                   <caption>Table</caption>
                   <thead>
                     <tr style="font-style: italic; border-bottom: .6px solid #979595">
-                      <th id="status" style="font-weight:10">Status</th>
-                      <th id="user_name" style="font-weight: 10 !important; width: 15%;">Username</th>
-                      <th id="first_name" style="font-weight: 10 !important; width: 15%;">First Name</th>
-                      <th id="last_name" style="font-weight: 10 !important; width: 15%;">Last Name</th>
+                      <th id="status" class="pl-0" style="font-weight:10 !important">Status</th>
+                      <th id="user_name" class="pl-4" style="font-weight: 10 !important; width: 15%;">Username</th>
+                      <th id="first_name" class="pl-1" style="font-weight: 10 !important; width: 15%;">First Name</th>
+                      <th id="last_name" class="pl-1" style="font-weight: 10 !important; width: 15%;">Last Name</th>
                       <th id="plan" style="font-weight: 10 !important; text-align: center; width: 20%;">Plan</th>
                       <th id="expiration_date" style="font-weight: 10 !important; text-align: center; width: 15%;">Created Date</th>
                       <th id="expiration_date" style="font-weight: 10 !important; text-align: center; width: 18%;">Expiration Date</th>
@@ -75,11 +75,11 @@
                             <label class="custom-control-label" for="status_{{ user.id }}"></label>
                           </div>
                         </td>
-                        <td style="width: 8%;">
+                        <td class="pl-4">
                           <a href="{{ request.path }}/details?id={{ user.id }}" class="text-base" style="font-size: 16px;">{{ user.user_name }}</a>
                         </td>
-                        <td class="text-base" style="width: 8%;">{{ user.first_name }}</td>
-                        <td class="text-base" style="width: 8%;">{{ user.last_name }}</td>
+                        <td class="text-base pl-1 ">{{ user.first_name }}</td>
+                        <td class="text-base pl-1">{{ user.last_name }}</td>
                         <td style="text-align: center;font-weight: bold;">{{ user.plan_name }}</td>
                         <td style="text-align: center">{{ user.created_date }}</td>
                         <td style="text-align: center" class="text-base">{{ user.expiration_date }}</td>

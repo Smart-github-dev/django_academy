@@ -19,18 +19,22 @@
                 <!-- Table showing deactived users -->
                 <table class="table table-borderless">
                   <caption>Table</caption>
-                  <tr style="display: none;">
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  {% for user in deactived_users %}
-                    <tr>
-                      <td style="text-align: center;width: 15%;font-weight:bold;">{{ user.plan_name }}</td>
-                      <td style=" ">[{{ user.user_name }}] {{ user.first_name }} {{ user.last_name }}</td>
-                      <td style="text-align: center; width: 10%;">{{ user.date }}</td>
+                  <thead>
+                    <tr style="display: none;">
+                      <th></th>
+                      <th></th>
+                      <th></th>
                     </tr>
-                  {% endfor %}
+                  </thead>
+                  <tbody>
+                    {% for user in deactived_users %}
+                      <tr>
+                        <td style="text-align: center;width: 15%;font-weight:bold;">{{ user.plan_name }}</td>
+                        <td style=" ">[{{ user.user_name }}] {{ user.first_name }} {{ user.last_name }}</td>
+                        <td style="text-align: center; width: 10%;">{{ user.date }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -47,10 +51,10 @@
                 </div>
                 <div class="text-btn font-italic text-center" style="width:10%">Date</div>
               </div>
-              <div class="card-content">
+              <div class="card-content pt-2">
                 {% for paypal_cancellation in paypal_cancellations %}
-                  <div class="d-flex justify-content-between mx-3 p-1">
-                    <div style="font-size: 17px;">{{ paypal_cancellation.user_name }} | {{ paypal_cancellation.first_name }} {{ paypal_cancellation.last_name }}</div>
+                  <div class="d-flex justify-content-between mr-3 mt-1 p-1">
+                    <div style="font-weight: bold;">{{ paypal_cancellation.user_name }} | {{ paypal_cancellation.first_name }} {{ paypal_cancellation.last_name }}</div>
                     <div>{{ paypal_cancellation.date }}</div>
                   </div>
                 {% endfor %}
@@ -73,18 +77,22 @@
                 <!-- This table showing mentor change historys -->
                 <table class="table table-borderless">
                   <caption>Table</caption>
-                  <tr style="display: none;">
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  {% for action in change_historys %}
-                    <tr>
-                      <td style="text-align: right;width: 12%;font-weight: bold;">{{ action.mentor_name }}</td>
-                      <td>Update user info [{{ action.user_name }}] {{ action.description }}</td>
-                      <td class="text-center" style="width: 10%;">{{ action.created_at }}</td>
+                  <thead>
+                    <tr style="display: none;">
+                      <th></th>
+                      <th></th>
+                      <th></th>
                     </tr>
-                  {% endfor %}
+                  </thead>
+                  <tbody>
+                    {% for action in change_historys %}
+                      <tr>
+                        <td style="text-align: right;width: 16%;font-weight: bold;white-space: nowrap; text-overflow: ellipsis;max-width: 160px;min-width:120px;overflow: hidden;">{{ action.mentor_name }}</td>
+                        <td class="pl-5">Update user info [{{ action.user_name }}] {{ action.description }}</td>
+                        <td class="text-center" style="width: 10%;">{{ action.created_at }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -105,18 +113,22 @@
                 <!-- This table showing user change historys -->
                 <table class="table table-borderless">
                   <caption>Table</caption>
-                  <tr style="display: none;">
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  {% for action in change_historys %}
-                    <tr>
-                      <td style="text-align: right;width: 12%;font-weight: bold;">{{ action.user_name }}</td>
-                      <td>Upgraded {{ action.description }}</td>
-                      <td class="text-center" style="width: 10%;">{{ action.created_at }}</td>
+                  <thead>
+                    <tr style="display: none;">
+                      <th></th>
+                      <th></th>
+                      <th></th>
                     </tr>
-                  {% endfor %}
+                  </thead>
+                  <tbody>
+                    {% for action in change_historys %}
+                      <tr>
+                        <td style="text-align: right;width: 16%;font-weight: bold;white-space: nowrap; text-overflow: ellipsis;max-width: 160px;min-width:120px;overflow: hidden;">{{ action.user_name }}</td>
+                        <td class="pl-5">Upgraded {{ action.description }}</td>
+                        <td class="text-center" style="width: 10%;">{{ action.created_at }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
                 </table>
               </div>
             </div>

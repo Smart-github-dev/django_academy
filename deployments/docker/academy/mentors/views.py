@@ -59,7 +59,9 @@ def mentor_dashboard(request):
             counts=Count("subscriber")
         ).all()
         expired_subscriptions = get_expired_subscriptions()
-        paypal_cancellations = get_paypal_cancellations(Subscriber.objects.all()[0:4])
+        paypal_cancellations = get_paypal_cancellations(
+            Subscriber.objects.filter(status="canceled")[0:4]
+        )
 
         github_activity_trakers = get_github_activitys()[0:6]
     else:
@@ -74,7 +76,7 @@ def mentor_history(request):
     if Subscriber.objects.filter(user=current_user):
         subscription = Subscriber.objects.get(user=current_user)
         deactived_users = get_deactived_users()
-        paypal_cancellations = get_paypal_cancellations(Subscriber.objects.all()[0:4])
+        paypal_cancellations = get_paypal_cancellations(Subscriber.objects.filter(status="canceled")[0:4])
         change_historys = list(
             map(history_change_date, Users_activity.objects.all()[0:4])
         )

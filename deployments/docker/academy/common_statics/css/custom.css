@@ -1211,15 +1211,19 @@ div.d-flex p.no-width.mb-0.text-base {
     margin: 0.5rem 0.5rem;
 }
 
-.table td,
+.table td {
+    padding: .3rem;
+    vertical-align: top;
+}
+
 .table th {
-    padding: .7rem;
+    padding: 1rem;
     vertical-align: top;
 }
 
 
 table tbody tr:first-child td {
-    padding-top: 1.5rem !important;  
+    padding-top: 1.2rem !important;  
 }
 
 @media screen and (max-width: 1400px) {
@@ -1335,7 +1339,7 @@ table tbody tr:first-child td {
         font-size: 13px;
     }
 
-    table tbody tr:first-child td{
+    table tbody tr:first-child td,table tbody tr:first-child th{
         padding-top: .6rem !important;  
     }
 
