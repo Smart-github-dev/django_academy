@@ -76,7 +76,9 @@ def mentor_history(request):
     if Subscriber.objects.filter(user=current_user):
         subscription = Subscriber.objects.get(user=current_user)
         deactived_users = get_deactived_users()
-        paypal_cancellations = get_paypal_cancellations(Subscriber.objects.filter(status="canceled")[0:4])
+        paypal_cancellations = get_paypal_cancellations(
+            Subscriber.objects.filter(status="canceled")[0:4]
+        )
         change_historys = list(
             map(history_change_date, Users_activity.objects.all()[0:4])
         )
@@ -575,9 +577,15 @@ def get_github_activitys():
     github_activitys = []
     new_activitys = namedtuple(
         "activitys",
-        ["event_type", "github_name", "repo_name", "activity", "created_date"],
+        [
+            "event_type",
+            "github_name",
+            "repo_name",
+            "activity",
+            "created_date",
+            "event_link",
+        ],
     )
-
     for activity in GitHubActivitys.objects.order_by("-created_date").all():
         github_activitys.append(
             new_activitys(
@@ -586,6 +594,7 @@ def get_github_activitys():
                 repo_name=activity.repo_name,
                 activity=activity.activity_description,
                 created_date=activity.created_date.strftime("%d/%m/%Y"),
+                event_link=activity.event_link,
             )
         )
     return github_activitys

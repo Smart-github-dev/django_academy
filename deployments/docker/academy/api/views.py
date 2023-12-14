@@ -88,33 +88,41 @@ def set_github_activitys(request):
 def handle_github_event(event_type, payload):
     repo_name = payload["repository"]["name"]
     username = payload["repository"]["owner"]["login"]
+    event_link = ""
     if event_type == "ping":
         description = "Ping event received"
         return
     elif event_type == "push":
         description = "Pushed commits to {}".format(payload["ref"])
+        branch_name = payload["ref"].split("/")[-1]
+        event_link = f"https://github.com/{username}/{repo_name}/commits/{branch_name}"
         handle_push_event(payload, event_type)
     elif event_type == "pull_request":
         action = payload["action"]
         description = "Pull Request {} in {}".format(action, repo_name)
+        event_link = payload["pull_request"]["html_url"]
         handle_pull_request_event(payload)
     elif event_type == "create":
         ref_type = payload["ref_type"]
         ref_name = payload["ref"]
+        event_link = get_repository_link(username, repo_name)
         description = "Created {} {} in {}".format(ref_type, ref_name, repo_name)
         handle_create_event(payload)
     elif event_type == "delete":
         ref_type = payload["ref_type"]
         ref_name = payload["ref"]
+        event_link = get_deleted_ref_link(username, repo_name, ref_name)
         description = "Deleted {} {} in {}".format(ref_type, ref_name, repo_name)
         handle_delete_event(payload)
     elif event_type == "commit_comment":
         commit_id = payload["comment"]["commit_id"]
+        event_link = payload["comment"]["html_url"]
         description = "Commented on commit {} in {}".format(commit_id, repo_name)
         handle_commit_comment_event(payload)
     elif event_type == "check_run":
         action = payload["action"]
         check_run_name = payload["check_run"]["name"]
+        event_link = payload["check_run"]["html_url"]
         description = "Check Run {} for {} in {}".format(
             action, check_run_name, repo_name
         )
@@ -122,61 +130,73 @@ def handle_github_event(event_type, payload):
     elif event_type == "pull_request_review":
         event_type = "conversation"
         action = payload["action"]
+        event_link = payload["review"]["html_url"]
         description = "Pull Request Review {} in {}".format(action, repo_name)
         handle_pull_request_review_event(payload)
     elif event_type == "issues":
         action = payload["action"]
         issue_title = payload["issue"]["title"]
+        event_link = payload["issue"]["html_url"]
         description = "Issue {} - {} in {}".format(action, issue_title, repo_name)
         handle_issues_event(payload)
     elif event_type == "issue_comment":
         event_type = "comment"
         comment_body = payload["comment"]["body"]
+        event_link = payload["comment"]["html_url"]
         description = "Commented on issue in {}".format(repo_name)
         handle_issue_comment_event(payload)
     elif event_type == "pull_request_review_comment":
         event_type = "conversation"
         action = payload["action"]
+        event_link = payload["comment"]["html_url"]
         description = "Pull Request Review Comment {} in {}".format(action, repo_name)
         handle_pull_request_review_comment_event(payload)
     elif event_type == "repository_dispatch":
         action = payload["action"]
+        event_link = payload["repository"]["html_url"]
         description = "Repository Dispatch {} in {}".format(action, repo_name)
         handle_repository_dispatch_event(payload)
     elif event_type == "repository":
         action = payload["action"]
+        event_link = payload["repository"]["html_url"]
         description = "Repository {} in {}".format(action, repo_name)
         handle_repository_event(payload)
     elif event_type == "milestone":
         action = payload["action"]
         milestone_title = payload["milestone"]["title"]
+        event_link = payload["milestone"]["html_url"]
         description = "Milestone {} - {} in {}".format(
             action, milestone_title, repo_name
         )
         handle_milestone_event(payload)
     elif event_type == "force-push":
+        event_link = get_force_push_links(payload)
         description = "Force Push event in {}".format(repo_name)
         handle_force_push_event(payload)
     elif event_type == "linked":
+        event_link = get_linked_links(payload)
         description = "Linked event in {}".format(repo_name)
         handle_linked_event(payload)
     elif event_type == "files_changed":
+        event_link = get_files_changed_links(payload)
         description = "Files Changed event in {}".format(repo_name)
         handle_files_changed_event(payload)
     elif event_type == "requested":
+        event_link = get_requested_links(payload)
         description = "Requested event in {}".format(repo_name)
         handle_requested_event(payload)
     elif event_type == "board":
+        event_link = get_board_links(payload)
         description = "Board event in {}".format(repo_name)
         handle_board_event(payload)
     elif event_type == "assign":
+        event_link = get_assign_links(payload)
         description = "Assign event in {}".format(repo_name)
         handle_assign_event(payload)
     elif event_type == "changed":
+        event_link = get_changed_links(payload)
         description = "Changed event in {}".format(repo_name)
         handle_changed_event(payload)
-    elif event_type == "requested":
-        description = "Requested event in {}".format(repo_name)
     else:
         description = "Unknown event type"
         return
@@ -185,6 +205,7 @@ def handle_github_event(event_type, payload):
         github_name=username,
         repo_name=repo_name,
         activity_description=description,
+        event_link=event_link,
         evnet_content=payload,
         created_date=timezone.now(),
     )
@@ -210,6 +231,7 @@ def handle_push_event(payload, event_type):
         commit_author = commit["author"]["name"]
 
         description = f'Commit {commit_id} by {commit_author}: "{commit_message}" in {repo_name}:{branch_name}'
+        event_link = f"https://github.com/{username}/{repo_name}/commit/{commit_id}"
         # Additional handling logic
         print(description)
         GitHubActivitys.objects.create(
@@ -217,6 +239,7 @@ def handle_push_event(payload, event_type):
             github_name=username,
             repo_name=repo_name,
             activity_description=description,
+            event_link=event_link,
             evnet_content=payload,
             created_date=timezone.now(),
         )
@@ -369,3 +392,92 @@ def handle_changed_event(payload):
     description = f"Changed action: {changed_action} in {repo_name} by {username}"
     # Additional handling logic
     print(description)
+
+
+def get_repository_link(username, repo_name):
+    return f"https://github.com/{username}/{repo_name}"
+
+
+def get_deleted_ref_link(username, repo_name, ref_name):
+    return f"https://github.com/{username}/{repo_name}/tree/{ref_name}"
+
+
+def get_commit_links(payload):
+    commits = payload.get("commits", [])
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    links = []
+
+    for commit in commits:
+        commit_id = commit.get("id")
+        if commit_id:
+            commit_url = f"https://github.com/{username}/{repo_name}/commit/{commit_id}"
+            links.append(commit_url)
+
+    return links
+
+
+def get_force_push_links(payload):
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    branch_name = payload["ref"].split("/")[-1]
+    links = [f"https://github.com/{username}/{repo_name}/commits/{branch_name}"]
+    return links
+
+
+def get_linked_links(payload):
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    links = [f"https://github.com/{username}/{repo_name}/network/dependencies"]
+    return links
+
+
+def get_files_changed_links(payload):
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    files_changed = payload.get("files", [])
+    links = []
+
+    for file in files_changed:
+        file_url = (
+            f"https://github.com/{username}/{repo_name}/blob/master/{file['filename']}"
+        )
+        links.append(file_url)
+
+    return links
+
+
+def get_requested_links(payload):
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    action = payload.get("action", "")
+    links = [
+        f"https://github.com/{username}/{repo_name}/pulls?q=is%3Apr+is%3A{action.lower()}"
+    ]
+    return links
+
+
+def get_board_links(payload):
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    board_event_action = payload.get("action", "")
+    links = [f"https://github.com/{username}/{repo_name}/projects"]
+    return links
+
+
+def get_assign_links(payload):
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    assignee = payload.get("assignee", {}).get("login", "")
+    links = [
+        f"https://github.com/{username}/{repo_name}/issues?q=is%3Aissue+assignee%3A{assignee}"
+    ]
+    return links
+
+
+def get_changed_links(payload):
+    repo_name = payload["repository"]["name"]
+    username = payload["repository"]["owner"]["login"]
+    changed_action = payload.get("action", "")
+    links = [f"https://github.com/{username}/{repo_name}/commits"]
+    return links

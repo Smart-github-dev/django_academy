@@ -60,7 +60,7 @@
                           <img width="22px" src="/static/images/github-icons/{{ activity.event_type }}.png" alt="" />
                         </td>
                         <td>
-                          <span class="font-weight-bold">{{ activity.github_name }}</span> [{{ activity.repo_name }}] {{ activity.activity_description }}
+                          <a class="font-weight-bold" href="{{ activity.event_link }}" style="font-weight:100;font-size:1rem ;color:#525559">{{ activity.github_name }}</a> [{{ activity.repo_name }}] {{ activity.activity_description }}
                         </td>
                         <td style="text-align: center;width: 10%;">{{ activity.created_date }}</td>
                       </tr>
