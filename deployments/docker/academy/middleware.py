@@ -8,7 +8,7 @@ class AuthMiddleware:
 
     def __call__(self, request):
         if not self.has_access_to_app(request):
-            return redirect("/")
+            return render(request, "forbidden.html")
         return self.get_response(request)
 
     def has_access_to_app(self, request):  
